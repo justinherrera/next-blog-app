@@ -1,28 +1,49 @@
 "use client"
 
 import { Category } from "@/app/lib/definitions"
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { StepForward, StepBack } from 'lucide-react';
 
 export default function CategoriesNavigation({ categories }: { categories: Category[] }) {
   const scrollRef = useRef<HTMLUListElement>(null);
+  const [isScrolling, setIsScrolling] = useState(false)
+  const [isStartReached, setIsStartReached] = useState(false)
+  const [isEndReached, setIsEndReached] = useState(false)
 
   const scroll = (scrollOffset: number) => {
-    console.log(scrollRef.current)
+    // console.log(scrollRef.current.scrollLeft)
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += scrollOffset;
     }
   };
 
+  console.log(scrollRef?.current?.scrollLeft)
+  console.log(!isEndReached)
   return(
     <div className="container p-6 relative">
 
       <ul className="flex space-x-4 p-4 pl-0 scroll-smooth overflow-x-hidden " ref={scrollRef}>
-        <StepBack 
-          size={40} 
-          className="absolute -left-4 top-46 rounded-full px-2 cursor-pointer"
-          onClick={() => scroll(-300)}
-           />
+        {
+          (!isStartReached) ?
+          (scrollRef?.current?.scrollLeft !== undefined) ? 
+            (scrollRef?.current?.scrollLeft >= 0) ? 
+              <StepBack 
+                size={40} 
+                className="absolute -left-4 top-46 rounded-full px-2 cursor-pointer text-gray-600"
+                onClick={() => {
+                  setIsScrolling(true)
+                  
+                  scroll(-300)
+                  if (scrollRef?.current?.scrollLeft === 300) {
+                    setIsStartReached(true)
+                  }
+                }}
+              /> : <></>
+            : <></>
+          : <></>
+        }
+
+        
 
         {categories.map(category => (
           <li
@@ -33,11 +54,43 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
           </li>
         ))}
 
+
         <StepForward 
           size={40} 
-          className="absolute -right-4 top-46  rounded-full p-2 cursor-pointer"
-          onClick={() => scroll(300)}
-          />
+          className="absolute -right-4 top-46  rounded-full p-2 cursor-pointer text-gray-600"
+          onClick={() => {
+            setIsScrolling(true)
+            setIsStartReached(false)
+            scroll(300)
+
+            if (scrollRef?.current?.scrollLeft === 300) {
+              setIsStartReached(true)
+            }
+
+          }}
+        />
+        {/* {
+          (!isEndReached) ?
+          (scrollRef?.current?.scrollLeft !== undefined) ? 
+            (scrollRef?.current?.scrollLeft <= 0) ? 
+            <StepForward 
+            size={40} 
+            className="absolute -right-4 top-46  rounded-full p-2 cursor-pointer text-gray-600"
+            onClick={() => {
+              setIsScrolling(true)
+              setIsStartReached(false)
+              scroll(300)
+
+              if (scrollRef?.current?.scrollLeft === 300) {
+                setIsStartReached(true)
+              }
+
+            }}
+            /> : <></>
+          : <></>
+          : <></>
+        } */}
+
       </ul>
       
 
