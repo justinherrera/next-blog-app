@@ -31,6 +31,7 @@ import Image from 'next/image'
 // ]
 
 export default async function Feed() {
+
   const posts = await prisma.post.findMany({
     include: {
       category: true,

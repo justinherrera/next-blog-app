@@ -1,16 +1,26 @@
 
 
-import SignOut from "../../_components/sign-out"
-import { auth } from "../../../../auth"
+import { signOut } from "../../../../auth"
 
 
 export default async function BlogNavigation() {
-  const session = await auth()
-  console.log(session)
-  if (!session) return <div>Not authenticated</div>
   return (
-    <div className="bg-red-400">
-      <button>Sign Out</button>
+    <div className="bg-red-400 flex items-center justify-between px-4 py-2">
+    <form
+      action={async () => {
+        "use server"
+        await signOut()
+      }}
+    >
+      <button className="text-sm font-medium text-white" type="submit">Sign Out</button>
+    </form>
+{/*       
+      <button 
+        onClick={async () => {
+          "use server"
+          await signOut()
+        }}
+      className="text-sm font-medium text-white">Sign Out</button> */}
     </div>
   )
 }
