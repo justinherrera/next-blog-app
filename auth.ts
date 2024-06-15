@@ -31,7 +31,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const { email, password } = await signInSchema.parseAsync(credentials)
  
         // logic to salt and hash password
-        const pwHash = encryptPassword(password)
+        const pwHash = await encryptPassword(password)
  
         // logic to verify if user exists
         user = await verifyUser(email, pwHash)

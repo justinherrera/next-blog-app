@@ -3,7 +3,7 @@ import { PrismaClient } from "@prisma/client"
 import comparePassword from "./compare-password";
 const prisma = new PrismaClient()
 
-export default async function verifyUser(email: string, password: string): Promise<boolean> {
+export default async function verifyUser(email: string, password: string) {
 
   const user = await prisma.user.findUnique({
     where: {
@@ -15,11 +15,14 @@ export default async function verifyUser(email: string, password: string): Promi
     return false
   }
 
-  const isMatch = await comparePassword(password, user.password)
+  console.log(user)
+
+  // || '' to handle the case where the user has not set a password
+  const isMatch = await comparePassword(password, user.password || '')
 
   if (!isMatch) {
     return false
   }
 
-  return user && isMatch ? true : false
+  return user
 }
