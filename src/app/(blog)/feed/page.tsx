@@ -41,8 +41,8 @@ export default function Feed() {
                   <Image
                     src={post.imageUrl}
                     alt=""
-                    width={100}
-                    height={100}
+                    width={500}
+                    height={500}
                     className="absolute inset-0 h-full w-full rounded-2xl bg-gray-50 object-cover"
                   />
                   <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
@@ -73,8 +73,8 @@ export default function Feed() {
                       <Image 
                         src={post.author.imageUrl} 
                         alt="" 
-                        width={100}
-                        height={100}
+                        width={300}
+                        height={300}
                         className="h-10 w-10 rounded-full bg-gray-50" />
                       <div className="text-sm leading-6">
                         <p className="font-semibold text-gray-900">

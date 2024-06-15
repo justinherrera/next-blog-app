@@ -77,3 +77,30 @@ model Authenticator {
 
   @@id([userId, credentialID])
 }
+
+model Post {
+  id         Int      @id @default(autoincrement())
+  title      String
+  content    String
+  imageUrl   String
+  published  Boolean  @default(false)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  categoryId Int
+  category   Category @relation(fields: [categoryId], references: [id])
+  authorId   Int
+  author     Author   @relation(fields: [authorId], references: [id])
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[]
+}
+
+model Author {
+  id    Int    @id @default(autoincrement())
+  name  String
+  email String @unique
+  posts Post[]
+}
