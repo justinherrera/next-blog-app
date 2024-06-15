@@ -21,5 +21,5 @@ export default async function verifyUser(email: string, password: string): Promi
     return false
   }
 
-  return true
+  return user && isMatch ? true : false
 }

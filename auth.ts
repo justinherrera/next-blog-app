@@ -6,6 +6,7 @@ import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import encryptPassword from "./src/app/utils/encrypt-password"
 import verifyUser from "./src/app/utils/verify-user"
+import { signInSchema } from "./src/app/lib/validator"
 
 const prisma = new PrismaClient()
 
@@ -26,12 +27,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       authorize: async (credentials) => {
         console.log(credentials)
         let user = null
+
+        const { email, password } = await signInSchema.parseAsync(credentials)
  
         // logic to salt and hash password
-        const pwHash = encryptPassword(credentials.password)
+        const pwHash = encryptPassword(password)
  
         // logic to verify if user exists
-        user = await verifyUser(credentials.email, pwHash)
+        user = await verifyUser(email, pwHash)
  
         if (!user) {
           // No user found, so this is their first attempt to login
