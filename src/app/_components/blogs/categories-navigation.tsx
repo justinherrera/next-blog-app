@@ -18,7 +18,7 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
   };
 
   console.log(scrollRef?.current?.scrollLeft)
-  console.log(isStartReached)
+  console.log(isEndReached)
   return(
     <div className="container p-6 relative">
 
@@ -34,7 +34,11 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
                 scroll(-300)
                 if (scrollRef?.current?.scrollLeft <= 300) {
                   setIsStartReached(true)
+                } else if (scrollRef?.current?.scrollLeft > 300) {
+                  setIsEndReached(false)
                 }
+                
+
               }}
             /> : <></>
         }
@@ -50,8 +54,30 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
           </li>
         ))}
 
+        {
+          (isEndReached === false) ?
+            <StepForward 
+              size={40} 
+              className="absolute -right-4 top-46  rounded-full p-2 cursor-pointer text-gray-600"
+              onClick={() => {
+                setIsScrolling(!isScrolling)
+                
+                scroll(300)
 
-        <StepForward 
+        
+                if (scrollRef?.current?.scrollLeft >= 0 && scrollRef?.current?.scrollLeft <= 300) {
+                  setIsStartReached(false)
+                } else if (scrollRef?.current?.scrollLeft >= 900) {
+                  setIsEndReached(true)
+                }
+                
+
+              }}
+            /> : <></>
+        }
+
+
+        {/* <StepForward 
           size={40} 
           className="absolute -right-4 top-46  rounded-full p-2 cursor-pointer text-gray-600"
           onClick={() => {
@@ -64,7 +90,7 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
             }
 
           }}
-        />
+        /> */}
         {/* {
           (!isEndReached) ?
           (scrollRef?.current?.scrollLeft !== undefined) ? 
