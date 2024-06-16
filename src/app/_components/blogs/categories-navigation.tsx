@@ -7,7 +7,7 @@ import { StepForward, StepBack } from 'lucide-react';
 export default function CategoriesNavigation({ categories }: { categories: Category[] }) {
   const scrollRef = useRef<HTMLUListElement>(null);
   const [isScrolling, setIsScrolling] = useState(false)
-  const [isStartReached, setIsStartReached] = useState(false)
+  const [isStartReached, setIsStartReached] = useState(true)
   const [isEndReached, setIsEndReached] = useState(false)
 
   const scroll = (scrollOffset: number) => {
@@ -18,29 +18,25 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
   };
 
   console.log(scrollRef?.current?.scrollLeft)
-  console.log(!isEndReached)
+  console.log(isStartReached)
   return(
     <div className="container p-6 relative">
 
       <ul className="flex space-x-4 p-4 pl-0 scroll-smooth overflow-x-hidden " ref={scrollRef}>
         {
-          (!isStartReached) ?
-          (scrollRef?.current?.scrollLeft !== undefined) ? 
-            (scrollRef?.current?.scrollLeft >= 0) ? 
-              <StepBack 
-                size={40} 
-                className="absolute -left-4 top-46 rounded-full px-2 cursor-pointer text-gray-600"
-                onClick={() => {
-                  setIsScrolling(true)
-                  
-                  scroll(-300)
-                  if (scrollRef?.current?.scrollLeft === 300) {
-                    setIsStartReached(true)
-                  }
-                }}
-              /> : <></>
-            : <></>
-          : <></>
+          (isStartReached === false) ?
+            <StepBack 
+              size={40} 
+              className="absolute -left-4 top-46 rounded-full px-2 cursor-pointer text-gray-600"
+              onClick={() => {
+                setIsScrolling(true)
+                
+                scroll(-300)
+                if (scrollRef?.current?.scrollLeft <= 300) {
+                  setIsStartReached(true)
+                }
+              }}
+            /> : <></>
         }
 
         
@@ -60,11 +56,11 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
           className="absolute -right-4 top-46  rounded-full p-2 cursor-pointer text-gray-600"
           onClick={() => {
             setIsScrolling(true)
-            setIsStartReached(false)
+            
             scroll(300)
 
-            if (scrollRef?.current?.scrollLeft === 300) {
-              setIsStartReached(true)
+            if (scrollRef?.current?.scrollLeft >= 0) {
+              setIsStartReached(false)
             }
 
           }}
