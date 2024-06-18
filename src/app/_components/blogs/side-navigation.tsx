@@ -1,4 +1,5 @@
 import Image from "next/image"
+import PopularTopics from "./popular-topics"
 
 const people = [
   {
@@ -43,33 +44,34 @@ export default function SideNavigation() {
   return (
     <div className="border-l border-gray-200 w-[30%] ml-20 ">
           {/* <p>Authors</p> */}
-          <div className="w-full pl-14 mb-6">
-            <p className="font-bold">Who to follow</p>
-          </div>
-         
-          <ul role="list" className="divide-y divide-gray-100 flex flex-col items-center">
-            {people.map((person) => (
-              <li key={person.email} className="flex items-center justify-between gap-x-6 py-5 w-[80%]">
-                <div className="flex min-w-0 gap-x-4">
-                  <Image 
-                    className="h-12 w-12 flex-none rounded-full bg-gray-50" 
-                    height={100}
-                    width={100}
-                    src={person.imageUrl} alt="" />
-                  <div className="min-w-0 flex-auto">
-                    <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
-                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
-                  </div>
-                </div>
-                <a
-                  href="#"
-                  className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                >
-                  Follow
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+      <div className="w-full pl-14 mb-6">
+        <p className="font-bold">Who to follow</p>
+      </div>
+      
+      <ul role="list" className="divide-y divide-gray-100 flex flex-col items-center">
+        {people.map((person) => (
+          <li key={person.email} className="flex items-center justify-between gap-x-6 py-5 w-[80%]">
+            <div className="flex min-w-0 gap-x-4">
+              <Image 
+                className="h-12 w-12 flex-none rounded-full bg-gray-50" 
+                height={100}
+                width={100}
+                src={person.imageUrl} alt="" />
+              <div className="min-w-0 flex-auto">
+                <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
+                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
+              </div>
+            </div>
+            <a
+              href="#"
+              className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+            >
+              Follow
+            </a>
+          </li>
+        ))}
+      </ul>
+      <PopularTopics />
+  </div>
   )
 }
