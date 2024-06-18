@@ -12,9 +12,12 @@ export default async function FeedLayout({
   if (!session) return <NotAuthorized />
 
   return (
-    <>
+    <div className="w-screen">
       <BlogNavigation />
-      {children}
-    </>
+      <div className="w-full flex flex-col items-center justify-center">
+        {children}
+      </div>
+      
+    </div>
   )
 }

@@ -9,6 +9,7 @@ import BlogRow from "@/app/_components/blogs/blog-row"
 import { getPosts } from "@/app/lib/actions"
 import { Post, Category } from "@/app/lib/definitions"
 import CategoriesNavigation from "@/app/_components/blogs/categories-navigation"
+import SideNavigation from "@/app/_components/blogs/side-navigation"
 
 const categories: Category[] = [
   { id: 1, name: 'Travel' },
@@ -30,14 +31,16 @@ const categories: Category[] = [
   { id: 17, name: 'Entertainment' },
 ];
 
+
+
 export default async function Feed() {
 
   const posts: Post[] = await getPosts()
 
   return (
-    <div className="bg-white py-24 sm:py-32">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl lg:max-w-4xl">
+    <div className="w-full py-24 sm:py-32 flex flex-col">
+      <div className="w-full lg:px-8 flex justify-center">
+        <div className="w-[50%]">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
           <SearchInput />
           <p className="mt-2 text-lg leading-8 text-gray-600">
@@ -51,7 +54,8 @@ export default async function Feed() {
           }
         </div>
         
-   
+        <SideNavigation /> 
+        
       </div>
     </div>
   );
