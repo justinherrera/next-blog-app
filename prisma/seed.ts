@@ -67,8 +67,8 @@ const posts = [
 
 async function main() {
 
-  // await prisma.post.deleteMany({})
-  // await prisma.category.deleteMany({})
+  await prisma.post.deleteMany({})
+  await prisma.category.deleteMany({})
 
   const createCategories = await prisma.category.createMany({
     data: categories,

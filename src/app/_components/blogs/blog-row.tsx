@@ -7,7 +7,6 @@ import BlogRowAuthor from "@/app/_components/blogs/blog-row-author"
 import { Post } from "@/app/lib/definitions"
 
 export default function BlogRow({ posts }: { posts: Post[] }) {
-  console.log(posts)
   return (
     <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
       {posts.map((post) => (
@@ -18,7 +17,7 @@ export default function BlogRow({ posts }: { posts: Post[] }) {
           <div>
             <BlogRowDetails name={post.category.name} date={post.createdAt} />
 
-            <BlogRowContent title={post.title} content={post.content} />
+            <BlogRowContent title={post.title} content={post.content} slug={post.slug} />
             
             <BlogRowAuthor user={post.user.name} />
           </div>

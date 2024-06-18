@@ -17,8 +17,6 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
     }
   };
 
-  console.log(scrollRef?.current?.scrollLeft)
-  console.log(isEndReached)
   return(
     <div className="container p-6 relative">
 

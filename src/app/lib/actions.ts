@@ -10,8 +10,16 @@ export async function getPosts() {
       user: true
     }
   })
-  console.log("--------")
-  console.log(posts)
   await prisma.$disconnect()
   return posts
+}
+
+export async function getPost(slug: string) {
+  const post = await prisma.post.findUnique({
+    where: {
+      slug,
+    },
+  })
+  await prisma.$disconnect()
+  return post
 }
