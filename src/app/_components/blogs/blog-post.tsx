@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { TailSpin } from "react-loader-spinner"
 import { format } from "date-fns"
 import LoadingBlogSection from "./loading-blog-section"
+import NotFound from "@/app/not-found"
 
 export default function BlogPost({ slug }: { slug: string }) {
 
@@ -19,14 +20,7 @@ export default function BlogPost({ slug }: { slug: string }) {
 
   if (isPending) return <LoadingBlogSection />
 
-  if(!data) return <div className="bg-white px-6 py-24 sm:py-32 lg:px-8">
-    <div className="mx-auto max-w-2xl text-center">
-      <h2 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">No content</h2>
-      <p className="mt-6 text-lg leading-8 text-gray-600">
-        Oops! Nothing to see here
-      </p>
-    </div>
-  </div>
+  if(!data) return <NotFound />
 
   return (
     <div className="bg-white px-6 py-32 lg:px-8">
