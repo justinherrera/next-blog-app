@@ -1,5 +1,5 @@
-import BlogNavigation from '../../_components/blogs/top-navigation'
-import { auth } from "../../../../auth"
+import BlogNavigation from '../_components/blogs/top-navigation'
+import { auth } from "../../../auth"
 import NotAuthorized from '@/app/_components/auth/not-authorized'
 
 export default async function FeedLayout({
