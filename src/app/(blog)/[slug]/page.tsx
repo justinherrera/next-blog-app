@@ -27,6 +27,7 @@ export default function Page(
   return (
     <QueryClientProvider client={queryClient}>
       <BlogPost slug={params.slug} />
+      <ReactQueryDevtools />
     </QueryClientProvider>
     
   )
