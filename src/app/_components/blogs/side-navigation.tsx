@@ -44,7 +44,7 @@ export default function SideNavigation() {
   return (
     <div className="border-l border-gray-200 w-[30%] ml-20 ">
           {/* <p>Authors</p> */}
-      <div className="w-full pl-14 mb-6">
+      <div className="w-full pl-14 mb-4">
         <p className="font-bold">Who to follow</p>
       </div>
       
