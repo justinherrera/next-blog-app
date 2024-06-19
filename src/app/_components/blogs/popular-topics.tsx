@@ -1,4 +1,4 @@
-import { Link } from "lucide-react";
+import Link from "next/link";
 
 const tags = [
   'Remote Work',
@@ -52,7 +52,10 @@ export default function PopularTopics() {
             </div>
           )
         )}
-        <Link href="#" className="pl-14 font-semibold underline text-sm">See more tags</Link>
+        <div className="pl-14 mt-6">
+          <Link href="#" className="font-semibold underline text-sm">See more tags</Link>
+        </div>
+        
       </div>
   )
 }
