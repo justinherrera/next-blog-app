@@ -2,11 +2,13 @@
 
 import { redirect } from "next/navigation"
 import { signOut } from "../../../../auth"
+import Link from "next/link"
 
 
 export default async function BlogNavigation() {
   return (
-    <div className="flex items-center justify-between px-4 py-2 ">
+    <div className="flex items-center justify-between px-44 py-4 ">
+      <Link href="/feed">Home</Link>
       <form
         className="mx-auto w-[50%] flex flex-row-reverse px-4 "
         action={async () => {
