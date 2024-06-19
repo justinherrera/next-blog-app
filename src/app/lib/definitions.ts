@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface Category {
   id: number;
   name: string;
@@ -33,4 +35,5 @@ export interface Post {
 
 export interface PostData {
   posts?: Post[]
+  map: (post: unknown) => JSX.Element
 }

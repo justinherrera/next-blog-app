@@ -1,3 +1,5 @@
+import { Link } from "lucide-react";
+
 export default function PopularTopics() {
   return (
     <>
@@ -24,6 +26,7 @@ export default function PopularTopics() {
           >
             Podcast
           </button>
+          {/* <a href="/">Explore more topics</a> */}
         </div>
       </>
   )

@@ -1,13 +1,22 @@
+"use client"
+
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
+
+import { useState, useEffect } from "react"
+
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import SearchInput from '../../_components/blogs/search-input'
 import NoPostsFound from "@/app/_components/blogs/no-posts-found"
 import Image from 'next/image'
 
 import BlogRow from "@/app/_components/blogs/blog-row"
-import { getPosts } from "@/app/lib/actions"
-import { Post, Category } from "@/app/lib/definitions"
+import { Post, Category, PostData } from "@/app/lib/definitions"
 import CategoriesNavigation from "@/app/_components/blogs/categories-navigation"
 import SideNavigation from "@/app/_components/blogs/side-navigation"
 
@@ -32,10 +41,9 @@ const categories: Category[] = [
 ];
 
 
+const queryClient = new QueryClient()
 
-export default async function Feed() {
-
-  const posts: Post[] = await getPosts()
+export default function Feed() {
 
   return (
     <div className="w-full py-24 sm:py-32 flex flex-col">
@@ -49,9 +57,10 @@ export default async function Feed() {
 
           <CategoriesNavigation categories={categories} />
 
-          {
-            (posts.length === 0) ? <NoPostsFound /> : <BlogRow posts={posts}/>
-          }
+          <QueryClientProvider client={queryClient}>
+            <BlogRow />
+            <ReactQueryDevtools initialIsOpen={false} />
+          </QueryClientProvider>
         </div>
         
         <SideNavigation /> 
