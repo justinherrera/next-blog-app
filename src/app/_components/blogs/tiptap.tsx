@@ -40,7 +40,7 @@ export default function Tiptap () {
     ],
     editorProps: {
       attributes: {
-        class: "w-full px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none"
+        class: "w-full px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none"
       }
     },
     content: 'Content goes here...',
@@ -52,9 +52,12 @@ export default function Tiptap () {
 
   return (
     <>
-      <div className="flex space-x-8 border border-gray-300 px-4 rounded rounded-b-none">
+      <div className="flex flex-col">
         
-        <BlogCreateToolbar editor={editor}/>
+        <div className="mt-2 flex space-x-8 border border-gray-300 px-4 rounded rounded-b-none">
+          <BlogCreateToolbar editor={editor}/>
+        </div>
+        
 
       </div>
 
