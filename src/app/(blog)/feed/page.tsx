@@ -1,7 +1,6 @@
 "use client"
 
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient()
+import prisma from "@/app/utils/prisma-connect"
 
 import { useState, useEffect } from "react"
 

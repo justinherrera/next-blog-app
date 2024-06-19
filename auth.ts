@@ -1,14 +1,12 @@
 
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
 import Google from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import encryptPassword from "./src/app/utils/encrypt-password"
 import verifyUser from "./src/app/utils/verify-user"
 import { signInSchema } from "./src/app/lib/validator"
-
-const prisma = new PrismaClient()
+import prisma from "@/app/utils/prisma-connect"
 
 type Credentials = {
   email: string

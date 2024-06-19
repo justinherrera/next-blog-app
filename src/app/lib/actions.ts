@@ -1,5 +1,4 @@
-import { PrismaClient } from "@prisma/client"
-const prisma = new PrismaClient()
+import prisma from "@/app/utils/prisma-connect"
 
 import { PostData } from "@/app/lib/definitions"
 

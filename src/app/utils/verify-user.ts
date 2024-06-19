@@ -1,7 +1,6 @@
 
-import { PrismaClient } from "@prisma/client"
+import prisma from "@/app/utils/prisma-connect"
 import comparePassword from "./compare-password";
-const prisma = new PrismaClient()
 
 export default async function verifyUser(email: string, password: string) {
 
