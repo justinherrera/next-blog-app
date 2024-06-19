@@ -2,6 +2,7 @@ import Image from "next/image"
 import { useQuery } from '@tanstack/react-query'
 import { TailSpin } from "react-loader-spinner"
 import { format } from "date-fns"
+import LoadingBlogSection from "./loading-blog-section"
 
 export default function BlogPost({ slug }: { slug: string }) {
 
@@ -11,47 +12,12 @@ export default function BlogPost({ slug }: { slug: string }) {
       const response = await fetch(`http://localhost:3000/api/blogs?slug=${slug}`)
         .then((res) => res.json())
         .then(data => data.post)
-      // if (!response.ok) {
-      //   throw new Error('Failed to fetch posts')
-      // }
       return response
     },
   })
-
-  console.log(data)
-
-
   
-  // useEffect(() => {
-  //   async function getData() {
-  //     const slug = params.slug as string
-  //     const response = await fetch(`http://localhost:3000/api/blogs?slug=${slug}`, { next: { revalidate: 3600 } })
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         setData(data.post)
-  //         setLoading(false)
-  //       })
-  //     // const { post } = await response.json()
-  //     // setBlog(post)
-  //   }
 
-  //   getData()
-  // }, [params])
-
-  if (isPending) return (
-    <div className="mx-auto w-full flex items-center justify-center h-screen">
-      <TailSpin
-        visible={true}
-        height="80"
-        width="80"
-        color="#000000"
-        ariaLabel="tail-spin-loading"
-        radius="1"
-        wrapperStyle={{}}
-        wrapperClass=""
-      />
-    </div>
-  )
+  if (isPending) return <LoadingBlogSection />
 
   if(!data) return <div className="bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div className="mx-auto max-w-2xl text-center">
@@ -84,18 +50,9 @@ export default function BlogPost({ slug }: { slug: string }) {
                   Follow
                 </a>
               </div>
-              {/* <time dateTime={format(new Date(data.createdAt), "MM/dd/yyyy")} className="text-gray-500">
-                {format(new Date(data.createdAt), "MM/dd/yyyy")}
-              </time> */}
               <p className="mt-1 truncate text-xs leading-5 text-gray-500">{format(new Date(data.createdAt), "MMM d, yyyy")}</p>
             </div>
           </div>
-          {/* <a
-            href="#"
-            className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-          >
-            Follow
-          </a> */}
         </div>
         <p className="mt-6 text-xl leading-8">
           {data.content}
@@ -110,7 +67,6 @@ export default function BlogPost({ slug }: { slug: string }) {
             alt=""
           />
           <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-            {/* <InformationCircleIcon className="mt-0.5 h-5 w-5 flex-none text-gray-300" aria-hidden="true" /> */}
             Faucibus commodo massa rhoncus, volutpat.
           </figcaption>
         </figure>

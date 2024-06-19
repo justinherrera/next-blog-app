@@ -8,6 +8,7 @@ import { TailSpin } from "react-loader-spinner"
 import { useQuery } from '@tanstack/react-query'
 
 import { Post, PostData } from "@/app/lib/definitions"
+import LoadingBlogRow from "./loading-blog-row"
 
 export default function BlogRow() {
 
@@ -22,20 +23,7 @@ export default function BlogRow() {
     },
   })
 
-  if (isPending) return (
-    <div className="mx-auto w-full flex items-center justify-center h-screen">
-      <TailSpin
-        visible={true}
-        height="80"
-        width="80"
-        color="#000000"
-        ariaLabel="tail-spin-loading"
-        radius="1"
-        wrapperStyle={{}}
-        wrapperClass=""
-      />
-    </div>
-  )
+  if (isPending) return <LoadingBlogRow />
 
   if(!data) return <div className="bg-white px-6 py-24 sm:py-32 lg:px-8">
     <div className="mx-auto max-w-2xl text-center">
