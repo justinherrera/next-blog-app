@@ -7,12 +7,8 @@ export default function BlogRowContent({ title, content, slug }: { title: string
     <div className="group relative max-w-xl">
       <h3 className="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
         <Link href={`/${slug}`}>{title}</Link>
-        {/* <a href="#">
-          <span className="absolute inset-0" />
-          {title}
-        </a> */}
       </h3>
-      <p className="mt-5 text-sm leading-6 text-gray-600">{content}</p>
+      <p className="mt-5 text-sm leading-6 text-gray-600">{`${content.substring(0, 200)}...`}</p>
     </div>
   )
 }

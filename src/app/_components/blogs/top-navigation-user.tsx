@@ -19,7 +19,7 @@ export default function TopNavigationUser() {
   return (
     <div className="relative">
       <Image
-        className="inline-block h-8 w-8 rounded-full cursor-pointer"
+        className="inline-block h-8 w-8 rounded-full cursor-pointer hover:opacity-75"
         height={100}
         width={100}
         src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
@@ -28,8 +28,8 @@ export default function TopNavigationUser() {
       />
     {
       isOpen ? (
-        <div className="border border-gray-300 absolute top-10 right-4 w-44 rounded ">
-          <p className="p-1 px-2 cursor-pointer hover:bg-gray-300">Profile</p>
+        <div className="border border-gray-300 absolute top-10 right-4 w-44 rounded bg-white ">
+          <p className="py-2 px-2 cursor-pointer hover:bg-gray-300">Profile</p>
           <QueryClientProvider client={queryClient}>
             <SignOutButton />
             <ReactQueryDevtools />

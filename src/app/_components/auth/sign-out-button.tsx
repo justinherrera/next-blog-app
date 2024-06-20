@@ -20,7 +20,7 @@ export default function SignOutButton() {
 
   return (
     <p 
-      className="p-1 px-2 cursor-pointer hover:bg-gray-300"
+      className="py-2 px-2 cursor-pointer hover:bg-gray-300"
       onClick={handleSignOut}
     >
       Sign Out

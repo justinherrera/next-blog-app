@@ -35,7 +35,7 @@ export default function BlogRow() {
   </div>
 
   return (
-    <div className="mt-16 space-y-20 lg:mt-20 lg:space-y-20">
+    <div className="space-y-18 lg:space-y-16">
       {data.posts.map((post: Post) => (
         <article key={post.id} className="relative isolate flex flex-col gap-8 lg:flex-row">
 

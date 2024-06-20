@@ -24,9 +24,9 @@ const queryClient = new QueryClient()
 export default function Feed() {
 
   return (
-    <div className="w-full py-24 sm:py-32 flex flex-col">
-      <div className="w-full lg:px-8 flex justify-center">
-        <div className="w-[50%]">
+    <div className=" py-4 sm:py-12 flex items-center justify-center">
+      <div className="w-[70%] lg:px-8">
+        <div className=" flex flex-col">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
           <SearchInput />
           <p className="mt-2 text-lg leading-8 text-gray-600">
@@ -39,7 +39,7 @@ export default function Feed() {
           </QueryClientProvider>
         </div>
         
-        <SideNavigation /> 
+        {/* <SideNavigation />  */}
         
       </div>
     </div>

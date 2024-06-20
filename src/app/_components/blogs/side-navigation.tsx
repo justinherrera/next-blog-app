@@ -1,5 +1,6 @@
 import Image from "next/image"
 import PopularTopics from "./popular-topics"
+import { useState } from "react"
 
 const people = [
   {
@@ -32,17 +33,12 @@ const people = [
     imageUrl:
       'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
   },
-  // {
-  //   name: 'Tom Cook',
-  //   email: 'tom.cook@example.com',
-  //   imageUrl:
-  //     'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  // },
 ]
 
 export default function SideNavigation() {
+  const [isFollowing, setIsFollowing] = useState(false)
   return (
-    <div className="border-l border-gray-200 w-[30%] ml-20 ">
+    <div className="sticky top-0">
           {/* <p>Authors</p> */}
       <div className="w-full pl-14 mb-4">
         <p className="font-bold">Who to follow</p>
@@ -65,8 +61,9 @@ export default function SideNavigation() {
             <a
               href="#"
               className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+              onClick={() => setIsFollowing(!isFollowing)}
             >
-              Follow
+              {isFollowing ? "Following" : "Follow"}
             </a>
           </li>
         ))}
