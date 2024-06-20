@@ -27,6 +27,8 @@ export default function CategoriesNavigation() {
 
       return response
     },
+    staleTime: Infinity,
+    gcTime: Infinity,
   })
   
 
