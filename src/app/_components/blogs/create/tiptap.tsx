@@ -16,7 +16,7 @@ import ListItem from '@tiptap/extension-list-item'
 import CodeBlock from '@tiptap/extension-code-block'
 import Heading from '@tiptap/extension-heading'
 
-import BlogCreateToolbar from './blog-create-toolbar'
+import BlogCreateToolbar from '../create/blog-create-toolbar'
 
 export default function Tiptap () {
   const editor = useEditor({
@@ -52,7 +52,7 @@ export default function Tiptap () {
 
   return (
     <>
-      <div className="flex flex-col">
+      <div className="flex flex-col shadow-lg ">
         
         <div className="mt-2 flex space-x-8 border border-gray-300 px-4 rounded rounded-b-none">
           <BlogCreateToolbar editor={editor}/>
