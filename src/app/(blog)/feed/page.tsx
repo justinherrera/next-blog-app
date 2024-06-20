@@ -19,27 +19,6 @@ import { Post, Category, PostData } from "@/app/lib/definitions"
 import CategoriesNavigation from "@/app/_components/blogs/categories-navigation"
 import SideNavigation from "@/app/_components/blogs/side-navigation"
 
-const categories: Category[] = [
-  { id: 1, name: 'Travel' },
-  { id: 2, name: 'Technology' },
-  { id: 3, name: 'Food' },
-  { id: 4, name: 'Health' },
-  { id: 5, name: 'Fitness' },
-  { id: 6, name: 'Fashion' },
-  { id: 7, name: 'Music' },
-  { id: 8, name: 'Art' },
-  { id: 9, name: 'Literature' },
-  { id: 10, name: 'Sports' },
-  { id: 11, name: 'Cooking' },
-  { id: 12, name: 'Photography' },
-  { id: 13, name: 'Politics' },
-  { id: 14, name: 'Business' },
-  { id: 15, name: 'Science' },
-  { id: 16, name: 'Education' },
-  { id: 17, name: 'Entertainment' },
-];
-
-
 const queryClient = new QueryClient()
 
 export default function Feed() {
@@ -53,10 +32,8 @@ export default function Feed() {
           <p className="mt-2 text-lg leading-8 text-gray-600">
             Explore and discover popular blogs from around the world. 🌎
           </p>
-
-          <CategoriesNavigation categories={categories} />
-
           <QueryClientProvider client={queryClient}>
+            <CategoriesNavigation />
             <BlogRow />
             <ReactQueryDevtools initialIsOpen={false} />
           </QueryClientProvider>

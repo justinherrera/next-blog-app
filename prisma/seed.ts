@@ -1,18 +1,25 @@
-import prisma from "@/app/utils/prisma-connect"
+// import prisma from "../src/app/utils/prisma-connect"
+import { PrismaClient } from "@prisma/client"
+const prisma = new PrismaClient()
 
 const categories = [
-  {
-    id: 1,
-    name: "Travel"
-  },
-  {
-    id: 2,
-    name: "Technology"
-  },
-  {
-    id: 3,
-    name: "Food"
-  }
+  { id: 1, name: 'Travel' },
+  { id: 2, name: 'Technology' },
+  { id: 3, name: 'Food' },
+  { id: 4, name: 'Health' },
+  { id: 5, name: 'Fitness' },
+  { id: 6, name: 'Fashion' },
+  { id: 7, name: 'Music' },
+  { id: 8, name: 'Art' },
+  { id: 9, name: 'Literature' },
+  { id: 10, name: 'Sports' },
+  { id: 11, name: 'Cooking' },
+  { id: 12, name: 'Photography' },
+  { id: 13, name: 'Politics' },
+  { id: 14, name: 'Business' },
+  { id: 15, name: 'Science' },
+  { id: 16, name: 'Education' },
+  { id: 17, name: 'Entertainment' }
 ]
 
 const posts = [

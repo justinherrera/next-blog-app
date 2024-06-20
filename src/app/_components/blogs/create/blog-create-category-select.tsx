@@ -1,31 +1,28 @@
 import { ArrowDownUp } from "lucide-react"
 import { useState } from "react"
 import { Category } from "@/app/lib/definitions"
-
-const categories: Category[] = [
-  { id: 1, name: 'Travel' },
-  { id: 2, name: 'Technology' },
-  { id: 3, name: 'Food' },
-  { id: 4, name: 'Health' },
-  { id: 5, name: 'Fitness' },
-  { id: 6, name: 'Fashion' },
-  { id: 7, name: 'Music' },
-  { id: 8, name: 'Art' },
-  { id: 9, name: 'Literature' },
-  { id: 10, name: 'Sports' },
-  { id: 11, name: 'Cooking' },
-  { id: 12, name: 'Photography' },
-  { id: 13, name: 'Politics' },
-  { id: 14, name: 'Business' },
-  { id: 15, name: 'Science' },
-  { id: 16, name: 'Education' },
-  { id: 17, name: 'Entertainment' },
-];
+import { useQuery } from '@tanstack/react-query'
 
 
 export default function BlogCreateCategorySelect() {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+
+  const { isPending, isError, data, error } = useQuery({
+    queryKey: ['categories'],
+    queryFn: async () => {
+      const response = await fetch(`http://localhost:3000/api/categories`)
+        .then((res) => res.json())
+        .then(data => data.categories)
+
+      return response
+    },
+  })
+  
+
+  if (isPending) return <p>Loading...</p>
+
+  if(!data) return <p>No list of categories</p>
 
   return (
     <>
@@ -41,7 +38,7 @@ export default function BlogCreateCategorySelect() {
         isOpen ? (
           <div className="border border-gray-300 my-2 w-[50%] flex-col">
             {
-              categories.map((category) => (
+              data.map((category: Category) => (
                 <div 
                   key={category.id} 
                   className={`w-full border-gray-300 cursor-pointer ${(selectedCategory === category.name) ? "bg-black text-white" : "hover:bg-gray-300"} `}
@@ -54,15 +51,6 @@ export default function BlogCreateCategorySelect() {
                 </div>
               ))
             }
-            {/* <div className="w-full border-gray-300 cursor-pointer hover:bg-gray-300">
-              <p className="p-2 ">Travel</p>
-            </div>
-            <div className="w-full border-gray-300 cursor-pointer hover:bg-gray-300 ">
-              <p className="p-2 ">Entertainment</p>
-            </div>
-            <div className="w-full border-gray-300 bg-black text-white">
-              <p className="p-2 ">Food</p>
-            </div> */}
           </div>
         ) : ""
       }

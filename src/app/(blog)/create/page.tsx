@@ -7,6 +7,13 @@ import Tiptap from "../../_components/blogs/create/tiptap"
 import BlogCreateTitleInput from "@/app/_components/blogs/create/blog-create-title-input"
 import BlogCreateCategorySelect from "@/app/_components/blogs/create/blog-create-category-select"
 
+import {
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+
+const queryClient = new QueryClient()
 
 export default function Create() {
 
@@ -17,7 +24,10 @@ export default function Create() {
     <BlogCreateTitleInput />
     <Tiptap />
 
-    <BlogCreateCategorySelect />
+    <QueryClientProvider client={queryClient}>
+      <BlogCreateCategorySelect />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
     
     <BlogCreateImageUpload />
     
