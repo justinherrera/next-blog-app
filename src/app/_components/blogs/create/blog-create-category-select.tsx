@@ -1,28 +1,30 @@
+"use client"
+
 import { ArrowDownUp } from "lucide-react"
 import { useState } from "react"
 import { Category } from "@/app/lib/definitions"
 import { useQuery } from '@tanstack/react-query'
 
 
-export default function BlogCreateCategorySelect() {
+export default function BlogCreateCategorySelect({ categories }: { categories: Category[] }) {
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['categories'],
-    queryFn: async () => {
-      const response = await fetch(`http://localhost:3000/api/categories`)
-        .then((res) => res.json())
-        .then(data => data.categories)
+  // const { isPending, isError, data, error } = useQuery({
+  //   queryKey: ['categories'],
+  //   queryFn: async () => {
+  //     const response = await fetch(`http://localhost:3000/api/categories`)
+  //       .then((res) => res.json())
+  //       .then(data => data.categories)
 
-      return response
-    },
-  })
+  //     return response
+  //   },
+  // })
   
 
-  if (isPending) return <p>Loading...</p>
+  // if (isPending) return <p>Loading...</p>
 
-  if(!data) return <p>No list of categories</p>
+  // if(!data) return <p>No list of categories</p>
 
   return (
     <>
@@ -38,7 +40,7 @@ export default function BlogCreateCategorySelect() {
         isOpen ? (
           <div className="border border-gray-300 my-2 w-[50%] flex-col">
             {
-              data.map((category: Category) => (
+              categories.map((category: Category) => (
                 <div 
                   key={category.id} 
                   className={`w-full border-gray-300 cursor-pointer ${(selectedCategory === category.name) ? "bg-black text-white" : "hover:bg-gray-300"} `}
