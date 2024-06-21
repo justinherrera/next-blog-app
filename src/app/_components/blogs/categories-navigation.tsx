@@ -3,10 +3,9 @@
 import { Category } from "@/app/lib/definitions"
 import { useRef, useState } from 'react';
 import { StepForward, StepBack } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query'
-import LoadingCategories from "./skeletons/loading-categories";
 
-export default function CategoriesNavigation() {
+
+export default function CategoriesNavigation({ categories }: { categories: Category[] }) {
   const scrollRef = useRef<HTMLUListElement>(null);
   const [isScrolling, setIsScrolling] = useState(false)
   const [isStartReached, setIsStartReached] = useState(true)
@@ -18,24 +17,6 @@ export default function CategoriesNavigation() {
       scrollRef.current.scrollLeft += scrollOffset;
     }
   };
-
-  const { isPending, isError, data, error } = useQuery({
-    queryKey: ['categories'],
-    queryFn: async () => {
-      const response = await fetch(`http://localhost:3000/api/categories`)
-        .then((res) => res.json())
-        .then(data => data.categories)
-
-      return response
-    },
-    staleTime: Infinity,
-    gcTime: Infinity,
-  })
-  
-
-  if (isPending) return <LoadingCategories />
-
-  if(!data) return <p>No list of categories</p>
 
   return(
     <div className="container p-6 relative">
@@ -57,7 +38,8 @@ export default function CategoriesNavigation() {
               }}
             /> : <></>
         }
-        {data.map((category: Category) => (
+
+        {categories.map((category: Category) => (
           <li
             key={category.id}
             className={`px-4 py-2 first:pl-0 cursor-pointer hover:underline`}
