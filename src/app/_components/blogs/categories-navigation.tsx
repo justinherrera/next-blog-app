@@ -4,6 +4,7 @@ import { Category } from "@/app/lib/definitions"
 import { useRef, useState } from 'react';
 import { StepForward, StepBack } from 'lucide-react';
 import { useQuery } from '@tanstack/react-query'
+import LoadingCategories from "./skeletons/loading-categories";
 
 export default function CategoriesNavigation() {
   const scrollRef = useRef<HTMLUListElement>(null);
@@ -32,7 +33,7 @@ export default function CategoriesNavigation() {
   })
   
 
-  if (isPending) return <p>Loading...</p>
+  if (isPending) return <LoadingCategories />
 
   if(!data) return <p>No list of categories</p>
 

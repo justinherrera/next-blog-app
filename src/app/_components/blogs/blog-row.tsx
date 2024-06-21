@@ -8,7 +8,7 @@ import { TailSpin } from "react-loader-spinner"
 import { useQuery } from '@tanstack/react-query'
 
 import { Post, PostData } from "@/app/lib/definitions"
-import LoadingBlogRow from "./loading-blog-row"
+import LoadingBlogRow from "./skeletons/loading-blog-row"
 
 export default function BlogRow() {
 
