@@ -23,18 +23,9 @@ export default async function Create() {
   return (
   <div className="mt-24 w-full  flex items-center justify-center">
     <div>
-      {/* <BlogCreateTitleInput />
-      <Tiptap />
-      <Suspense fallback={<p>Loading...</p>}>
-        <BlogCateogriesList /> 
-      </Suspense>
-      <BlogCreateImageUpload /> */}
       <Suspense fallback={<p>Loading...</p>}>
         <CreateForm categories={categories} createPost={createPost} />
       </Suspense>
-      
-          
-      {/* <button className="mt-4 bg-black text-white py-1 px-4 rounded-2xl">Publish</button> */}
     </div>
 
 

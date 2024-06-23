@@ -14,17 +14,20 @@ export const signInSchema = object({
 
 
 export const createPostSchema = object({
-  title: string({
-    required_error: "Title is required",
-  }).min(10, { message: "Must be 10 or more characters long" }),
-  content: string().min(50),
-  category: string(),
+  title: string()
+  .refine(val => val !== "", { message: "A title is required" })
+  .refine(val => val.length > 10, { message: "Your title must be more than 10 characters" }),
+  content: string()
+  .refine(val => val !== "", { message: "A content is required" })
+  .refine(val => val.length > 10, { message: "Your content must be more than 10 characters" }),
+  category: string()
+  .refine(val => val !== "", { message: "Please select a category" }),
   image: object({
     size: number(),
     type: string(),
     lastModified: number(),
   })
-  // .refine(file => file.size === 0, { message: "Please upload an image" })
+  .refine(file => file.size !== 0, { message: "Please upload an image" })
   .refine(file => file.size < 1024 * 1024 * 10, { message: "File size must be less than 10MB" })
   .refine(file => acceptedFileTypes.includes(file.type), { message: "Please upload a valid image" })
 })

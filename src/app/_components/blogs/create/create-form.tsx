@@ -80,7 +80,7 @@ export default function CreateForm({ createPost, categories }: { createPost: For
     ],
     editorProps: {
       attributes: {
-        class: " px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white text-pretty overflow-y-auto"
+        class: " px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white text-pretty overflow-y-auto mb-2"
       }
     },
     onUpdate({ editor }) {
@@ -93,7 +93,6 @@ export default function CreateForm({ createPost, categories }: { createPost: For
     return null
   }
 
-  console.log(state)
   return (
     <div className="flex flex-col items-center">
       <form action={formAction} className="w-[51rem]">
@@ -122,20 +121,16 @@ export default function CreateForm({ createPost, categories }: { createPost: For
         </div>
 
         <div>
-          {
-            selectedCategory ? (
-              <select name="category" className="hidden">
-                <option value={selectedCategory}>{selectedCategory}</option>
-              </select>
-            ) : ""
-          }
+          <select name="category" className="hidden">
+            <option value={selectedCategory || ""}>{selectedCategory}</option>
+          </select>
 
           <p className="font-bold mt-4">Choose a category:</p>
             <div 
               className="border p-2 px-4 rounded-lg border-gray-300 my-2 w-[50%] flex justify-between cursor-pointer shadow-lg"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <p>{(!selectedCategory) ? "Travel" : selectedCategory}</p>
+              <p>{(!selectedCategory) ? "-- Please choose a category --" : selectedCategory}</p>
               <ArrowDownUp className="h-5 w-5 pt-1 text-gray-300" />
             </div>
             <span className="text-sm text-red-500">{state?.errors?.category}</span>

@@ -26,16 +26,19 @@ export async function createPost(currentState: FormState, formData: FormData): P
     })
 
     const isValidationFailed = !validatedFields.success
+
+
    
     
     if (isValidationFailed) {
+      console.log(validatedFields.error.flatten().fieldErrors )
       currentState = {
         message: "error",
         errors: {
-          title: validatedFields.error.flatten().fieldErrors.title as string[],
-          content: validatedFields.error.flatten().fieldErrors.content as string[],
+          title: validatedFields.error.flatten().fieldErrors.title?.[0] as string,
+          content: validatedFields.error.flatten().fieldErrors.content?.[0] as string,
           category: validatedFields.error.flatten().fieldErrors.category as string[],
-          image: validatedFields.error.flatten().fieldErrors.image as string[],
+          image: validatedFields.error.flatten().fieldErrors.image?.[0] as string,
         },
 
       }
