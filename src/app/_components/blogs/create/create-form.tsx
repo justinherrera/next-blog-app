@@ -31,7 +31,7 @@ type Fields = {
   title: string;
   content: string;
   category: string;
-  image: number;
+  image: string;
 }
  
 type FormState = {
@@ -40,7 +40,7 @@ type FormState = {
   fieldValues?: Fields
 }
 
-const initialState = {
+const initialState: FormState = {
   message: "",
   errors: undefined,
   fieldValues: {
@@ -80,7 +80,7 @@ export default function CreateForm({ createPost, categories }: { createPost: For
     ],
     editorProps: {
       attributes: {
-        class: "w-full px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white"
+        class: " px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white text-pretty overflow-y-auto"
       }
     },
     onUpdate({ editor }) {
@@ -95,12 +95,8 @@ export default function CreateForm({ createPost, categories }: { createPost: For
 
   console.log(state)
   return (
-    <div>
-      <p>
-        errors:
-        {/* {state} */}
-      </p>
-      <form action={formAction}>
+    <div className="flex flex-col items-center">
+      <form action={formAction} className="w-[51rem]">
         <div className="mt-2">
 
           <input
@@ -114,7 +110,7 @@ export default function CreateForm({ createPost, categories }: { createPost: For
           <span className="text-sm text-red-500">{state?.errors?.title}</span>
         </div>
 
-        <div>
+        <div className="">
           <div className="flex flex-col ">
             <div className="mt-2 flex space-x-8 border border-gray-300 px-4 rounded rounded-b-none">
               <BlogCreateToolbar editor={editor}/>
@@ -133,9 +129,7 @@ export default function CreateForm({ createPost, categories }: { createPost: For
               </select>
             ) : ""
           }
-          
-          {/* <BlogCategoriesList /> */}
-          {/* <BlogCreateCategorySelect categories={categories} /> */}
+
           <p className="font-bold mt-4">Choose a category:</p>
             <div 
               className="border p-2 px-4 rounded-lg border-gray-300 my-2 w-[50%] flex justify-between cursor-pointer shadow-lg"
@@ -184,7 +178,7 @@ export default function CreateForm({ createPost, categories }: { createPost: For
                 }} />
               
           </label>
-          <span className="text-sm text-red-500">{state?.errors?.image}</span>
+          <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
         </div>
 
         <button type="submit" className="mt-4 bg-black text-white py-1 px-4 rounded-2xl">Publish</button>
