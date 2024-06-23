@@ -6,6 +6,11 @@ export async function GET(request: Request) {
 
   if (!slug) {
     const posts = await prisma.post.findMany({
+      orderBy: [
+        {
+          title: 'asc',
+        },
+      ],
       include: {
         category: true,
         user: true

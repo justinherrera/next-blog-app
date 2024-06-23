@@ -2,6 +2,7 @@ import prisma from "@/app/utils/prisma-connect"
 import { z } from 'zod'
 import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
+import { auth } from "../../../auth"
 
 import { PostData, FormState, ImageType } from "@/app/lib/definitions"
 
@@ -10,6 +11,12 @@ import { createPostSchema } from "./validator"
 export async function createPost(currentState: FormState, formData: FormData): Promise<FormState> {
   'use server'
   try {
+
+    const session = await auth()
+    if (!session) {
+      throw new Error('You must be signed in to perform this action')
+    }
+
     const { title, content, category, image } = Object.fromEntries(formData)
     const validatedFields = createPostSchema.safeParse({
       title,
