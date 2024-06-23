@@ -48,12 +48,12 @@ export type ImageType = {
 type Fields = {
   title: string;
   content: string;
-  category: string;
-  image: ImageType;
+  category: string[];
+  image: string;
 }
  
 export type FormState = {
   message: string;
-  errors: Record<keyof Fields, string[]> | undefined;
+  errors: Fields | undefined;
   fieldValues?: Fields
 }
