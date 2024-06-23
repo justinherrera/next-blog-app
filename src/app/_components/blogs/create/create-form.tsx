@@ -40,22 +40,24 @@ type FormState = {
   fieldValues?: Fields
 }
 
+const initialState = {
+  message: "",
+  errors: undefined,
+  fieldValues: {
+    title: "",
+    content: "",
+    category: "",
+    image: "",
+  }
+}
+
 export default function CreateForm({ createPost, categories }: { createPost: FormData, categories: Category[] })  {
   const [image, setImage] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [editorContent, setEditorContent] = useState("");
 
-  const [state, formAction] = useFormState<FormState, FormState>(createPost, {
-    message: "",
-    errors: undefined,
-    fieldValues: {
-      title: "",
-      content: "",
-      category: "",
-      image: "",
-    }
-  });
+  const [state, formAction] = useFormState<FormState, FormState>(createPost, initialState);
   
   const editor = useEditor({
     extensions: [

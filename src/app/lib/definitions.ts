@@ -37,3 +37,23 @@ export interface PostData {
   posts?: Post[]
   map: (post: unknown) => JSX.Element
 }
+
+export type ImageType = {
+  size: number;
+  type: string;
+  lastModified: number;
+}
+
+
+type Fields = {
+  title: string;
+  content: string;
+  category: string;
+  image: ImageType;
+}
+ 
+export type FormState = {
+  message: string;
+  errors: Record<keyof Fields, string[]> | undefined;
+  fieldValues?: Fields
+}
