@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth } from "../../../auth"
 
-import { PostData, FormState, ImageType } from "@/app/lib/definitions"
+import { ValidationFields, FormState, ImageType } from "@/app/lib/definitions"
 
 import { createPostSchema } from "./validator"
 
@@ -13,30 +13,18 @@ const isAuth = async () => {
   if (!session) throw new Error('You must be signed in to perform this action')
 }
 
-type Issues = {
-  code: string
-  message: string
-  path: string[]
-}
 
-type FlattenErrors = {
-  formErrors: any[]
-  fieldErrors: {
-    title: ['string']
-    content: ['string']
-    category: ['string']
-    image: ['string']
-  }
-}
-type ErrorFields = {
-  success: boolean
-  error: {
-    flatten: () => FlattenErrors
-    issues: Issues
-  }
-}
+const validateFields = ({ title, content, category, image }: ValidationFields): FormState => {
 
-const validateFields = (isValidationFailed: boolean, validatedFields: ErrorFields): FormState => {
+  const validatedFields = createPostSchema.safeParse({
+    title,
+    content,
+    category,
+    image,
+  })
+
+  const isValidationFailed = !validatedFields.success
+
   if (isValidationFailed) return {
     message: "error",
     errors: {
@@ -52,6 +40,7 @@ const validateFields = (isValidationFailed: boolean, validatedFields: ErrorField
     errors: undefined
   }
 }
+
 export async function createPost(currentState: FormState, formData: FormData): Promise<FormState> {
   'use server'
   try {
@@ -59,20 +48,17 @@ export async function createPost(currentState: FormState, formData: FormData): P
     await isAuth()
 
     const { title, content, category, image } = Object.fromEntries(formData)
-    const validatedFields = createPostSchema.safeParse({
-      title,
-      content,
-      category,
-      image,
-    })
 
-    const isValidationFailed = !validatedFields.success
-    
-    const currentState = validateFields(isValidationFailed, validatedFields)
+    const body = { title, content, category, image } as ValidationFields
+
+    console.log(body)
+
+    const currentState = validateFields(body)
 
     if (currentState?.message === "error") return currentState
     
   } catch (e) {
+    console.log(e instanceof z.ZodError)
     throw new Error("Failed to create post")
   }
 

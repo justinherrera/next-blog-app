@@ -19,7 +19,7 @@ import { ArrowDownUp } from "lucide-react"
 
 import BlogCreateToolbar from '../create/blog-create-toolbar'
 import BlogCategoriesList from './blog-categories-list'
-import { Category } from '@/app/lib/definitions'
+import { FormState, Category } from '@/app/lib/definitions'
 import BlogCreateCategorySelect from './blog-create-category-select'
 import { useState } from 'react'
 
@@ -27,37 +27,20 @@ import { Upload } from "lucide-react"
 
 import { useFormState } from "react-dom";
 
-type Fields = {
-  title: string;
-  content: string;
-  category: string;
-  image: string;
-}
- 
-type FormState = {
-  message: string;
-  errors: Record<keyof Fields, string[]> | undefined;
-  fieldValues?: Fields
-}
-
 const initialState: FormState = {
   message: "",
   errors: undefined,
-  fieldValues: {
-    title: "",
-    content: "",
-    category: "",
-    image: "",
-  }
 }
 
-export default function CreateForm({ createPost, categories }: { createPost: FormData, categories: Category[] })  {
+type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
+
+export default function CreateForm({ categories, createPost }: { categories: Category[], createPost: CreatePost })  {
   const [image, setImage] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [editorContent, setEditorContent] = useState("");
 
-  const [state, formAction] = useFormState<FormState, FormState>(createPost, initialState);
+  const [state, formAction] = useFormState(createPost, initialState);
   
   const editor = useEditor({
     extensions: [

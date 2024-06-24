@@ -41,19 +41,27 @@ export interface PostData {
 export type ImageType = {
   size: number;
   type: string;
+  name: string;
   lastModified: number;
 }
 
 
-type Fields = {
+export type ValidationFields = {
   title: string;
   content: string;
-  category: string[];
-  image: string;
+  category: string;
+  image: ImageType;
+}
+
+type StateFields = {
+  title: string
+  content: string
+  category: string[]
+  image: string
 }
  
 export type FormState = {
   message: string;
-  errors: Fields | undefined;
-  fieldValues?: Fields
+  errors: StateFields | undefined;
+  fieldValues?: ValidationFields
 }
