@@ -1,7 +1,7 @@
 // Step 1: Import the S3Client object and all necessary SDK commands.
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { Content } from 'next/font/google';
-import fs from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 
 const client = new S3Client({
@@ -14,12 +14,13 @@ const client = new S3Client({
     }
 });
 
-export const uploadImage = async (file: File, data: ArrayBuffer) => {
+export const uploadImage = async (file: File, data: ArrayBuffer, userId: string) => {
 
+  const uuid = uuidv4()
 
   const command = {
     Bucket: "blog-app-space", 
-    Key: file.name,
+    Key: `${userId}-${uuid}-${file.name}`,
     Body: data, 
     ACL: "public-read",
     ContentType: file.type,
@@ -41,14 +42,14 @@ export const uploadImage = async (file: File, data: ArrayBuffer) => {
           command.Key
       );
   
-      console.log(data)
-      return data;
+      return `${process.env.SPACES_CDN_ENDPOINT}/${command.Bucket}/${command.Key}`
     } catch (err) {
       console.log("Error", err);
     }
   };
 
-  await uploadObject()
+  const uploadedImage = await uploadObject()
+  return uploadedImage
 }
 
 

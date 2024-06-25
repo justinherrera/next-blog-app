@@ -12,6 +12,7 @@ import { uploadImage } from "../utils/upload-image"
 const isAuth = async () => {
   const session = await auth()
   if (!session) throw new Error('You must be signed in to perform this action')
+  return session.user
 }
 
 
@@ -46,7 +47,9 @@ export async function createPost(currentState: FormState, formData: FormData): P
   'use server'
   try {
 
-    await isAuth()
+    const user = await isAuth()
+    
+    console.log(user)
 
     const { title, content, category, image } = Object.fromEntries(formData)
 
@@ -56,30 +59,24 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     // if (currentState?.message === "error") return currentState
 
-
-    // const reader = new FileReader();
-    // reader.readAsDataURL(body.image);
-
     const data = await body.image.arrayBuffer()
 
+    const imageUrl = await uploadImage(body.image, data, user?.id as string)
 
-    // const blob = new Blob([body.image], {type: body.image.type})
-    // const img = URL.createObjectURL(blob);
+    console.log("......................")
+    console.log(imageUrl)
 
-
-    const uploadedImage = await uploadImage(body.image, data)
-
-    // const post = await prisma.post.create({
-    //   data: {
-    //     title: body.title,
-    //     content: body.content,
-    //     categoryId: 1,
-    //     imageUrl: `https://images.unsplash.com/photo-${body.image.name}`,
-    //     slug: `${body.title}-1`,
-    //     published: true,
-    //     userId: "clxg3yzqu0000pk4ws4b0ni1a"
-    //   },
-    // })
+    const post = await prisma.post.create({
+      data: {
+        title: body.title,
+        content: body.content,
+        categoryId: 1,
+        imageUrl: imageUrl as string,
+        slug: `${body.title}-1`,
+        published: true,
+        userId: "clxg3yzqu0000pk4ws4b0ni1a"
+      },
+    })
     
   } catch (e) {
     console.log(e)
