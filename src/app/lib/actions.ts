@@ -1,6 +1,6 @@
 import prisma from "@/app/utils/prisma-connect"
 import { z } from 'zod'
-import { revalidatePath } from "next/cache"
+import { revalidatePath, revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth } from "../../../auth"
 
@@ -48,8 +48,6 @@ export async function createPost(currentState: FormState, formData: FormData): P
   try {
 
     const user = await isAuth()
-    
-    console.log(user)
 
     const { title, content, category, image } = Object.fromEntries(formData)
 
@@ -62,9 +60,6 @@ export async function createPost(currentState: FormState, formData: FormData): P
     const data = await body.image.arrayBuffer()
 
     const imageUrl = await uploadImage(body.image, data, user?.id as string)
-
-    console.log("......................")
-    console.log(imageUrl)
 
     const post = await prisma.post.create({
       data: {
@@ -83,6 +78,7 @@ export async function createPost(currentState: FormState, formData: FormData): P
     throw new Error("Failed to create post")
   }
 
+  revalidateTag('blogs')
   revalidatePath('/feed')
   redirect('/feed')
 }
