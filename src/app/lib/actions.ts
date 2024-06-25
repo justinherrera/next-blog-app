@@ -7,6 +7,7 @@ import { auth } from "../../../auth"
 import { ValidationFields, FormState, ImageType } from "@/app/lib/definitions"
 
 import { createPostSchema } from "./validator"
+import { uploadImage } from "../utils/upload-image"
 
 const isAuth = async () => {
   const session = await auth()
@@ -56,9 +57,23 @@ export async function createPost(currentState: FormState, formData: FormData): P
     const currentState = validateFields(body)
 
     if (currentState?.message === "error") return currentState
+
+    await uploadImage()
+
+    // const post = await prisma.post.create({
+    //   data: {
+    //     title: body.title,
+    //     content: body.content,
+    //     categoryId: 1,
+    //     imageUrl: `https://images.unsplash.com/photo-${body.image.name}`,
+    //     slug: `${body.title}-1`,
+    //     published: true,
+    //     userId: "clxg3yzqu0000pk4ws4b0ni1a"
+    //   },
+    // })
     
   } catch (e) {
-    console.log(e instanceof z.ZodError)
+    console.log(e)
     throw new Error("Failed to create post")
   }
 
