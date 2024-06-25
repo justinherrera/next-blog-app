@@ -56,15 +56,18 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     // if (currentState?.message === "error") return currentState
 
-    const blob = new Blob([body.image], {type: body.image.type})
-    const img = URL.createObjectURL(blob);
 
-    console.log(img)
+    // const reader = new FileReader();
+    // reader.readAsDataURL(body.image);
 
-    const uploadedImage = await uploadImage(body.image.name, img)
+    const data = await body.image.arrayBuffer()
 
-    console.log("-------- result ----------")
-    console.log(uploadedImage)
+
+    // const blob = new Blob([body.image], {type: body.image.type})
+    // const img = URL.createObjectURL(blob);
+
+
+    const uploadedImage = await uploadImage(body.image, data)
 
     // const post = await prisma.post.create({
     //   data: {
@@ -80,9 +83,9 @@ export async function createPost(currentState: FormState, formData: FormData): P
     
   } catch (e) {
     console.log(e)
-    throw new Error("Failed to create post")
+    // throw new Error("Failed to create post")
   }
 
-  revalidatePath('/feed')
-  redirect('/feed')
+  // revalidatePath('/feed')
+  // redirect('/feed')
 }
