@@ -55,9 +55,9 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     const body = { title, content, category, image } as ValidationFields
 
-    // const currentState = validateFields(body)
+    const currentState = validateFields(body)
 
-    // if (currentState?.message === "error") return currentState
+    if (currentState?.message === "error") return currentState
 
     const data = await body.image.arrayBuffer()
 
@@ -80,9 +80,9 @@ export async function createPost(currentState: FormState, formData: FormData): P
     
   } catch (e) {
     console.log(e)
-    // throw new Error("Failed to create post")
+    throw new Error("Failed to create post")
   }
 
-  // revalidatePath('/feed')
-  // redirect('/feed')
+  revalidatePath('/feed')
+  redirect('/feed')
 }

@@ -22,6 +22,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'example.com',
         port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'blog-app-space.sgp1.cdn.digitaloceanspaces.com',
+        port: '',
       }
     ],
   },
