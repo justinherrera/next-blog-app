@@ -12,11 +12,12 @@ const client = new S3Client({
     }
 });
 
-export const uploadImage = async () => {
+export const uploadImage = async (filename: string, blob: string) => {
   const command = {
     Bucket: "blog-app-space", 
-    Key: "blogs/hello-world.txt",
-    Body: "Hello, World!", 
+    Key: filename,
+    Body: blob, 
+    ACL: "public-read"
   };
   
   const uploadObject = async () => {

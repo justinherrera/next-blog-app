@@ -50,7 +50,7 @@ export type ValidationFields = {
   title: string;
   content: string;
   category: string;
-  image: ImageType;
+  image: File;
 }
 
 type StateFields = {

@@ -52,13 +52,19 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     const body = { title, content, category, image } as ValidationFields
 
-    console.log(body)
+    // const currentState = validateFields(body)
 
-    const currentState = validateFields(body)
+    // if (currentState?.message === "error") return currentState
 
-    if (currentState?.message === "error") return currentState
+    const blob = new Blob([body.image], {type: body.image.type})
+    const img = URL.createObjectURL(blob);
 
-    await uploadImage()
+    console.log(img)
+
+    const uploadedImage = await uploadImage(body.image.name, img)
+
+    console.log("-------- result ----------")
+    console.log(uploadedImage)
 
     // const post = await prisma.post.create({
     //   data: {
