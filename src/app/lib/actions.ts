@@ -45,6 +45,8 @@ const validateFields = ({ title, content, category, image }: ValidationFields): 
 
 export async function createPost(currentState: FormState, formData: FormData): Promise<FormState> {
   'use server'
+
+  let slug = null
   try {
 
     const user = await isAuth()
@@ -71,14 +73,21 @@ export async function createPost(currentState: FormState, formData: FormData): P
         published: true,
         userId: "clxg3yzqu0000pk4ws4b0ni1a"
       },
-    })
+    }).then(post => slug = post.slug)
+
+    
+    
     
   } catch (e) {
     console.log(e)
-    throw new Error("Failed to create post")
+    return {
+      message: e.message,
+      errors: undefined
+    }
   }
 
-  revalidateTag('blogs')
-  revalidatePath('/feed')
-  redirect('/feed')
+  // revalidateTag('blogs')
+  // revalidatePath('/feed')
+  redirect(`/${slug}`)
+  
 }
