@@ -4,6 +4,7 @@ import { redirect } from "next/navigation"
 import { signOut } from "../../../../auth"
 import Link from "next/link"
 import TopNavigationUser from "./top-navigation-user"
+import Image from "next/image"
 
 
 
@@ -13,7 +14,10 @@ export default async function BlogNavigation() {
   return (
     <div className="flex pl-56 py-4 shadow-lg">
       <div className="flex w-[68%] justify-between pl-2">
-        <Link href="/feed" className="font-bold py-1 ">Home</Link>
+        <Link href="/feed" className="font-bold py-1 ">
+          Home
+        </Link>
+        {/* <Image src="/posted-logo.png" alt="logo" width={100} height={100} /> */}
         <div className="flex pr-10">
           <Link href="/create" className="text-sm font-medium mr-4 px-4 p-1 border border-gray-300 rounded-2xl hover:bg-black hover:text-white">Create</Link>
           <TopNavigationUser />

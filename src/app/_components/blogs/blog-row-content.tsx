@@ -2,6 +2,7 @@ import Link from "next/link"
 
 
 export default function BlogRowContent({ title, content, slug }: { title: string, content: string, slug: string }) {
+  const contentOverview = content.length > 300 ? `${content.substring(0, 300)}...` : content
 
   return (  
     <div className="h-[63%] max-w-xl">
@@ -9,7 +10,7 @@ export default function BlogRowContent({ title, content, slug }: { title: string
         <Link href={`/${slug}`}>{`${title.substring(0, 50)}...`}</Link>
       </h3>
       {/* <p className="mt-5 text-sm leading-6 text-gray-600" dangerouslySetInnerHTML={{ __html: content.substring(0, 200) }}></p> */}
-      <p className="mt-5 text-sm leading-6 text-gray-600">{`${content.substring(0, 300)}...`}</p>
+      <p className="mt-5 text-sm leading-6 text-gray-600">{contentOverview}</p>
     </div>
   )
 }

@@ -14,7 +14,6 @@ import LoadingCategories from '@/app/_components/blogs/skeletons/loading-categor
 import LoadingFeed from '@/app/_components/blogs/skeletons/loading-feed'
 import Blogs from '@/app/_components/blogs/blogs'
 
-const queryClient = new QueryClient()
 
 export default function Feed() {
 
