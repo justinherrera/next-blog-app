@@ -17,11 +17,11 @@ export default function FeedLayout({
     <div className="w-screen">
 
       <div className="w-full flex justify-between">
-        <div className="flex flex-col w-[70%]">
+        <div className="flex flex-col w-[75%]">
           {children}
         </div>
         
-        <div className="py-12 border-l border-gray-200 hidden lg:block w-[30%]">
+        <div className="py-12 border-l border-gray-200 hidden lg:block w-[25%]">
           <SideNavigation /> 
         </div>
         

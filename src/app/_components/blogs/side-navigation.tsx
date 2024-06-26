@@ -1,6 +1,5 @@
 import Image from "next/image"
 import PopularTopics from "./popular-topics"
-import { useState } from "react"
 
 const people = [
   {
@@ -36,12 +35,11 @@ const people = [
 ]
 
 export default function SideNavigation() {
-  const [isFollowing, setIsFollowing] = useState(false)
   return (
     <div className="sticky top-0">
           {/* <p>Authors</p> */}
       <div className="w-full pl-14 mb-4">
-        <p className="font-bold">Who to follow</p>
+        <p className="font-bold">Explore popular authors</p>
       </div>
       
       <ul role="list" className="divide-y divide-gray-100 flex flex-col items-center">
@@ -58,13 +56,6 @@ export default function SideNavigation() {
                 <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
               </div>
             </div>
-            <a
-              href="#"
-              className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-              onClick={() => setIsFollowing(!isFollowing)}
-            >
-              {isFollowing ? "Following" : "Follow"}
-            </a>
           </li>
         ))}
       </ul>
