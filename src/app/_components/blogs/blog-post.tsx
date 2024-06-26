@@ -48,8 +48,7 @@ export default function BlogPost({ slug }: { slug: string }) {
             </div>
           </div>
         </div>
-        <p className="mt-6 text-xl leading-8">
-          {data.content}
+        <p className="mt-6 text-xl leading-8" dangerouslySetInnerHTML={{ __html: data.content }}>
         </p>
         
         <figure className="mt-16">

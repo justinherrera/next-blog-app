@@ -19,7 +19,7 @@ export default async function BlogRow({ posts }: { posts: Post[] }) {
 
           <BlogRowImage src={post.imageUrl} />
 
-          <div>
+          <div className="h-[16rem] flex-col">
             <BlogRowDetails name={post.category.name} date={post.createdAt} />
 
             <BlogRowContent title={post.title} content={post.content} slug={post.slug} />
