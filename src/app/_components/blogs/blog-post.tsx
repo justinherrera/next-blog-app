@@ -1,33 +1,19 @@
+"use client"
+
 import Image from "next/image"
 import { useQuery } from '@tanstack/react-query'
 import { TailSpin } from "react-loader-spinner"
 import { format } from "date-fns"
 import LoadingBlogSection from "./loading-blog-section"
 import NotFound from "@/app/not-found"
+// import { Heart } from "lucide-react"
+import Heart from "@/app/_components/blogs/icons/Heart"
+import { Post } from "@/app/lib/definitions"
+import { useState } from "react"
 
-export default async function BlogPost({ slug }: { slug: string }) {
+export default function BlogPost({ post }: { post: Post }) {
+  const [isLiked, setIsLiked] = useState(false)
 
-  const response = await fetch(`http://localhost:3000/api/blogs?slug=${slug}`, { next: { revalidate: 3600 } })
-  const { post } = await response.json()
-
-  console.log(post)
-
-  // console.log(data)
-
-  // const { isPending, isError, data, error } = useQuery({
-  //   queryKey: ['posts', slug],
-  //   queryFn: async () => {
-  //     const response = await fetch(`http://localhost:3000/api/blogs?slug=${slug}`)
-  //       .then((res) => res.json())
-  //       .then(data => data.post)
-  //     return response
-  //   },
-  // })
-  
-
-  // if (isPending) return <LoadingBlogSection />
-
-  // if(!data) return <NotFound />
 
   return (
     <div className="bg-white px-6 py-32 lg:px-8">
@@ -73,18 +59,20 @@ export default async function BlogPost({ slug }: { slug: string }) {
         </figure>
         <div className="mt-16 max-w-2xl">
           <p>{post.content}</p>
-          {/* <h2 className="text-2xl font-bold tracking-tight text-gray-900">Everything you need to get up and running</h2>
-          <p className="mt-6">
-            Purus morbi dignissim senectus mattis adipiscing. Amet, massa quam varius orci dapibus volutpat cras. In
-            amet eu ridiculus leo sodales cursus tristique. Tincidunt sed tempus ut viverra ridiculus non molestie.
-            Gravida quis fringilla amet eget dui tempor dignissim. Facilisis auctor venenatis varius nunc, congue erat
-            ac. Cras fermentum convallis quam.
-          </p>
-          <p className="mt-8">
-            Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae
-            sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius sit neque erat velit.
-          </p> */}
+
         </div>
+        
+        <div className="mt-8">
+          <button 
+            className={`flex space-x-1 border-2 ${isLiked ? "bg-[#FBD1DA] border-[#F8C8CF]" : "border-black"}  shadow-lg  p-1 px-4  rounded-lg items-center justify-center w-24`}
+            onClick={() => setIsLiked(!isLiked)}
+            >
+            <Heart color="#E42D54" isLiked={isLiked} />
+            {/* <Heart className="h-4 w-4" color={`${isLiked ? "#E42D54" : "#000000"}`} /> */}
+            <span className="font-bold text-black text-sm">{isLiked ? "Liked" : "Like"}</span>
+          </button>
+        </div>
+
       </div>
     </div>
   )

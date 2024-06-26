@@ -32,7 +32,7 @@ export default function PopularTopics() {
   return (
     <div>
       <div className="w-full pl-14 my-6">
-          <p className="font-bold">Popular topics</p>
+          <p className="font-bold">Featured Post</p>
         </div>
 
         {
