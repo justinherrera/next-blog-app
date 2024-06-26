@@ -10,6 +10,7 @@ import NotFound from "@/app/not-found"
 import Heart from "@/app/_components/blogs/icons/Heart"
 import { Post } from "@/app/lib/definitions"
 import { useState } from "react"
+import parse from 'html-react-parser';
 
 export default function BlogPost({ post }: { post: Post }) {
   const [isLiked, setIsLiked] = useState(false)
@@ -30,12 +31,12 @@ export default function BlogPost({ post }: { post: Post }) {
             <div className="min-w-0 flex-auto">
               <div className="flex space-x-4">
                 <p className="text-sm font-semibold leading-6 text-gray-900">{post.user.name}</p>
-                <a
+                {/* <a
                   href="#"
                   className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                 >
                   Follow
-                </a>
+                </a> */}
               </div>
               <p className="mt-1 truncate text-xs leading-5 text-gray-500">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
             </div>
@@ -58,7 +59,8 @@ export default function BlogPost({ post }: { post: Post }) {
           </figcaption>
         </figure>
         <div className="mt-16 max-w-2xl">
-          <p>{post.content}</p>
+          {/* <p>{post.content}</p> */}
+          {parse(post.content)}
 
         </div>
         

@@ -10,7 +10,7 @@ export default function BlogRowContent({ title, content, slug }: { title: string
         <Link href={`/${slug}`}>{`${title.substring(0, 50)}...`}</Link>
       </h3>
       {/* <p className="mt-5 text-sm leading-6 text-gray-600" dangerouslySetInnerHTML={{ __html: content.substring(0, 200) }}></p> */}
-      <p className="mt-5 text-sm leading-6 text-gray-600">{contentOverview}</p>
+      <p className="mt-5 text-sm leading-6 text-gray-600">{contentOverview.replace(/<[^>]+>/g, '')}</p>
     </div>
   )
 }
