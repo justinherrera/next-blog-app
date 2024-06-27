@@ -1,7 +1,7 @@
 
 
 import { redirect } from "next/navigation"
-import { signOut } from "../../../../auth"
+import { signOut } from "../../../../../auth"
 import Link from "next/link"
 import TopNavigationUser from "./top-navigation-user"
 import Image from "next/image"

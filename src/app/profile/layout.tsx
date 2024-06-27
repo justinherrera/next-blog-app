@@ -1,4 +1,6 @@
 
+
+import SideNavigation from '../_components/blogs/navigations/side-navigation'
 import BlogNavigation from '../_components/blogs/navigations/top-navigation'
 
 export default function FeedLayout({

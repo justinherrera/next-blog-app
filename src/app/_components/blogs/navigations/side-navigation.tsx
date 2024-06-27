@@ -1,5 +1,5 @@
 import Image from "next/image"
-import PopularTopics from "./popular-topics"
+import PopularTopics from "../popular-topics"
 
 const people = [
   {

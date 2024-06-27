@@ -1,9 +1,9 @@
 "use client"
 
-import BlogNavigation from '../../_components/blogs/top-navigation'
+import BlogNavigation from '../../_components/blogs/navigations/top-navigation'
 import { auth } from "../../../../auth"
 import NotAuthorized from '@/app/_components/auth/not-authorized'
-import SideNavigation from '../../_components/blogs/side-navigation'
+import SideNavigation from '../../_components/blogs/navigations/side-navigation'
 
 export default function FeedLayout({
   children

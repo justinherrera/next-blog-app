@@ -1,14 +1,14 @@
 
-import BlogRowImage from "@/app/_components/blogs/blog-row-image"
-import BlogRowContent from "@/app/_components/blogs/blog-row-content"
-import BlogRowDetails from "@/app/_components/blogs/blog-row-details"
-import BlogRowAuthor from "@/app/_components/blogs/blog-row-author"
+import BlogRowImage from "@/app/_components/blogs/feed/blog-row-image"
+import BlogRowContent from "@/app/_components/blogs/feed/blog-row-content"
+import BlogRowDetails from "@/app/_components/blogs/feed/blog-row-details"
+import BlogRowAuthor from "@/app/_components/blogs/feed/blog-row-author"
 
 import { TailSpin } from "react-loader-spinner"
 import { useQuery } from '@tanstack/react-query'
 
 import { Post, PostData } from "@/app/lib/definitions"
-import LoadingBlogRow from "./skeletons/loading-feed"
+import LoadingBlogRow from "../skeletons/loading-feed"
 
 export default async function BlogRow({ posts }: { posts: Post[] }) {
 
