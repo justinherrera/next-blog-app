@@ -33,7 +33,9 @@ export default function TopNavigationUser({ user }: { user: User }) {
     {
       isOpen ? (
         <div className="border border-gray-300 absolute top-10 right-4 w-44 rounded bg-white ">
-          <Link href="/profile" className="py-2 px-2 cursor-pointer hover:bg-gray-300">Profile</Link>
+          <Link href="/profile" className="py-2 px-2 cursor-pointer hover:bg-gray-300 w-full block">
+            Profile
+          </Link>
           <QueryClientProvider client={queryClient}>
             <SignOutButton />
             <ReactQueryDevtools />
