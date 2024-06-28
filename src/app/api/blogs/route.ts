@@ -26,6 +26,11 @@ export async function GET(request: Request) {
 
   if (userId) {
     const posts = await prisma.post.findMany({
+      orderBy: [
+        {
+          createdAt: 'desc',
+        },
+      ],
       where: {
         user: {
           id: userId
@@ -43,6 +48,11 @@ export async function GET(request: Request) {
 
   if (category) {
     const posts = await prisma.post.findMany({
+      orderBy: [
+        {
+          createdAt: 'desc',
+        },
+      ],
       where: {
         category: {
           name: category
