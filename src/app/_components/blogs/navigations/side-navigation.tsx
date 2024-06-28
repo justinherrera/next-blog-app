@@ -38,22 +38,26 @@ export default function SideNavigation() {
   return (
     <div className="sticky top-0">
           {/* <p>Authors</p> */}
-      <div className="w-full pl-14 mb-4">
+      <div className="w-full pl-4 mb-4">
         <p className="font-bold">Explore popular authors</p>
       </div>
       
-      <ul role="list" className="divide-y divide-gray-100 flex flex-col items-center">
+      <ul role="list" className="divide-y divide-gray-100 flex flex-col items-center pl-4">
         {people.map((person) => (
-          <li key={person.email} className="flex items-center justify-between gap-x-6 py-5 w-[80%]">
+          <li key={person.email} className="flex gap-x-6 py-5 w-full">
             <div className="flex min-w-0 gap-x-4">
               <Image 
                 className="h-12 w-12 flex-none rounded-full bg-gray-50" 
                 height={100}
                 width={100}
                 src={person.imageUrl} alt="" />
-              <div className="min-w-0 flex-auto">
-                <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
-                <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
+              <div className="flex-col">
+                <div className="flex space-x-4">
+                  <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
+                  <p className="text-sm leading-6 text-gray-500">{person.email}</p>
+                </div>
+                <small className="text-gray-500 text-xs">Authored 5 posts</small>
+
               </div>
             </div>
           </li>
