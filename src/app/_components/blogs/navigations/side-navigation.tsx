@@ -54,9 +54,9 @@ export default function SideNavigation() {
               <div className="flex-col">
                 <div className="flex space-x-4">
                   <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
-                  <p className="text-sm leading-6 text-gray-500">{person.email}</p>
+                  {/* <p className="text-sm leading-6 text-gray-500">{person.email}</p> */}
                 </div>
-                <small className="text-gray-500 text-xs">Authored 5 posts</small>
+                <small className="text-gray-500 text-xs">{person.email}</small>
 
               </div>
             </div>

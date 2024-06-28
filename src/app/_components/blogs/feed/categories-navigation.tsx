@@ -3,6 +3,7 @@
 import { Category } from "@/app/lib/definitions"
 import { useRef, useState } from 'react';
 import { StepForward, StepBack } from 'lucide-react';
+import Link from "next/link";
 
 
 export default function CategoriesNavigation({ categories }: { categories: Category[] }) {
@@ -40,12 +41,13 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
         }
 
         {categories.map((category: Category) => (
-          <li
+          <Link
             key={category.id}
+            href={`/category/${category.name}`}
             className={`px-4 py-2 first:pl-0 cursor-pointer hover:underline`}
           >
             {category.name}
-          </li>
+          </Link>
         ))}
 
         {

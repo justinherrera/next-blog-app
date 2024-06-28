@@ -4,10 +4,11 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
   const slug = searchParams.get('slug') as string
   const userId = searchParams.get('userId') as string
+  const category = searchParams.get('category') as string
 
-  console.log(`searchParams ${userId}`)
+  console.log(`searchParams ${searchParams}`)
 
-  if (!slug && !userId) {
+  if (!slug && !userId && !category) {
     const posts = await prisma.post.findMany({
       orderBy: [
         {
@@ -24,7 +25,6 @@ export async function GET(request: Request) {
   }
 
   if (userId) {
-    console.log("called???")
     const posts = await prisma.post.findMany({
       where: {
         user: {
@@ -40,17 +40,35 @@ export async function GET(request: Request) {
     await prisma.$disconnect()
     return Response.json({ posts })
   }
+
+  if (category) {
+    const posts = await prisma.post.findMany({
+      where: {
+        category: {
+          name: category
+        }
+      },
+      include: {
+        user: true,
+        category: true
+      }
+    })
+
+    await prisma.$disconnect()
+    return Response.json({ posts })
+  }
   
-
-  const post = await prisma.post.findUnique({
-    where: {
-      slug,
-    },
-    include: {
-      user: true
-    }
-  })
-
-  await prisma.$disconnect()
-  return Response.json({ post })
+  if (slug) {
+    const post = await prisma.post.findUnique({
+      where: {
+        slug,
+      },
+      include: {
+        user: true
+      }
+    })
+  
+    await prisma.$disconnect()
+    return Response.json({ post })
+  }
 }
