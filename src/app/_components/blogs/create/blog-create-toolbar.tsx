@@ -16,21 +16,21 @@ export default function BlogCreateToolbar({ editor }: Props) {
     <>
       <button 
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-        className={editor.isActive('heading', { level: 1 }) ? "bg-gray-300 p-2 rounded" : "p-2"}
+        className={editor.isActive('heading', { level: 1 }) ? "bg-gray-300 p-2 rounded isActive" : "p-2"}
       >
         <Heading1 className="w-5 h-5" />
       </button>
 
       <button 
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-        className={editor.isActive('heading', { level: 2 }) ? "bg-gray-300 p-2 rounded" : "p-2"}
+        className={editor.isActive('heading', { level: 2 }) ? "bg-gray-300 p-2 rounded isActive" : "p-2"}
       >
         <Heading2 className="w-5 h-5" />
       </button>
 
       <button 
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
-        className={editor.isActive('heading', { level: 3 }) ? "bg-gray-300 p-2 rounded" : "p-2"}
+        className={editor.isActive('heading', { level: 3 }) ? "bg-gray-300 p-2 rounded isActive" : "p-2"}
       >
         <Heading3 className="w-5 h-5" />
       </button>

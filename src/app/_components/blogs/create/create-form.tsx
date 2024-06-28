@@ -63,7 +63,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
     ],
     editorProps: {
       attributes: {
-        class: " px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white text-pretty overflow-y-auto mb-2"
+        class: " px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white text-pretty overflow-y-auto mb-2 prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc "
       }
     },
     onUpdate({ editor }) {

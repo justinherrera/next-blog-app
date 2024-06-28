@@ -15,10 +15,13 @@ import BulletList from '@tiptap/extension-bullet-list'
 import ListItem from '@tiptap/extension-list-item'
 import CodeBlock from '@tiptap/extension-code-block'
 import Heading from '@tiptap/extension-heading'
+import { cn } from "@/app/utils/cn"
+import '../../../styles.module.css'
 
 import BlogCreateToolbar from '../create/blog-create-toolbar'
 
 export default function Tiptap () {
+  const editorClassName = "w-full px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white"
   const editor = useEditor({
     extensions: [
       StarterKit,
@@ -40,7 +43,10 @@ export default function Tiptap () {
     ],
     editorProps: {
       attributes: {
-        class: "w-full px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white"
+        class: cn(
+          "prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc ",
+          editorClassName
+        )
       }
     },
     content: 'Content goes here...',
@@ -51,8 +57,8 @@ export default function Tiptap () {
   }
 
   return (
-    <div className="">
-      <div className="flex flex-col ">
+    <div className="qwer">
+      <div className="flex flex-col test">
         
         <div className="mt-2 flex space-x-8 border border-gray-300 px-4 rounded rounded-b-none">
           <BlogCreateToolbar editor={editor}/>
