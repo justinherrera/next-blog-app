@@ -31,11 +31,14 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
                 setIsScrolling(true)
                 
                 scroll(-300)
-                if (scrollRef?.current?.scrollLeft <= 300) {
-                  setIsStartReached(true)
-                } else if (scrollRef?.current?.scrollLeft > 300) {
-                  setIsEndReached(false)
+                if (scrollRef.current) {
+                  if (scrollRef?.current?.scrollLeft <= 300) {
+                    setIsStartReached(true)
+                  } else if (scrollRef?.current?.scrollLeft > 300) {
+                    setIsEndReached(false)
+                  }
                 }
+
               }}
             /> : <></>
         }
@@ -58,11 +61,14 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
               onClick={() => {
                 setIsScrolling(!isScrolling)
                 scroll(300)
-                if (scrollRef?.current?.scrollLeft >= 0 && scrollRef?.current?.scrollLeft <= 300) {
-                  setIsStartReached(false)
-                } else if (scrollRef?.current?.scrollLeft >= 900) {
-                  setIsEndReached(true)
+                if (scrollRef.current) {
+                  if (scrollRef?.current?.scrollLeft >= 0 && scrollRef?.current?.scrollLeft <= 300) {
+                    setIsStartReached(false)
+                  } else if (scrollRef?.current?.scrollLeft >= 900) {
+                    setIsEndReached(true)
+                  }
                 }
+
               }}
             /> : <></>
         }
