@@ -11,12 +11,13 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Link from "next/link"
+import { User } from "@/app/lib/definitions"
 
 const queryClient = new QueryClient()
 
 
 
-export default function TopNavigationUser() {
+export default function TopNavigationUser({ user }: { user: User }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -25,7 +26,7 @@ export default function TopNavigationUser() {
         className="inline-block h-8 w-8 rounded-full cursor-pointer hover:opacity-75"
         height={100}
         width={100}
-        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+        src={user.image}
         alt=""
         onClick={() => setIsOpen(!isOpen)}
       />
