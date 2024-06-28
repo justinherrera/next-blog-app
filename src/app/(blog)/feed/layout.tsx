@@ -1,5 +1,3 @@
-"use client"
-
 import BlogNavigation from '../../_components/blogs/navigations/top-navigation'
 import { auth } from "../../../../auth"
 import NotAuthorized from '@/app/_components/auth/not-authorized'

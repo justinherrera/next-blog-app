@@ -1,5 +1,5 @@
 import Image from "next/image"
-import PopularTopics from "../popular-topics"
+import FeaturedPost from "../featured-post"
 
 const people = [
   {
@@ -59,7 +59,7 @@ export default function SideNavigation() {
           </li>
         ))}
       </ul>
-      <PopularTopics />
+      <FeaturedPost />
   </div>
   )
 }
