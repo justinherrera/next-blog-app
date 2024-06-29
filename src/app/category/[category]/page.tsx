@@ -3,6 +3,8 @@ import Image from "next/image"
 
 import Blogs from "@/app/_components/blogs/category/blogs"
 import NoPostsFound from "@/app/_components/blogs/no-posts-found"
+import { Suspense } from "react"
+import LoadingCategoryBlogs from "@/app/_components/blogs/skeletons/loading-category-blogs"
 
 
 export default async function Category({ params }: { params: { category: string } }) {
@@ -15,6 +17,9 @@ export default async function Category({ params }: { params: { category: string 
   if (posts.length === 0) return <NoPostsFound />
 
   return (
-    <Blogs posts={posts} category={params.category} />
+    <Suspense fallback={<LoadingCategoryBlogs />}>
+      <Blogs posts={posts} category={params.category} />
+    </Suspense>
+    
   )
 }
