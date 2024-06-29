@@ -11,10 +11,10 @@ import Heart from "@/app/_components/blogs/icons/Heart"
 import { Post } from "@/app/lib/definitions"
 import { useState } from "react"
 import parse from 'html-react-parser';
+import LoadingSlug from "./skeletons/loading-slug"
 
 export default function BlogPost({ post }: { post: Post }) {
   const [isLiked, setIsLiked] = useState(false)
-
 
   return (
     <div className="bg-white px-6 py-32 lg:px-8">

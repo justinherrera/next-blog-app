@@ -61,6 +61,7 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
               onClick={() => {
                 setIsScrolling(!isScrolling)
                 scroll(300)
+                console.log(scrollRef.current?.scrollLeft)
                 if (scrollRef.current) {
                   if (scrollRef?.current?.scrollLeft >= 0 && scrollRef?.current?.scrollLeft <= 300) {
                     setIsStartReached(false)

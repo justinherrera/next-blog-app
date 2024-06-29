@@ -1,5 +1,7 @@
 import prisma from "@/app/utils/prisma-connect"
 import BlogPost from "@/app/_components/blogs/blog-post"
+import { Suspense } from "react"
+import LoadingSlug from "@/app/_components/blogs/skeletons/loading-slug"
 
 export default async function Page(
   {
@@ -16,7 +18,9 @@ export default async function Page(
   const { post } = await response.json()
 
   return (
-    <BlogPost post={post} />
+    <Suspense fallback={<LoadingSlug />}>
+      <BlogPost post={post} />
+    </Suspense>
     
   )
 }
