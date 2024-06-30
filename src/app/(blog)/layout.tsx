@@ -10,7 +10,7 @@ export default function FeedLayout({
   // if (!session) return <NotAuthorized />
 
   return (
-    <div className="w-screen">
+    <div className="max-w-screen">
         <BlogNavigation />
         {children}
       
