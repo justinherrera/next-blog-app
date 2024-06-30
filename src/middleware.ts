@@ -10,9 +10,8 @@ export function middleware(request: NextRequest) {
 
 
   const currentUser = request.cookies.get('currentUser')?.value
-  console.log(`---> ${currentUser}`)
   
-  // return NextResponse.redirect(new URL('/feed', request.url))
+  return NextResponse.redirect(new URL('/feed', request.url))
 }
 
 // export default auth((req) => {
@@ -25,5 +24,5 @@ export function middleware(request: NextRequest) {
  
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: '/feed',
+  matcher: '/',
 }
