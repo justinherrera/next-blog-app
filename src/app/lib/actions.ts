@@ -78,7 +78,7 @@ export async function createPost(currentState: FormState, formData: FormData): P
     
     
     
-  } catch (e) {
+  } catch (e: any) {
     console.log(e)
     return {
       message: e.message,

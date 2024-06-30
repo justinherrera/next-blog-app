@@ -30,7 +30,7 @@ const posts = [
     "imageUrl": "https://images.unsplash.com/photo-1677442136019-21780ecad995?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "published": true,
     "categoryId": 2,  
-    "userId": "clxg3yzqu0000pk4ws4b0ni1a" 
+    "userId": "cly1t25eb0000tpdzdv3nphl8" 
   },
   {
     "title": "Top 10 Programming Languages in 2024",
@@ -39,7 +39,7 @@ const posts = [
     "imageUrl": "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=2069&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "published": false,
     "categoryId": 2, 
-    "userId": "clxg3yzqu0000pk4ws4b0ni1a" 
+    "userId": "cly1t25eb0000tpdzdv3nphl8" 
   },
   {
     "title": "Delicious Vegan Recipes",
@@ -48,7 +48,7 @@ const posts = [
     "imageUrl": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "published": true,
     "categoryId": 3,
-    "userId": "clxg3yzqu0000pk4ws4b0ni1a"
+    "userId": "cly1t25eb0000tpdzdv3nphl8"
   },
   {
     "title": "Beachside Resorts",
@@ -57,7 +57,7 @@ const posts = [
     "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "published": true,
     "categoryId": 1,
-    "userId": "clxg3yzqu0000pk4ws4b0ni1a"
+    "userId": "cly1t25eb0000tpdzdv3nphl8"
   },
   {
     "title": "Historical Sites to Visit",
@@ -66,7 +66,7 @@ const posts = [
     "imageUrl": "https://images.unsplash.com/photo-1708173176425-7f526bb5bb2b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     "published": false,
     "categoryId": 1,
-    "userId": "clxg3yzqu0000pk4ws4b0ni1a"
+    "userId": "cly1t25eb0000tpdzdv3nphl8"
   }
 ]
 
