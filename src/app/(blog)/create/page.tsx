@@ -14,7 +14,7 @@ import { createPost } from "@/app/lib/actions"
 
 
 export default async function Create() {
-  const response = await fetch(`http://localhost:3000/api/categories`)
+  const response = await fetch(`${process.env.BASE_URL}/api/categories`)
   const { categories } = await response.json()
 
   

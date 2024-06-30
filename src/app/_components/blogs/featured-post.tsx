@@ -4,7 +4,7 @@ import Image from "next/image"
 
 export default async function FeaturedPost() {
 
-  const response = await fetch(`http://localhost:3000/api/blogs`, { cache: 'no-store' })
+  const response = await fetch(`${process.env.BASE_URL}/api/blogs`, { cache: 'no-store' })
   const { posts } = await response.json()
   const post = posts[0]
 

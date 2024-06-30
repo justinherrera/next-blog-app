@@ -13,7 +13,7 @@ export default async function Profile() {
   const { user } = session
   
 
-  const response = await fetch(`http://localhost:3000/api/blogs?userId=${user?.id}`, { cache: 'no-store' })
+  const response = await fetch(`${process.env.BASE_URL}/api/blogs?userId=${user?.id}`, { cache: 'no-store' })
   const { posts } = await response.json()
 
   return (

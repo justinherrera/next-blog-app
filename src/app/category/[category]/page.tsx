@@ -11,7 +11,7 @@ export default async function Category({ params }: { params: { category: string 
   
   const category = params.category
 
-  const response = await fetch(`http://localhost:3000/api/blogs?category=${category}`, { cache: 'no-store' })
+  const response = await fetch(`${process.env.BASE_URL}/api/blogs?category=${category}`, { cache: 'no-store' })
   const { posts } = await response.json()
 
   if (posts.length === 0) return <NoPostsFound />

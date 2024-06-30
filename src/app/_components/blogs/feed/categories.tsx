@@ -1,7 +1,7 @@
 import CategoriesNavigation from "./categories-navigation"
 
 export default async function Categories() {
-  const response = await fetch(`http://localhost:3000/api/categories`)
+  const response = await fetch(`${process.env.BASE_URL}/api/categories`)
   const { categories } = await response.json()
 
   return (

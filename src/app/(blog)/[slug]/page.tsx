@@ -14,7 +14,7 @@ export default async function Page(
   }
 ) {
   
-  const response = await fetch(`http://localhost:3000/api/blogs?slug=${params.slug}`, { next: { revalidate: 3600 } })
+  const response = await fetch(`${process.env.BASE_URL}/api/blogs?slug=${params.slug}`, { next: { revalidate: 3600 } })
   const { post } = await response.json()
 
   return (
