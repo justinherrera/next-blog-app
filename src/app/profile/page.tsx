@@ -64,7 +64,7 @@ export default async function Profile() {
                       
                     </a>
                   </h3> */}
-                  <p className="mt-5 text-sm leading-6 text-gray-600">{post.description}</p>
+                  {/* <p className="mt-5 text-sm leading-6 text-gray-600">{post.content}</p> */}
                 </div>
               </div>
             </article>
