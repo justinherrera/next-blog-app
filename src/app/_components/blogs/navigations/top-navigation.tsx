@@ -16,17 +16,17 @@ export default async function BlogNavigation() {
  
 
   return (
-    <div className="flex px-8 py-4 shadow-lg">
-      <div className="flex w-full justify-between pl-2">
+    <div className="flex px-4 sm:px-8 py-4 shadow-lg">
+      <div className="flex w-full justify-between sm:pl-2">
         <Link href="/feed" className="font-bold py-1 ">
           Home
         </Link>
-        <div className="flex pr-10">
+        <div className="flex sm:pr-10">
           <Link href="/create" className="text-sm font-medium mr-4 px-4 p-1 border border-gray-300 rounded-2xl hover:bg-black hover:text-white">Create</Link>
           <TopNavigationUser user={user as User} />
         </div>
       </div>
-
+ 
     </div>
   )
 }
