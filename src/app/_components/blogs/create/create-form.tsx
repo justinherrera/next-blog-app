@@ -78,7 +78,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
   return (
     <div className="flex flex-col items-center">
-      <form action={formAction} className="w-[51rem]">
+      <form action={formAction} className="w-[30rem] sm:w-[51rem]">
         <div className="mt-2">
 
           <input
@@ -110,7 +110,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
           <p className="font-bold mt-4">Choose a category:</p>
             <div 
-              className="border p-2 px-4 rounded-lg border-gray-300 my-2 w-[50%] flex justify-between cursor-pointer shadow-lg"
+              className="border p-2 px-4 rounded-lg border-gray-300 my-2 w-full sm:w-[50%] flex justify-between cursor-pointer shadow-lg"
               onClick={() => setIsOpen(!isOpen)}
             >
               <p>{(!selectedCategory) ? "-- Please choose a category --" : selectedCategory}</p>
@@ -140,7 +140,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
           </div>
 
         <div className="flex flex-col w-full mt-4 bg-grey-lighter">
-          <label className="w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400">
+          <label className="sm:w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400 w-full">
               <Upload />
               <span className="mt-2 text-base leading-normal">{(!image) ? "Add cover image" : image}</span>
               <input 
