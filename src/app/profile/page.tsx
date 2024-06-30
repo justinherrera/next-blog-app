@@ -2,6 +2,7 @@ import Link from "next/link"
 import { auth } from "../../../auth"
 import NotAuthorized from "../_components/auth/not-authorized"
 import Image from "next/image"
+import { Post } from "../lib/definitions"
 
 
 export default async function Profile() {
