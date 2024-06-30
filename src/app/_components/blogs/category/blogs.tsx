@@ -7,7 +7,7 @@ import Link from "next/link"
 export default async function Blogs({ posts, category }: { posts: Post[], category: string }) {
   
   return <div className="bg-white py-24 sm:py-32">
-    <div className="mx-auto max-w-7xl px-6 lg:px-8">
+    <div className="mx-auto max-w-7xl pl-4 pr-6 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-2xl text-center">
         <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{category}</h2>
         <p className="mt-2 text-lg leading-8 text-gray-600">
