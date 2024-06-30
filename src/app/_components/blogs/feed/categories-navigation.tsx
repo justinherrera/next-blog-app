@@ -20,8 +20,8 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
   };
 
   return(
-    <div className="container p-6 relative">
-      <ul className="flex space-x-4 p-4 pl-0 scroll-smooth overflow-x-hidden " ref={scrollRef}>
+    <div className="container py-2 sm:p-6 relative">
+      <ul className="flex space-x-2 sm:space-x-4 p-4 pl-0 scroll-smooth overflow-x-hidden " ref={scrollRef}>
         {
           (isStartReached === false) ?
             <StepBack 

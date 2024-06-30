@@ -15,7 +15,7 @@ export default function FeedLayout({
     <div className="w-screen">
 
       <div className="w-full flex justify-between">
-        <div className="flex flex-col w-[75%]">
+        <div className="flex flex-col w-full sm:w-[75%]">
           {children}
         </div>
         

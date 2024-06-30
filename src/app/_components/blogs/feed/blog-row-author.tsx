@@ -2,7 +2,7 @@ import Image from "next/image"
 
 export default function BlogRowAuthor({ user }: { user: string | null }) {
   return (
-    <div className="flex border-t border-gray-300 h-[23%] pt-2">
+    <div className="flex border-t border-gray-300 h-[23%] pt-2 mt-2">
       <div className="relative flex items-center gap-x-4">
         <Image 
           src="https://lh3.googleusercontent.com/a/ACg8ocIMoIzHlWgkUOENV4-tWWeZYkSvfu0VeWrupPuYKO3NlSwXBnI7Tg=s96-c"

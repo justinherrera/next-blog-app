@@ -13,7 +13,7 @@ import LoadingBlogRow from "../skeletons/loading-feed"
 export default async function BlogRow({ posts }: { posts: Post[] }) {
 
   return (
-    <div className="space-y-18 lg:space-y-16">
+    <div className="flex-col space-y-12 sm:space-y-18 lg:space-y-16">
       {posts.map((post: Post) => (
         <article key={post.id} className="relative isolate flex flex-col gap-8 lg:flex-row">
 
