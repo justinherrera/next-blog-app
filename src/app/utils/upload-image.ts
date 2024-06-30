@@ -1,5 +1,5 @@
 // Step 1: Import the S3Client object and all necessary SDK commands.
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { PutObjectCommand, S3Client, ObjectCannedACL } from '@aws-sdk/client-s3';
 import { Content } from 'next/font/google';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -21,15 +21,15 @@ export const uploadImage = async (file: File, data: ArrayBuffer, userId: string)
   const command = {
     Bucket: "blog-app-space", 
     Key: `${userId}-${uuid}-${file.name}`,
-    Body: data, 
-    ACL: "public-read",
+    Body: Buffer.from(data), 
+    ACL: ObjectCannedACL.public_read,
     ContentType: file.type,
     ContentEncoding: "base64",
     Metadata: { 
       "x-amz-acl": "public-read",
-      "Content-type": file.type
+      // "Content-type": file.type
     },
-    "Content-Type": file.type
+    // "Content-Type": file.type
   };
   
   const uploadObject = async () => {
