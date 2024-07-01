@@ -8,7 +8,7 @@ export default function NotAuthorized() {
         <p className="mt-4 text-gray-600">You are not authorized to view this page. Please log in to continue.</p>
         <Link
           href="/login"
-          className="mt-6 inline-block px-4 py-2 text-white bg-blue-600 rounded hover:bg-blue-700"
+          className="mt-6 inline-block px-4 py-2 text-white bg-black rounded hover:bg-gray-700"
         >
           Go to Login
         </Link>
