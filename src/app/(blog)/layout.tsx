@@ -9,6 +9,7 @@ export default async function FeedLayout({
   children: React.ReactNode
 }) {
   const session = await auth()
+  console.log(session?.user)
   if (!session) return <NotAuthorized />
 
   return (

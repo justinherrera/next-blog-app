@@ -5,7 +5,7 @@ export default function GoogleButton() {
     <div className="mt-6 grid gap-4">
       <form action={async () => {
           "use server"
-          await signIn("google", { redirectTo: "/feed"})
+          await signIn("google", { prompt: "select_account", redirectTo: "/feed"})
           }}>
       <button
         type="submit"

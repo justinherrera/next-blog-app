@@ -1,7 +1,7 @@
 
 import NextAuth from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
-import Google from "next-auth/providers/google"
+import GoogleProvider from "next-auth/providers/google"
 import Credentials from "next-auth/providers/credentials"
 import encryptPassword from "./src/app/utils/encrypt-password"
 import verifyUser from "./src/app/utils/verify-user"
@@ -16,7 +16,15 @@ type Credentials = {
 export const { handlers, signIn, signOut, auth } = NextAuth({
   adapter: PrismaAdapter(prisma),
   providers: [
-    Google,
+    GoogleProvider({
+      clientId: process.env.AUTH_GOOGLE_ID,
+      clientSecret: process.env.AUTH_GOOGLE_SECRET,
+      authorization: {
+        params: {
+          prompt: "select_account",
+        },
+      }
+    }),
     Credentials({
       credentials: {
         email: {},
