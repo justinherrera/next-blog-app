@@ -78,7 +78,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
   return (
     <div className="flex flex-col items-center">
-      <form action={formAction} className="w-[30rem] sm:w-[51rem]">
+      <form action={formAction} className="w-[25rem] sm:w-[51rem]">
         <div className="mt-2">
 
           <input
@@ -94,7 +94,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
         <div className="">
           <div className="flex flex-col ">
-            <div className="mt-2 flex space-x-8 border border-gray-300 px-4 rounded rounded-b-none">
+            <div className="mt-2 flex sm:space-x-8 border border-gray-300 px-4 rounded rounded-b-none flex-wrap">
               <BlogCreateToolbar editor={editor}/>
             </div>
           </div>
