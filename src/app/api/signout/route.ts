@@ -4,7 +4,8 @@ import { redirect } from 'next/navigation'
 
 export async function POST(request: Request) {
   // await signOut({ redirectTo: "/login", redirect: true });
-  await signOut();
+  console.log("called")
+  await signOut({ redirect: false, redirectTo: "/login" });
   Response.json({ message: "Signed out" });
 
  

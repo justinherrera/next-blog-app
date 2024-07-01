@@ -4,16 +4,11 @@ import Image from "next/image"
 import { signOut } from "../../../../../auth"
 import { useState } from "react"
 import SignOutButton from "../../auth/sign-out-button"
-
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Link from "next/link"
 import { User } from "@/app/lib/definitions"
+import NotAuthorized from "../../auth/not-authorized"
 
-const queryClient = new QueryClient()
 
 
 
@@ -36,10 +31,7 @@ export default function TopNavigationUser({ user }: { user: User }) {
           <Link href="/profile" className="py-2 px-2 cursor-pointer hover:bg-gray-300 w-full block">
             Profile
           </Link>
-          <QueryClientProvider client={queryClient}>
-            <SignOutButton />
-            <ReactQueryDevtools />
-          </QueryClientProvider>
+          <SignOutButton />
           {/* <SignOutButton /> */}
         </div>
       ) : ""
