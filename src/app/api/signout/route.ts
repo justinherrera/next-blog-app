@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   // await signOut({ redirectTo: "/login", redirect: true });
   console.log("called")
   await signOut({ redirect: false, redirectTo: "/login" });
-  Response.json({ message: "Signed out" });
+  return Response.json({ message: "Signed out" });
 
  
 
