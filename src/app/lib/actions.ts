@@ -51,6 +51,9 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     const user = await isAuth()
 
+    console.log("--------->")
+    console.log(user)
+
     const { title, content, category, image } = Object.fromEntries(formData)
 
     const body = { title, content, category, image } as ValidationFields
@@ -71,7 +74,7 @@ export async function createPost(currentState: FormState, formData: FormData): P
         imageUrl: imageUrl as string,
         slug: `${body.title}-1`,
         published: true,
-        userId: "clxg3yzqu0000pk4ws4b0ni1a"
+        userId: user?.id as string
       },
     }).then(post => slug = post.slug)
 
