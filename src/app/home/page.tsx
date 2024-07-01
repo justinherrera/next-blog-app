@@ -1,4 +1,3 @@
-import SignOut from "../../app/_components/sign-out"
 import { auth } from "../../../auth"
 import { redirect } from "next/navigation"
 
@@ -12,7 +11,6 @@ export default async function Home() {
   return (
     <div>
       Welcome back, {session?.user?.name}
-      <SignOut />
     </div>
   );
 }
