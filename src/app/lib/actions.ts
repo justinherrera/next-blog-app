@@ -51,9 +51,6 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     const user = await isAuth()
 
-    console.log("--------->")
-    console.log(user)
-
     const { title, content, category, image } = Object.fromEntries(formData)
 
     const body = { title, content, category, image } as ValidationFields
@@ -65,14 +62,15 @@ export async function createPost(currentState: FormState, formData: FormData): P
     const data = await body.image.arrayBuffer()
 
     const imageUrl = await uploadImage(body.image, data, user?.id as string)
+    console.log(parseInt(body.category))
 
     const post = await prisma.post.create({
       data: {
         title: body.title,
         content: body.content,
-        categoryId: 1,
+        categoryId: parseInt(body.category),
         imageUrl: imageUrl as string,
-        slug: `${body.title}-1`,
+        slug: `${body.title}-${user?.id}`,
         published: true,
         userId: user?.id as string
       },
@@ -84,8 +82,8 @@ export async function createPost(currentState: FormState, formData: FormData): P
   } catch (e: any) {
     console.log(e)
     return {
-      message: e.message,
-      errors: undefined
+      message: "Failed to create post",
+      errors: e.message
     }
   }
 

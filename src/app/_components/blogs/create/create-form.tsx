@@ -37,10 +37,14 @@ type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
 export default function CreateForm({ categories, createPost }: { categories: Category[], createPost: CreatePost })  {
   const [image, setImage] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<{
+    id: number;
+    name: string;
+  } | null>(null)
   const [editorContent, setEditorContent] = useState("");
 
   const [state, formAction] = useFormState(createPost, initialState);
+  console.log(state)
   
   const editor = useEditor({
     extensions: [
@@ -105,7 +109,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
         <div>
           <select name="category" className="hidden">
-            <option value={selectedCategory || ""}>{selectedCategory}</option>
+            <option value={selectedCategory?.id || ""}>{selectedCategory?.name}</option>
           </select>
 
           <p className="font-bold mt-4">Choose a category:</p>
@@ -113,7 +117,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
               className="border p-2 px-4 rounded-lg border-gray-300 my-2 w-full sm:w-[50%] flex justify-between cursor-pointer shadow-lg"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <p>{(!selectedCategory) ? "-- Please choose a category --" : selectedCategory}</p>
+              <p>{(!selectedCategory?.name) ? "-- Please choose a category --" : selectedCategory?.name}</p>
               <ArrowDownUp className="h-5 w-5 pt-1 text-gray-300" />
             </div>
             <span className="text-sm text-red-500">{state?.errors?.category}</span>
@@ -124,10 +128,13 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
                     categories.map((category: Category) => (
                       <div 
                         key={category.id} 
-                        className={`w-full border-gray-300 cursor-pointer ${(selectedCategory === category.name) ? "bg-black text-white" : "hover:bg-gray-300"} `}
+                        className={`w-full border-gray-300 cursor-pointer ${(selectedCategory?.name === category.name) ? "bg-black text-white" : "hover:bg-gray-300"} `}
                         onClick={() => {
                           setIsOpen(false)
-                          setSelectedCategory(category.name)
+                          setSelectedCategory({
+                            id: category.id,
+                            name: category.name
+                          })
                         }}
                       >
                         <p className="p-2 ">{category.name}</p>

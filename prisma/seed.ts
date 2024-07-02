@@ -85,10 +85,10 @@ async function main() {
     skipDuplicates: true,
   })
 
-  const createPosts = await prisma.post.createMany({
-    data: posts,
-    skipDuplicates: true,
-  })
+  // const createPosts = await prisma.post.createMany({
+  //   data: posts,
+  //   skipDuplicates: true,
+  // })
 }
 main()
   .then(async () => {
