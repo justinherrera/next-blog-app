@@ -81,9 +81,9 @@ export async function createPost(currentState: FormState, formData: FormData): P
     
     
   } catch (e: any) {
-    console.log(e)
+    console.log(e.message)
     return {
-      message: "Failed to create post",
+      message: "Server Error",
       errors: e.message
     }
   }

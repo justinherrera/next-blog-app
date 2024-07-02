@@ -27,6 +27,8 @@ import { Upload } from "lucide-react"
 
 import { useFormState } from "react-dom";
 
+import { Toaster, toast } from 'sonner'
+
 const initialState: FormState = {
   message: "",
   errors: undefined,
@@ -81,6 +83,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
   return (
     <div className="flex flex-col items-center">
+      <Toaster position="top-right" richColors  />
       <form action={formAction} className="w-[25rem] sm:w-[51rem]">
         <div className="mt-2">
 
@@ -165,7 +168,11 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
           <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
         </div>
 
-        <button type="submit" className="mt-4 bg-black text-white py-1 px-4 rounded-2xl">Publish</button>
+        <button type="submit" className="mt-4 bg-black text-white py-1 px-4 rounded-2xl" onClick={() => {
+          if (state.message === "Server Error") {
+            toast.error("Failed to create post")
+          }
+        }}>Publish</button>
       </form>
       
     </div>
