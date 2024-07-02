@@ -9,6 +9,8 @@ import { ValidationFields, FormState, ImageType } from "@/app/lib/definitions"
 import { createPostSchema } from "./validator"
 import { uploadImage } from "../utils/upload-image"
 
+import { slugify } from "../utils/slugify"
+
 const isAuth = async () => {
   const session = await auth()
   if (!session) throw new Error('You must be signed in to perform this action')
@@ -62,7 +64,6 @@ export async function createPost(currentState: FormState, formData: FormData): P
     const data = await body.image.arrayBuffer()
 
     const imageUrl = await uploadImage(body.image, data, user?.id as string)
-    console.log(parseInt(body.category))
 
     const post = await prisma.post.create({
       data: {
@@ -70,7 +71,7 @@ export async function createPost(currentState: FormState, formData: FormData): P
         content: body.content,
         categoryId: parseInt(body.category),
         imageUrl: imageUrl as string,
-        slug: `${body.title}-${user?.id}`,
+        slug: slugify(`${body.title} ${user?.id}`),
         published: true,
         userId: user?.id as string
       },

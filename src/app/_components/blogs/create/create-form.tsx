@@ -44,7 +44,6 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   const [editorContent, setEditorContent] = useState("");
 
   const [state, formAction] = useFormState(createPost, initialState);
-  console.log(state)
   
   const editor = useEditor({
     extensions: [
