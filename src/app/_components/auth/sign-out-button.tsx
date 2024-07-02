@@ -9,11 +9,13 @@ export default function SignOutButton() {
   const router = useRouter()
 
   const handleSignOut = async () =>  {
-    await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/signout`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/signout`, {
       method: "POST",
     });
 
-    router.push('/login')
+    console.log(res)
+
+    // router.push('/login')
   }
 
 

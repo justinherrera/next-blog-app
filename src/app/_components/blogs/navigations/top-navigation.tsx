@@ -9,7 +9,7 @@ import { User } from "@/app/lib/definitions"
 
 
 
-export default async function BlogNavigation() {
+export default async function TopNavigation() {
 
   const session = await auth()
   const user = session?.user
