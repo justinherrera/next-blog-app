@@ -29,7 +29,7 @@ export default function SignOutButton() {
       className="py-2 px-2 cursor-pointer hover:bg-gray-300 block w-full text-left"
       onClick={handleSignOut}
     >
-      {isSigningOut ? "Sign Out..." : "Sign Out"}
+      {isSigningOut ? "Signing Out..." : "Sign Out"}
     </button>
   )
 }
