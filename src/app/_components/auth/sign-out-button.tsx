@@ -18,11 +18,11 @@ export default function SignOutButton() {
 
 
   return (
-    <p 
-      className="py-2 px-2 cursor-pointer hover:bg-gray-300"
+    <button 
+      className="py-2 px-2 cursor-pointer hover:bg-gray-300 block w-full text-left"
       onClick={handleSignOut}
     >
       Sign Out
-    </p>
+    </button>
   )
 }
