@@ -6,8 +6,6 @@ export async function GET(request: Request) {
   const userId = searchParams.get('userId') as string
   const category = searchParams.get('category') as string
 
-  console.log(`searchParams ${searchParams}`)
-
   if (!slug && !userId && !category) {
     const posts = await prisma.post.findMany({
       orderBy: [

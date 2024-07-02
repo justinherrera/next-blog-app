@@ -94,7 +94,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
         <div className="">
           <div className="flex flex-col ">
-            <div className="mt-2 flex sm:space-x-8 border border-gray-300 px-4 rounded rounded-b-none flex-wrap">
+            <div className="mt-2 flex sm:space-x-8 border border-gray-300 px-4 rounded rounded-b-none flex-wrap sm:flex-nowrap">
               <BlogCreateToolbar editor={editor}/>
             </div>
           </div>
