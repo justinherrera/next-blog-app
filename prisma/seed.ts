@@ -75,16 +75,20 @@ async function main() {
 
   await prisma.post.deleteMany({})
   await prisma.category.deleteMany({})
+  await prisma.user.deleteMany({})
+  await prisma.account.deleteMany({})
+  await prisma.session.deleteMany({})
+  await prisma.authenticator.deleteMany({})
 
-  // const createCategories = await prisma.category.createMany({
-  //   data: categories,
-  //   skipDuplicates: true,
-  // })
+  const createCategories = await prisma.category.createMany({
+    data: categories,
+    skipDuplicates: true,
+  })
 
-  // const createPosts = await prisma.post.createMany({
-  //   data: posts,
-  //   skipDuplicates: true,
-  // })
+  const createPosts = await prisma.post.createMany({
+    data: posts,
+    skipDuplicates: true,
+  })
 }
 main()
   .then(async () => {
