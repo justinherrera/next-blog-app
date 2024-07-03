@@ -30,7 +30,7 @@ const validateFields = ({ title, content, category, image }: ValidationFields): 
   const isValidationFailed = !validatedFields.success
 
   if (isValidationFailed) return {
-    message: "error",
+    message: "validation-error",
     errors: {
       title: validatedFields.error.flatten().fieldErrors.title?.[0] as string,
       content: validatedFields.error.flatten().fieldErrors.content?.[0] as string,
@@ -59,7 +59,7 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     const currentState = validateFields(body)
 
-    if (currentState?.message === "error") return currentState
+    if (currentState?.message === "validation-error") return currentState
 
     const data = await body.image.arrayBuffer()
 
