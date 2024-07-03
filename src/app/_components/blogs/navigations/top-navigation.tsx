@@ -21,7 +21,7 @@ export default async function TopNavigation() {
         <Link href="/feed" className="font-bold py-1 ">
           Home
         </Link>
-        <div className="flex sm:pr-10">
+        <div className="flex sm:pr-10 md:pr-0">
           <Link href="/create" className="text-sm font-medium mr-4 px-4 p-1 border border-gray-300 rounded-2xl hover:bg-black hover:text-white">Create</Link>
           <TopNavigationUser user={user as User} />
         </div>
