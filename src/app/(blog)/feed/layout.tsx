@@ -14,7 +14,7 @@ export default async function FeedLayout({
   const response = await fetch(`${process.env.BASE_URL}/api/blogs`, { cache: 'no-store' })
   const { posts } = await response.json()
 
-  if (posts.length === 0) return <NoPostsFound />
+  if (posts.length === 0) return <NoPostsFound message="There are no blog posts at the moment. Stay tuned for upcoming posts and updates!" />
 
   return (
     <div className="w-screen">

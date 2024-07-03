@@ -17,7 +17,7 @@ export default async function Profile() {
   const response = await fetch(`${process.env.BASE_URL}/api/blogs?userId=${user?.id}`, { cache: 'no-store' })
   const { posts } = await response.json()
 
-  if (posts.length === 0) return <NoPostsFound />
+  if (posts.length === 0) return <NoPostsFound message="It looks like you haven't made any posts yet." />
 
   return (
     <div className="bg-white py-24 sm:py-32">

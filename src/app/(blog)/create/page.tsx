@@ -23,7 +23,7 @@ export default async function Create() {
   return (
   <div className="mt-24 w-full  flex items-center justify-center">
     <div>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<p className="font-bold text-2xl">Loading...</p>}>
         <CreateForm categories={categories} createPost={createPost} />
       </Suspense>
     </div>
