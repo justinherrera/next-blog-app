@@ -95,7 +95,7 @@ export default function BlogCreateToolbar({ editor }: Props) {
 
       <button 
         onClick={() => editor.chain().focus().toggleBulletList().run()}
-        className={editor.isActive('bulletList') ? "bg-gray-300 p-2 rounded" : "p-2 mr-2 sm:mr-0 lg:ml-0"}
+        className={editor.isActive('bulletList') ? "bg-gray-300 p-2 rounded" : "p-2 mr-2 sm:mr-0"}
       >
         <List className="w-5 h-5" />
       </button>

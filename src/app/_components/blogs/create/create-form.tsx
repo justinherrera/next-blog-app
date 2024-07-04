@@ -85,7 +85,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   return (
     <div className="flex flex-col items-center">
       <Toaster position="top-right" richColors  />
-      <form action={formAction} className="w-[25rem] sm:w-[51rem] md:w-[44rem]">
+      <form action={formAction} className="w-[25rem] sm:w-[51rem] md:w-[44rem] lg:w-[52rem]">
         <div className="mt-2">
 
           <input
