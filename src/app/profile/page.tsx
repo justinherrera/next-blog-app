@@ -30,7 +30,7 @@ export default async function Profile() {
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {posts.map((post: Post) => (
-            <article key={post.id} className="flex flex-col items-start justify-between md:text-wrap md:break-words">
+            <article key={post.id} className="flex flex-col items-start md:text-wrap md:break-words">
               <div className="relative w-full">
                 <Image
                   src={post.imageUrl}
@@ -40,10 +40,8 @@ export default async function Profile() {
                   className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
                 />
               </div>
-              <div className="max-w-xl">
-                <div className="mt-4 flex items-center text-xs">
-                </div>
-                <div className="">
+              <div className="w-full">
+                <div className="mt-4 text-wrap break-words">
                   {/* <span className="">{post.title}</span> */}
                   <Link className="text-lg font-semibold" href={`/${post.slug}`}>{post.title}</Link>
                 </div>
