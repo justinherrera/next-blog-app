@@ -19,7 +19,7 @@ export const createPostSchema = object({
   .refine(val => val.length > 10, { message: "Your title must be more than 10 characters" }),
   content: string()
   .refine(val => val !== "", { message: "A content is required" })
-  .refine(val => val.length > 10, { message: "Your content must be more than 10 characters" }),
+  .refine(val => val.length > 200, { message: "Your content must be more than 200 characters" }),
   category: string()
   .refine(val => val !== "", { message: "Please select a category" }),
   image: object({
