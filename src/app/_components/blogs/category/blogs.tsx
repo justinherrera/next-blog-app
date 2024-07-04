@@ -26,8 +26,8 @@ export default async function Blogs({ posts, category }: { posts: Post[], catego
                 className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
               />
             </div>
-            <div className="w-[24rem] md:w-[42rem] text-pretty break-words">
-              <div className="w-full mt-4">
+            <div className="w-[24rem] md:w-[42rem] lg:w-full">
+              <div className="w-full mt-4 text-pretty break-words">
                 <Link className="text-lg font-semibold" href={`/${post.slug}`}>{post.title}</Link>
                 <p className="mt-5 text-sm leading-6 text-gray-600">{post.content.substring(0, 200).replace(/<[^>]+>/g, '')}...</p>
               </div>
