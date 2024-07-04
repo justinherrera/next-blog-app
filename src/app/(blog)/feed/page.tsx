@@ -15,7 +15,9 @@ import LoadingFeed from '@/app/_components/blogs/skeletons/loading-feed'
 import Blogs from '@/app/_components/blogs/feed/blogs'
 
 
+
 export default function Feed() {
+
 
   return (
     <div className=" py-4 sm:py-12 flex items-center justify-center">
@@ -32,6 +34,7 @@ export default function Feed() {
               <Blogs />
             </Suspense>
           </Suspense>
+
         </div>
       </div>
     </div>
