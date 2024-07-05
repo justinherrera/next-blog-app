@@ -93,3 +93,10 @@ export async function createPost(currentState: FormState, formData: FormData): P
   redirect(`/${slug}`)
   
 }
+
+export async function getPosts(offset: number, limit: number) {
+  console.log("--- params ---")
+  console.log(offset, limit)
+  const response = await fetch(`${process.env.BASE_URL}/api/blogs?offset=${offset}&limit=${limit}`, { cache: 'no-store' })
+  return response.json()
+}

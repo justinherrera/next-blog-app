@@ -12,12 +12,70 @@ import { useQuery } from '@tanstack/react-query'
 import { Post, PostData } from "@/app/lib/definitions"
 import LoadingBlogRow from "../skeletons/loading-feed"
 import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react"
 
-export default function BlogRow({ posts }: { posts: Post[] }) {
+
+export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset: number, limit: number) => Promise<PostData>, initialPosts: PostData }) {
   const { ref, inView, entry } = useInView({
     /* Optional options */
     threshold: 0,
   });
+  const [posts, setPosts] = useState<Post[]>(initialPosts)
+  const [offset, setOffset] = useState(2)
+  const [hasMorePosts, setHasMorePosts] = useState(true)
+
+  // async function getPosts() {
+  //   const response = await fetch(`${process.env.BASE_URL}/api/blogs?offset=${offset}&limit=${limit}`, { cache: 'no-store' })
+  //   const { posts } = await response.json()
+  //   setPosts(posts)
+  // }
+
+  // useEffect(() => {
+  //   async function getPosts() {
+  //     const response = await fetch(`${process.env.BASE_URL}/api/blogs?offset=${offset}&limit=${limit}`, { cache: 'no-store' })
+  //     const { posts } = await response.json()
+  //     setPosts(posts)
+  //   }
+  //   getPosts()
+  // })
+
+  const loadMorePosts = async () => {
+    if (hasMorePosts) {
+      const POSTS_PER_PAGE = 2
+      console.log("--- before params ---")
+      console.log(offset, POSTS_PER_PAGE)
+      const response = await getPosts(offset, POSTS_PER_PAGE)
+
+
+      if (response.posts && response.posts.length === 0) {
+        setHasMorePosts(false)
+      }
+      
+
+
+      console.log("--- after params ---")
+      console.log(offset, POSTS_PER_PAGE)
+      console.log("--- response ---")
+      console.log(response.posts)
+      console.log("--- posts ---")
+      console.log(posts)
+      
+      // if (response.posts.length > 0) {
+      //   setHasMorePosts(false)
+      // }
+
+      setPosts((prevPosts) => [...prevPosts, ...response.posts])
+      setOffset((prevOffset) => prevOffset + POSTS_PER_PAGE)
+    }
+  }
+
+  useEffect(() => {
+    if (inView) {
+      console.log("in view")
+      loadMorePosts()
+    }
+    // console.log("asdadsa")
+  }, [inView])
 
   return (
     <div className="flex-col space-y-12 sm:space-y-18 lg:space-y-16">
@@ -35,8 +93,20 @@ export default function BlogRow({ posts }: { posts: Post[] }) {
           </div>
         </article>
       ))}
-      <div className=" bg-blue-400" ref={ref}>
-        <h2>{`Header inside viewport ${inView}.`}</h2>
+      {/* <div className="h-screen bg-gray-400">
+        A
+      </div>
+      <div className="h-screen bg-red-400">
+        B
+      </div>
+      <div className="h-screen bg-green-400">
+        C
+      </div> */}
+
+      <div className="" ref={ref}>
+        {
+          inView && hasMorePosts ? <p className="font-bold">Loading more posts...</p> : ""
+        }
       </div>
     </div>
   )

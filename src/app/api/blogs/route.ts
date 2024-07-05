@@ -6,8 +6,32 @@ export async function GET(request: Request) {
   const userId = searchParams.get('userId') as string
   const category = searchParams.get('category') as string
 
-  if (!slug && !userId && !category) {
+  const offset = searchParams.get('offset') as string
+  const limit = searchParams.get('limit') as string
+
+  console.log("---->")
+  console.log(searchParams)
+
+  if (!slug && !userId && !category && !offset && !limit) {
     const posts = await prisma.post.findMany({
+      orderBy: [
+        {
+          createdAt: 'desc',
+        },
+      ],
+      include: {
+        category: true,
+        user: true
+      }
+    })
+    await prisma.$disconnect()
+    return Response.json({ posts })
+  }
+
+  if (offset && limit) {
+    const posts = await prisma.post.findMany({
+      skip: parseInt(offset),
+      take: parseInt(limit),
       orderBy: [
         {
           createdAt: 'desc',
