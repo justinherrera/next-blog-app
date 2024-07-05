@@ -95,8 +95,11 @@ export async function createPost(currentState: FormState, formData: FormData): P
 }
 
 export async function getPosts(offset: number, limit: number) {
-  console.log("--- params ---")
-  console.log(offset, limit)
   const response = await fetch(`${process.env.BASE_URL}/api/blogs?offset=${offset}&limit=${limit}`, { cache: 'no-store' })
+  return response.json()
+}
+
+export async function getProfilePosts(userId: string | undefined, offset: number, limit: number) {
+  const response = await fetch(`${process.env.BASE_URL}/api/blogs?userId=${userId}&offset=${offset}&limit=${limit}`, { cache: 'no-store' })
   return response.json()
 }

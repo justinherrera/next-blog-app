@@ -1,12 +1,13 @@
-import Link from "next/link"
+
 import { auth } from "../../../auth"
 import NotAuthorized from "../_components/auth/not-authorized"
-import Image from "next/image"
-import { Post } from "../lib/definitions"
 import NoPostsFound from "../_components/blogs/no-posts-found"
+import Profile from "@/app/_components/blogs/profile/profile"
+
+import { getProfilePosts } from "@/app/lib/actions"
 
 
-export default async function Profile() {
+export default async function Page() {
 
   const session = await auth()
 
@@ -14,8 +15,10 @@ export default async function Profile() {
   const { user } = session
   
 
-  const response = await fetch(`${process.env.BASE_URL}/api/blogs?userId=${user?.id}`, { cache: 'no-store' })
-  const { posts } = await response.json()
+  // const response = await fetch(`${process.env.BASE_URL}/api/blogs?userId=${user?.id}`, { cache: 'no-store' })
+  // const { posts } = await response.json()
+
+  const { posts } = await getProfilePosts(user?.id, 0, 6)
 
   if (posts.length === 0) return <NoPostsFound message="It looks like you haven't made any posts yet." />
 
@@ -28,27 +31,10 @@ export default async function Profile() {
             Check out your recent posts.
           </p>
         </div>
-        <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
-          {posts.map((post: Post) => (
-            <article key={post.id} className="flex flex-col items-start md:text-wrap md:break-words">
-              <div className="relative w-full">
-                <Image
-                  src={post.imageUrl}
-                  height={500}
-                  width={500}
-                  alt=""
-                  className="aspect-[16/9] w-full rounded-2xl bg-gray-100 object-cover sm:aspect-[2/1] lg:aspect-[3/2]"
-                />
-              </div>
-              <div className="w-full">
-                <div className="mt-4 text-wrap break-words">
-                  {/* <span className="">{post.title}</span> */}
-                  <Link className="text-lg font-semibold" href={`/${post.slug}`}>{post.title}</Link>
-                </div>
-              </div>
-            </article>
-          ))}
-        </div>
+        <Profile getProfilePosts={async (offset) => {
+        "use server"
+        return await getProfilePosts(user?.id, offset, 3)
+      }} initialPosts={posts} userId={user?.id} />
       </div>
     </div>
   )
