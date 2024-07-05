@@ -1,19 +1,45 @@
-import { Post } from "@/app/lib/definitions"
+"use client"
+
+import { Post, PostData } from "@/app/lib/definitions"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
 import Link from "next/link"
 
+import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react"
 
-export default async function Blogs({ posts, category }: { posts: Post[], category: string }) {
+
+export default function Blogs({ category, getCategoryPosts, initialPosts }: { category: string, getCategoryPosts: (offset: number, category: string, limit: number) => Promise<PostData>, initialPosts: Post[] }) {
+  const { ref, inView, entry } = useInView({
+    threshold: 0,
+  })
+
+  const [posts, setPosts] = useState<Post[]>(initialPosts)
+  const [offset, setOffset] = useState(6)
+  const [hasMorePosts, setHasMorePosts] = useState(initialPosts.length < 6 ? false : true)
+
+  const loadMorePosts = async () => {
+    if (hasMorePosts) {
+      const POSTS_PER_PAGE = 3
+      const response = await getCategoryPosts(offset, category, POSTS_PER_PAGE)
+
+      if (response.posts && response.posts.length === 0) {
+        setHasMorePosts(false)
+      }
+
+      setPosts((prevPosts) => [...prevPosts, ...response.posts || []])
+      setOffset((prevOffset) => prevOffset + POSTS_PER_PAGE)
+    }
+  }
+
+  useEffect(() => {
+    if (inView && hasMorePosts) {
+      loadMorePosts()
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView])
   
-  return <div className="bg-white py-24 sm:py-32">
-    <div className="mx-auto max-w-7xl pl-4 pr-6 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-2xl text-center">
-        <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{category}</h2>
-        <p className="mt-2 text-lg leading-8 text-gray-600">
-          Check out posts related to {category}.
-        </p>
-      </div>
+  return (
+    <div>
       <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
         {posts.map((post: Post) => (
           <article key={post.id} className="flex flex-col items-start justify-between">
@@ -35,6 +61,14 @@ export default async function Blogs({ posts, category }: { posts: Post[], catego
           </article>
         ))}
       </div>
+      <div className="w-full flex items-center justify-center mt-12" ref={ref}>
+      {
+        hasMorePosts ? <p className="font-bold">Loading more posts...</p> : ""
+      }
     </div>
-  </div>
+    </div>
+
+  )
+
+
 }

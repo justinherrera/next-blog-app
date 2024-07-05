@@ -103,3 +103,8 @@ export async function getProfilePosts(userId: string | undefined, offset: number
   const response = await fetch(`${process.env.BASE_URL}/api/blogs?userId=${userId}&offset=${offset}&limit=${limit}`, { cache: 'no-store' })
   return response.json()
 }
+
+export async function getCategoryPosts(category: string | undefined, offset: number, limit: number) {
+  const response = await fetch(`${process.env.BASE_URL}/api/blogs?category=${category}&offset=${offset}&limit=${limit}`, { cache: 'no-store' })
+  return response.json()
+}

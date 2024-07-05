@@ -21,9 +21,6 @@ export default function Profile({ userId, getProfilePosts, initialPosts }: { use
       const POSTS_PER_PAGE = 3
       const response = await getProfilePosts(offset, POSTS_PER_PAGE)
 
-      console.log("0000000000000")
-      console.log(response.posts)
-
       if (response.posts && response.posts.length === 0) {
         setHasMorePosts(false)
       }

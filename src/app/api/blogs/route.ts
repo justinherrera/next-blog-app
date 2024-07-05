@@ -71,8 +71,10 @@ export async function GET(request: Request) {
     return Response.json({ posts })
   }
 
-  if (category) {
+  if (category && offset && limit) {
     const posts = await prisma.post.findMany({
+      skip: parseInt(offset),
+      take: parseInt(limit),
       orderBy: [
         {
           createdAt: 'desc',
