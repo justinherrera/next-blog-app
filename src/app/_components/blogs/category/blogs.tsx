@@ -29,7 +29,7 @@ export default async function Blogs({ posts, category }: { posts: Post[], catego
             <div className="w-[24rem] md:w-[42rem] lg:w-full">
               <div className="w-full mt-4 text-pretty break-words">
                 <Link className="text-lg font-semibold" href={`/${post.slug}`}>{post.title}</Link>
-                <p className="mt-5 text-sm leading-6 text-gray-600">{post.content.substring(0, 200).replace(/<[^>]+>/g, '')}...</p>
+                {/* <p className="mt-5 text-sm leading-6 text-gray-600">{post.content.substring(0, 200).replace(/<[^>]+>/g, '')}...</p> */}
               </div>
             </div>
           </article>
