@@ -14,7 +14,7 @@ export default function Profile({ userId, getProfilePosts, initialPosts }: { use
 
   const [posts, setPosts] = useState<Post[]>(initialPosts)
   const [offset, setOffset] = useState(6)
-  const [hasMorePosts, setHasMorePosts] = useState(true)
+  const [hasMorePosts, setHasMorePosts] = useState(initialPosts.length < 6 ? false : true)
 
   const loadMorePosts = async () => {
     if (hasMorePosts) {
