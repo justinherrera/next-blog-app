@@ -12,8 +12,6 @@ export default async function Blogs() {
       {/* <BlogRow posts={posts} /> */}
       <BlogRow getPosts={async (offset) => {
         "use server"
-        console.log(">>>>>>>>>>>>>")
-        console.log(offset)
         return await getPosts(offset, 2)
       }} initialPosts={posts} />
     </>

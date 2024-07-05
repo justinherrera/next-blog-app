@@ -15,66 +15,33 @@ import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react"
 
 
-export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset: number, limit: number) => Promise<PostData>, initialPosts: PostData }) {
+export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset: number, limit: number) => Promise<PostData>, initialPosts: Post[] }) {
   const { ref, inView, entry } = useInView({
-    /* Optional options */
     threshold: 0,
   });
   const [posts, setPosts] = useState<Post[]>(initialPosts)
   const [offset, setOffset] = useState(2)
   const [hasMorePosts, setHasMorePosts] = useState(true)
 
-  // async function getPosts() {
-  //   const response = await fetch(`${process.env.BASE_URL}/api/blogs?offset=${offset}&limit=${limit}`, { cache: 'no-store' })
-  //   const { posts } = await response.json()
-  //   setPosts(posts)
-  // }
-
-  // useEffect(() => {
-  //   async function getPosts() {
-  //     const response = await fetch(`${process.env.BASE_URL}/api/blogs?offset=${offset}&limit=${limit}`, { cache: 'no-store' })
-  //     const { posts } = await response.json()
-  //     setPosts(posts)
-  //   }
-  //   getPosts()
-  // })
-
   const loadMorePosts = async () => {
     if (hasMorePosts) {
       const POSTS_PER_PAGE = 2
-      console.log("--- before params ---")
-      console.log(offset, POSTS_PER_PAGE)
       const response = await getPosts(offset, POSTS_PER_PAGE)
-
 
       if (response.posts && response.posts.length === 0) {
         setHasMorePosts(false)
       }
-      
 
-
-      console.log("--- after params ---")
-      console.log(offset, POSTS_PER_PAGE)
-      console.log("--- response ---")
-      console.log(response.posts)
-      console.log("--- posts ---")
-      console.log(posts)
-      
-      // if (response.posts.length > 0) {
-      //   setHasMorePosts(false)
-      // }
-
-      setPosts((prevPosts) => [...prevPosts, ...response.posts])
+      setPosts((prevPosts) => [...prevPosts, ...response.posts || []])
       setOffset((prevOffset) => prevOffset + POSTS_PER_PAGE)
     }
   }
 
   useEffect(() => {
-    if (inView) {
-      console.log("in view")
+    if (inView && hasMorePosts) {
       loadMorePosts()
     }
-    // console.log("asdadsa")
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inView])
 
   return (
@@ -105,7 +72,7 @@ export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset:
 
       <div className="" ref={ref}>
         {
-          inView && hasMorePosts ? <p className="font-bold">Loading more posts...</p> : ""
+          hasMorePosts ? <p className="font-bold">Loading more posts...</p> : ""
         }
       </div>
     </div>
