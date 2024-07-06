@@ -4,22 +4,33 @@ import Image from "next/image"
 import { useQuery } from '@tanstack/react-query'
 import { TailSpin } from "react-loader-spinner"
 import { format } from "date-fns"
-import LoadingBlogSection from "./loading-blog-section"
+import LoadingBlogSection from "../loading-blog-section"
 import NotFound from "@/app/not-found"
 // import { Heart } from "lucide-react"
 import Heart from "@/app/_components/blogs/icons/Heart"
 import { Post } from "@/app/lib/definitions"
 import { useState } from "react"
 import parse from 'html-react-parser';
-import LoadingSlug from "./skeletons/loading-slug"
+import LoadingSlug from "../skeletons/loading-slug"
+import { EllipsisVertical, FilePenLine, Trash } from "lucide-react"
+import EditModal from "./edit-modal"
 
 export default function BlogPost({ post }: { post: Post }) {
   const [isLiked, setIsLiked] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
 
   return (
     <div className="bg-white px-6 py-16 lg:py-32 lg:px-8">
       <div className="mx-auto md:w-full lg:max-w-3xl text-base leading-7 text-gray-700 text-wrap break-words">
-        <p className="text-base font-semibold leading-7 text-indigo-600">Introducing ✨</p>
+        <div className="w-full flex justify-between relative">
+          <p className="text-base font-semibold leading-7 text-indigo-600">Introducing ✨</p>
+          <EllipsisVertical className="w-5 h=5 text-black cursor-pointer" onClick={() => setIsEditing(!isEditing)} />
+            {
+              isEditing ? <EditModal /> : ""
+            }
+          
+        </div>
+        
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{post.title}</h1>
         <div className="flex items-center gap-x-6 my-8 border-b pb-4 border-gray-200">
           <div className="flex min-w-0 gap-x-4">

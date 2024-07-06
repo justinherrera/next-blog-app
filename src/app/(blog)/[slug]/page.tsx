@@ -1,5 +1,5 @@
 import prisma from "@/app/utils/prisma-connect"
-import BlogPost from "@/app/_components/blogs/blog-post"
+import SlugPost from "@/app/_components/blogs/slug/slug-post"
 import { Suspense } from "react"
 import LoadingSlug from "@/app/_components/blogs/skeletons/loading-slug"
 import NotFound from "@/app/not-found"
@@ -22,7 +22,7 @@ export default async function Page(
 
   return (
     <Suspense fallback={<LoadingSlug />}>
-      <BlogPost post={post} />
+      <SlugPost post={post} />
     </Suspense>
     
   )
