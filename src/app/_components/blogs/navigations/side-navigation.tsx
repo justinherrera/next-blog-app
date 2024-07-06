@@ -36,7 +36,7 @@ const people = [
 
 export default function SideNavigation() {
   return (
-    <div className="sticky flex flex-col top-0">
+    <div className="sticky flex flex-col top-0 pt-12">
           {/* <p>Authors</p> */}
       <div className="w-full pl-4 mb-4">
         <p className="font-bold">Explore popular authors</p>

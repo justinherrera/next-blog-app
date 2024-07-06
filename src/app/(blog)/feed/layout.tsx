@@ -20,11 +20,11 @@ export default async function FeedLayout({
     <div className="w-screen">
 
       <div className="w-full flex justify-between xl:justify-center">
-        <div className="flex flex-col w-full sm:w-[75%] md:w-full xl:w-[65%]">
+        <div className="flex flex-col w-full sm:w-[75%] md:w-full xl:w-[50%]">
           {children}
         </div>
         
-        <div className="py-12 border-l border-gray-200 hidden lg:block w-[25%]">
+        <div className="pb-12 border-l border-r border-gray-200 hidden lg:block w-[20%]">
           <SideNavigation /> 
         </div>
         
