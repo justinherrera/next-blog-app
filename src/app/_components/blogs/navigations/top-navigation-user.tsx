@@ -6,13 +6,14 @@ import { useState } from "react"
 import SignOutButton from "../../auth/sign-out-button"
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Link from "next/link"
-import { User } from "@/app/lib/definitions"
+import { User as UserType } from "@/app/lib/definitions"
 import NotAuthorized from "../../auth/not-authorized"
+import { User } from "lucide-react"
 
 
 
 
-export default function TopNavigationUser({ user }: { user: User }) {
+export default function TopNavigationUser({ user }: { user: UserType }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -28,8 +29,9 @@ export default function TopNavigationUser({ user }: { user: User }) {
     {
       isOpen ? (
         <div className="border border-gray-300 absolute top-10 right-4 w-44 rounded bg-white ">
-          <Link href="/profile" className="py-2 px-2 cursor-pointer hover:bg-gray-300 w-full block">
-            Profile
+          <Link href="/profile" className="py-2 px-2 cursor-pointer hover:bg-gray-300 w-full text-sm flex items-center">
+            <User className="w-4 h-4" />
+            <span className="ml-2">Profile</span>
           </Link>
           <SignOutButton />
           {/* <SignOutButton /> */}

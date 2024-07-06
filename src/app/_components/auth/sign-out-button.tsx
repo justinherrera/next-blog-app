@@ -4,6 +4,7 @@ import { signOut } from "../../../../auth";
 
 import { redirect } from 'next/navigation'
 import { useRouter } from 'next/navigation'
+import { LogOut } from "lucide-react";
 
 export default function SignOutButton() {
   const router = useRouter()
@@ -26,10 +27,11 @@ export default function SignOutButton() {
 
   return (
     <button 
-      className="py-2 px-2 cursor-pointer hover:bg-gray-300 block w-full text-left"
+      className="py-2 px-2 cursor-pointer hover:bg-gray-300 w-full text-left text-sm flex items-center"
       onClick={handleSignOut}
     >
-      {isSigningOut ? "Signing Out..." : "Sign Out"}
+      <LogOut className="w-4 h-4" />
+      <span className="ml-2">{isSigningOut ? "Signing Out..." : "Sign Out"}</span>
     </button>
   )
 }
