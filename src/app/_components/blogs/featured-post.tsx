@@ -13,7 +13,7 @@ export default async function FeaturedPost() {
   return (
     <div className="w-full border-t border-gray-200 pt-8 px-4">
       <p className="font-bold mb-4">Featured Post ⭐</p>
-      <div className="flex-col mt-6">
+      <div className="flex-col mt-6 text-wrap break-words">
         {/* <Image src={post.imageUrl} height={100} width={100} alt="" className="w-[50%] bg-gray-50 object-cover" /> */}
         {!post ? <p>No featured post yet</p> : ""}
         <Link href={`/${post.slug}`}>
