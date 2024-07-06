@@ -56,7 +56,7 @@ export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset:
 
             <BlogRowContent title={post.title} content={post.content} slug={post.slug} />
             
-            <BlogRowAuthor user={post.user.name} />
+            <BlogRowAuthor user={post.user} />
           </div>
         </article>
       ))}

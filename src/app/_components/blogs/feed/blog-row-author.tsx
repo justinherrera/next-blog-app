@@ -1,11 +1,12 @@
+import { User } from "@/app/lib/definitions"
 import Image from "next/image"
 
-export default function BlogRowAuthor({ user }: { user: string | null }) {
+export default function BlogRowAuthor({ user }: { user: User }) {
   return (
     <div className="flex border-t border-gray-300 sm:h-[23%] pt-2 mt-4">
       <div className="relative flex items-center gap-x-4">
         <Image 
-          src="https://lh3.googleusercontent.com/a/ACg8ocIMoIzHlWgkUOENV4-tWWeZYkSvfu0VeWrupPuYKO3NlSwXBnI7Tg=s96-c"
+          src={user.image}
           alt="" 
           width={300}
           height={300}
@@ -14,7 +15,7 @@ export default function BlogRowAuthor({ user }: { user: string | null }) {
           <p className="font-semibold text-gray-900">
             <a href="#">
               <span className="absolute inset-0" />
-              {user}
+              {user.name}
             </a>
           </p>
           <p className="text-gray-600">Software Engineer</p>
