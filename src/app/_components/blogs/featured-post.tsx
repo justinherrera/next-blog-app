@@ -1,14 +1,9 @@
 import Link from "next/link";
 import Image from "next/image"
+import { Post } from "@/app/lib/definitions";
 
 
-export default async function FeaturedPost() {
-
-  const response = await fetch(`${process.env.BASE_URL}/api/blogs`, { cache: 'no-store' })
-  const { posts } = await response.json()
-  const post = posts[0]
-
-  // if (!post) return <p>No featured post yet</p>
+export default async function FeaturedPost({ post }: { post: Post }) {
 
   return (
     <div className="w-full border-t border-gray-200 pt-8 px-4">

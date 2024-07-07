@@ -1,3 +1,4 @@
+import NoPostsFound from "../no-posts-found"
 import BlogRow from "./blog-row"
 import CategoriesNavigation from "./categories-navigation"
 import { getPosts } from "@/app/lib/actions"
@@ -7,6 +8,10 @@ export default async function Blogs() {
   // const { posts } = await response.json()
 
   const { posts } = await getPosts(0, 2)
+
+  console.log("-----")
+  console.log(posts)
+  if (posts.length === 0) return <NoPostsFound message="There are no blog posts at the moment" />
   return (
     <>
       {/* <BlogRow posts={posts} /> */}

@@ -1,5 +1,6 @@
 import Image from "next/image"
 import FeaturedPost from "../featured-post"
+import { Post } from "@/app/lib/definitions"
 
 const people = [
   {
@@ -34,9 +35,14 @@ const people = [
   },
 ]
 
-export default function SideNavigation() {
+export default async function SideNavigation({ post }: { post: Post }) {
+
+
+
+  
+
   return (
-    <div className="sticky flex flex-col top-0 pt-12">
+    <div className={`${!post ? "h-screen" : ""} sticky flex flex-col top-0 pt-12`}>
           {/* <p>Authors</p> */}
       <div className="w-full pl-4 mb-4">
         <p className="font-bold">Explore popular authors</p>
@@ -63,8 +69,10 @@ export default function SideNavigation() {
         </ul>
       </div>
       
-      
-      <FeaturedPost />
+      {
+        post ? <FeaturedPost post={post} /> : ""
+      }
+      {/* <FeaturedPost post={post} /> */}
   </div>
   )
 }

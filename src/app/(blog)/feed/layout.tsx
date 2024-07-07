@@ -11,10 +11,10 @@ export default async function FeedLayout({
 }) {
   // const session = await auth()
   // if (!session) return <NotAuthorized />
+
   const response = await fetch(`${process.env.BASE_URL}/api/blogs`, { cache: 'no-store' })
   const { posts } = await response.json()
-
-  if (posts.length === 0) return <NoPostsFound message="There are no blog posts at the moment. Stay tuned for upcoming posts and updates!" />
+  const post = posts[0]
 
   return (
     <div className="w-screen">
@@ -25,7 +25,7 @@ export default async function FeedLayout({
         </div>
         
         <div className="pb-12 border-l border-r border-gray-200 hidden xl:block w-[20%] lg:w-[25%] 2xl:w-[20%]">
-          <SideNavigation /> 
+          <SideNavigation post={post} /> 
         </div>
         
       </div>
