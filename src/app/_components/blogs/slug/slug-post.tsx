@@ -1,17 +1,11 @@
 "use client"
 
 import Image from "next/image"
-import { useQuery } from '@tanstack/react-query'
-import { TailSpin } from "react-loader-spinner"
 import { format } from "date-fns"
-import LoadingBlogSection from "../loading-blog-section"
-import NotFound from "@/app/not-found"
-// import { Heart } from "lucide-react"
 import Heart from "@/app/_components/blogs/icons/Heart"
 import { Post } from "@/app/lib/definitions"
 import { useState } from "react"
 import parse from 'html-react-parser';
-import LoadingSlug from "../skeletons/loading-slug"
 import { EllipsisVertical, FilePenLine, Trash } from "lucide-react"
 import EditModal from "./edit-modal"
 import DeleteDialog from "./delete-dialog"
@@ -48,21 +42,11 @@ export default function BlogPost({ post }: { post: Post }) {
             <div className="min-w-0 flex-auto">
               <div className="flex space-x-4">
                 <p className="text-sm font-semibold leading-6 text-gray-900">{post.user.name}</p>
-                {/* <a
-                  href="#"
-                  className="rounded-full bg-white px-2.5 py-1 text-xs font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
-                >
-                  Follow
-                </a> */}
               </div>
               <p className="mt-1 truncate text-xs leading-5 text-gray-500">{format(new Date(post.createdAt), "MMM d, yyyy")}</p>
             </div>
           </div>
         </div>
-        {/* <p className="mt-6 text-xl leading-8" dangerouslySetInnerHTML={{ __html: post.content }}>
-        </p> */}
-        {/* <p className="mt-6 text-xl leading-8">{post.content}</p> */}
-        
         <figure className="mt-16">
           <Image
             height={1000}
