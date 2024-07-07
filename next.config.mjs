@@ -27,6 +27,11 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'blog-app-space.sgp1.cdn.digitaloceanspaces.com',
         port: '',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        port: '',
       }
     ],
   },

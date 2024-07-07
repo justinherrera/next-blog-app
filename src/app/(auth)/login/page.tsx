@@ -2,6 +2,7 @@ import GoogleButton from "@/app/_components/auth/google-button";
 import Image from "next/image";
 import AlternativeLogins from "@/app/_components/auth/alternative-logins";
 import LoginForm from "@/app/_components/auth/login-form";
+import GithubButton from "@/app/_components/auth/github-button";
 
 
 export default function Login() {
@@ -26,6 +27,7 @@ export default function Login() {
 
           <AlternativeLogins />
 
+          <GithubButton />
           <GoogleButton />
         </div>
       </div>

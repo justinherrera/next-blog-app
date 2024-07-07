@@ -30,15 +30,8 @@ export default function GoogleButton() {
           />
         </svg>
         <span className="text-sm font-semibold leading-6">Google</span>
-        {/* <form action={async () => {
-          "use server"
-          await signIn("google", { redirectTo: "/feed"})
-          }}
-        >
-          <button type="submit" className="text-sm font-semibold leading-6">Google</button> */}
-        
       </button>
-      </form>
+    </form>
    </div>
   )
 }
