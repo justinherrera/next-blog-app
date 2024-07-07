@@ -60,16 +60,6 @@ export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset:
           </div>
         </article>
       ))}
-      {/* <div className="h-screen bg-gray-400">
-        A
-      </div>
-      <div className="h-screen bg-red-400">
-        B
-      </div>
-      <div className="h-screen bg-green-400">
-        C
-      </div> */}
-
       <div className="" ref={ref}>
         {
           hasMorePosts ? <p className="font-bold">Loading more posts...</p> : ""
