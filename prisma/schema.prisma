@@ -17,6 +17,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   posts         Post[]
+  likes         Like[]
   // Optional for WebAuthn support
   Authenticator Authenticator[]
 
@@ -92,10 +93,22 @@ model Post {
   category   Category @relation(fields: [categoryId], references: [id])
   userId     String
   user       User     @relation(fields: [userId], references: [id])
+  likes      Like[]
 }
 
 model Category {
   id    Int    @id @default(autoincrement())
   name  String
   posts Post[]
+}
+
+model Like {
+  id        Int      @id @default(autoincrement())
+  userId    String
+  postId    Int
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+
+  @@unique([userId, postId])
 }
