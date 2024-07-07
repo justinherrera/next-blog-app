@@ -1,4 +1,6 @@
 import prisma from "@/app/utils/prisma-connect"
+import { redirect } from "next/navigation"
+import router from "next/router"
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url)
@@ -108,4 +110,31 @@ export async function GET(request: Request) {
     await prisma.$disconnect()
     return Response.json({ post })
   }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const { searchParams } = new URL(request.url)
+    const id = searchParams.get('postId') as string
+    
+    if (!id) return Response.json({ message: "No post id provided" })
+  
+    const post = await prisma.post.delete({
+      where: { 
+        id: parseInt(id)
+       },
+    })
+
+    if (!post) return Response.json({ message: "Post not found" })
+
+  
+    await prisma.$disconnect()
+    return Response.json({ post })
+  } catch (e) {
+    await prisma.$disconnect()
+    return Response.json({ 
+      message: "Failed to delete post"
+    })
+  }
+
 }

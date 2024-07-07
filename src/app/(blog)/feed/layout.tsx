@@ -24,7 +24,7 @@ export default async function FeedLayout({
           {children}
         </div>
         
-        <div className="pb-12 border-l border-r border-gray-200 hidden xl:block w-[20%] lg:w-[25%]">
+        <div className="pb-12 border-l border-r border-gray-200 hidden xl:block w-[20%] lg:w-[25%] 2xl:w-[20%]">
           <SideNavigation /> 
         </div>
         

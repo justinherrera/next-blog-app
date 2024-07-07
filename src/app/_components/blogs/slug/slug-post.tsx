@@ -26,7 +26,7 @@ export default function BlogPost({ post }: { post: Post }) {
           <p className="text-base font-semibold leading-7 text-indigo-600">Introducing ✨</p>
           <EllipsisVertical className="w-5 h=5 text-black cursor-pointer" onClick={() => setIsEditing(!isEditing)} />
             {
-              isEditing ? <EditModal /> : ""
+              isEditing ? <EditModal postId={post.id} /> : ""
             }
           
         </div>
