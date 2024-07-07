@@ -82,6 +82,10 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
     return null
   }
 
+  if (state?.message === "Server Error") {
+    toast.error("Failed to create post")
+  }
+
   return (
     <div className="flex flex-col items-center">
       <Toaster position="top-right" richColors  />
