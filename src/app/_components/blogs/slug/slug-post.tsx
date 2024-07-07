@@ -10,18 +10,18 @@ import { EllipsisVertical, FilePenLine, Trash } from "lucide-react"
 import EditModal from "./edit-modal"
 import DeleteDialog from "./delete-dialog"
 
-export default function BlogPost({ post }: { post: Post }) {
+export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Post, isDeleting: boolean, setIsDeleting: React.Dispatch<React.SetStateAction<boolean>> }) {
   const [isLiked, setIsLiked] = useState(false)
   const [isEditing, setIsEditing] = useState(false)
-  const [isDeleting, setIsDeleting] = useState(false)
+  
 
   return (
     <div className="bg-white px-6 py-16 lg:py-32 lg:px-8">
       <div className="mx-auto md:w-full lg:max-w-3xl text-base leading-7 text-gray-700 text-wrap break-words">
         <div className="w-full flex justify-between relative">
-          {
+          {/* {
             isDeleting ? <DeleteDialog postId={post.id} setIsDeleting={setIsDeleting} /> : ""
-          }
+          } */}
           
           <p className="text-base font-semibold leading-7 text-indigo-600">Introducing ✨</p>
           <EllipsisVertical className="w-5 h=5 text-black cursor-pointer" onClick={() => setIsEditing(!isEditing)} />
