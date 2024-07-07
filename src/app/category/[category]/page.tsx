@@ -21,8 +21,6 @@ export default async function Category({ params }: { params: { category: string 
   if (posts.length === 0) return <NoPostsFound message="There are no posts available in this category right now." />
 
 
-  if (posts.length === 0) return <NoPostsFound message="It looks like you haven't made any posts yet." />
-
   return (
     <div className="bg-white py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -35,24 +33,11 @@ export default async function Category({ params }: { params: { category: string 
         <Suspense fallback={<LoadingCategoryBlogs />}>
           <Blogs getCategoryPosts={async (offset) => {
           "use server"
-          console.log("---- offset ----")
-          console.log(offset)
           return await getCategoryPosts(category, offset, 3)
         }} initialPosts={posts} category={category} />
         </Suspense>
       </div>
     </div>
-    // <div className="bg-white py-24 sm:py-32">
-    //   <div className="mx-auto max-w-7xl pl-4 pr-6 sm:px-6 lg:px-8">
-    //     <div className="mx-auto max-w-2xl text-center">
-    //       <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{category}</h2>
-    //       <p className="mt-2 text-lg leading-8 text-gray-600">
-    //         Check out posts related to {category}.
-    //       </p>
-    //     </div>
-    // <Suspense fallback={<LoadingCategoryBlogs />}>
-    //   <Blogs posts={posts} category={params.category} />
-    // </Suspense>
     
   )
 }
