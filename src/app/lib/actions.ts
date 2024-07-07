@@ -63,19 +63,31 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     const data = await body.image.arrayBuffer()
 
-    const imageUrl = await uploadImage(body.image, data, user?.id as string)
+    
 
     const post = await prisma.post.create({
       data: {
         title: body.title,
         content: body.content,
         categoryId: parseInt(body.category),
-        imageUrl: imageUrl as string,
-        slug: slugify(`${body.title} ${user?.id}`),
+        imageUrl: '',
+        slug: '',
         published: true,
         userId: user?.id as string
       },
-    }).then(post => slug = post.slug)
+    }).then(async post => {
+      slug = post.slug
+      const imageUrl = await uploadImage(body.image, data, user?.id as string)
+      await prisma.post.update({
+        where: {
+          id: post.id
+        },
+        data: {
+          imageUrl: imageUrl as string,
+          slug: slugify(`${body.title} ${user?.id} ${post.id}`)
+        }
+      })
+    })
 
     
     
