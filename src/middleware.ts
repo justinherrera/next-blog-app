@@ -9,17 +9,21 @@ export function middleware(request: NextRequest) {
 
 
 
-  const currentUser = request.cookies.get('currentUser')?.value
+  const currentUser = request.cookies.getAll()
+
+  console.log("currentUser")
+  console.log(request.cookies.get('authjs.session-token'))
+
+  // if (!request.cookies.get('authjs.session-token')) {
+  //   return NextResponse.redirect(new URL('/login', request.url))
+  // }
   
   return NextResponse.redirect(new URL('/feed', request.url))
 }
 
 // export default auth((req) => {
-//   console.log(req.nextUrl.pathname)
-//   if (!req.auth && req.nextUrl.pathname !== "/login") {
-//     const newUrl = new URL("/login", req.nextUrl.origin)
-//     return Response.redirect(newUrl)
-//   }
+//   console.log("-------------------->")
+//   console.log(req.auth)
 // })
  
 // See "Matching Paths" below to learn more

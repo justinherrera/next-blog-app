@@ -9,8 +9,6 @@ export default async function Blogs() {
 
   const { posts } = await getPosts(0, 2)
 
-  console.log("-----")
-  console.log(posts)
   if (posts.length === 0) return <NoPostsFound message="There are no blog posts at the moment" />
   return (
     <>
