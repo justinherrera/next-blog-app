@@ -6,7 +6,10 @@ import { Suspense, useEffect, useState } from "react"
 import LoadingSlug from "@/app/_components/blogs/skeletons/loading-slug"
 import NotFound from "@/app/not-found"
 import DeleteDialog from "@/app/_components/blogs/slug/delete-dialog"
-import { Post } from "@/app/lib/definitions"
+import { Post, User } from "@/app/lib/definitions"
+import { auth } from "../../../../auth"
+import { useSession } from "next-auth/react"
+import { BaseNextResponse } from "next/dist/server/base-http"
 
 export default function Page(
   {
@@ -23,10 +26,16 @@ export default function Page(
   const [post, setPost] = useState<Post>()
   const [isLoading, setIsLoading] = useState(true)
 
+  
+
   useEffect(() => {
     const fetchPost = async () => {
+
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?slug=${params.slug}`, { next: { revalidate: 3600 } })
       const { post } = await response.json()
+
+      console.log(BaseNextResponse)
+      
 
       if (post) {
         setIsLoading(false)

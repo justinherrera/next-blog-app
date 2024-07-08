@@ -1,8 +1,12 @@
 import prisma from "@/app/utils/prisma-connect"
 import { redirect } from "next/navigation"
 import router from "next/router"
+import { auth } from "../../../../auth"
 
 export async function GET(request: Request) {
+  const session = await auth()
+  const loggedUser = session?.user
+
   const { searchParams } = new URL(request.url)
   const slug = searchParams.get('slug') as string
   const userId = searchParams.get('userId') as string
@@ -103,12 +107,15 @@ export async function GET(request: Request) {
         slug,
       },
       include: {
-        user: true
+        user: true,
+        likes: true
       }
     })
+
+    console.log(post)
   
     await prisma.$disconnect()
-    return Response.json({ post })
+    return Response.json({ post: { ...post, loggedUser: loggedUser } })
   }
 }
 

@@ -31,6 +31,15 @@ export interface Post {
   user: User;
   createdAt: Date;
   updatedAt: Date;
+  loggedUser?: User;
+  likes?: Like[];
+}
+
+export interface Like {
+  id: number;
+  userId: string;
+  postId: number;
+  createdAt: Date;
 }
 
 export interface PostData {

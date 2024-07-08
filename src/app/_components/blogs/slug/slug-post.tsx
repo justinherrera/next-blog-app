@@ -11,8 +11,23 @@ import EditModal from "./edit-modal"
 import DeleteDialog from "./delete-dialog"
 
 export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Post, isDeleting: boolean, setIsDeleting: React.Dispatch<React.SetStateAction<boolean>> }) {
-  const [isLiked, setIsLiked] = useState(false)
+  
+  const [isLiked, setIsLiked] = useState<boolean>(post.likes?.find(like => like.userId === post.loggedUser?.id) ? true : false)
   const [isEditing, setIsEditing] = useState(false)
+
+  const handleLike = async () => {
+    setIsLiked(!isLiked)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/likes?postId=${post.id}`, { method: "POST" })
+    console.log(response)
+    if (!response.ok) {
+      setIsLiked(!isLiked)
+    }
+    // if (response.ok) {
+    //   setIsLiked(!isLiked)
+    // }
+  }
+
+  console.log(post)
   
 
   return (
@@ -56,7 +71,8 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
             alt=""
           />
           <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-            Faucibus commodo massa rhoncus, volutpat.
+            {post.likes?.length ? `This blog has ${post.likes?.length} likes 🩷` : "This blog has not been liked yet"} 
+            
           </figcaption>
         </figure>
         <div className="mt-8 sm:mt-16 max-w-2xl">
@@ -68,7 +84,7 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
         <div className="mt-8">
           <button 
             className={`flex space-x-1 border-2 ${isLiked ? "bg-[#FBD1DA] border-[#F8C8CF]" : "border-black"}  shadow-lg  p-1 px-4  rounded-lg items-center justify-center w-24`}
-            onClick={() => setIsLiked(!isLiked)}
+            onClick={handleLike}
             >
             <Heart color="#E42D54" isLiked={isLiked} />
             {/* <Heart className="h-4 w-4" color={`${isLiked ? "#E42D54" : "#000000"}`} /> */}
