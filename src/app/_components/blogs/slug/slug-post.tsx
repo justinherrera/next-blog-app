@@ -16,7 +16,8 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
   const [isEditing, setIsEditing] = useState(false)
   const [totalLikes, setTotalLikes] = useState(post.likes?.length || 0)
 
-  const handleLike = async () => {
+  const handleLike = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
     setIsLiked(!isLiked)
     if (isLiked) {
       setTotalLikes((prevTotalLikes) => prevTotalLikes - 1)
@@ -79,7 +80,7 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
             alt=""
           />
           <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-            {totalLikes ? `This blog has ${totalLikes} likes 🩷` : "This blog has not been liked yet"} 
+            {totalLikes <= 0 ? "This blog has not been liked yet" : `This blog has ${totalLikes} likes 🩷` } 
             
           </figcaption>
         </figure>
