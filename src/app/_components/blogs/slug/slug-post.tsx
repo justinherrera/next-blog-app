@@ -14,13 +14,21 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
   
   const [isLiked, setIsLiked] = useState<boolean>(post.likes?.find(like => like.userId === post.loggedUser?.id) ? true : false)
   const [isEditing, setIsEditing] = useState(false)
+  const [totalLikes, setTotalLikes] = useState(post.likes?.length || 0)
 
   const handleLike = async () => {
     setIsLiked(!isLiked)
+    if (isLiked) {
+      setTotalLikes((prevTotalLikes) => prevTotalLikes - 1)
+    } else {
+      setTotalLikes((prevTotalLikes) => prevTotalLikes + 1)
+    }
     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/likes?postId=${post.id}`, { method: "POST" })
     console.log(response)
+    
     if (!response.ok) {
       setIsLiked(!isLiked)
+      setTotalLikes((prevTotalLikes) => prevTotalLikes - 1)
     }
     // if (response.ok) {
     //   setIsLiked(!isLiked)
@@ -71,7 +79,7 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
             alt=""
           />
           <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-            {post.likes?.length ? `This blog has ${post.likes?.length} likes 🩷` : "This blog has not been liked yet"} 
+            {totalLikes ? `This blog has ${totalLikes} likes 🩷` : "This blog has not been liked yet"} 
             
           </figcaption>
         </figure>
