@@ -65,20 +65,22 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     
 
+    
+
     const post = await prisma.post.create({
       data: {
         title: body.title,
         content: body.content,
         categoryId: parseInt(body.category),
         imageUrl: '',
-        slug: '',
+        slug: `${body.title} ${user?.id} ${new Date().getTime()}`,
         published: true,
         userId: user?.id as string
       },
     }).then(async post => {
-      slug = post.slug
+      
       const imageUrl = await uploadImage(body.image, data, user?.id as string)
-      await prisma.post.update({
+      const updatedPost = await prisma.post.update({
         where: {
           id: post.id
         },
@@ -87,13 +89,14 @@ export async function createPost(currentState: FormState, formData: FormData): P
           slug: slugify(`${body.title} ${user?.id} ${post.id}`)
         }
       })
+      slug = updatedPost.slug
     })
 
     
     
     
   } catch (e: any) {
-    console.log(e.message)
+    console.log(e)
     return {
       message: "Server Error",
       errors: e.message

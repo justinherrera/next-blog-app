@@ -53,6 +53,8 @@ export default function Page(
   
   if (!post) return <NotFound />
 
+  console.log(post)
+
   return (
     <div className="">
       <div className={`${isDeleting ? "brightness-50" : ""}`}>
