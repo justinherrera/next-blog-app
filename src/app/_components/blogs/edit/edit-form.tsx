@@ -18,9 +18,7 @@ import Heading from '@tiptap/extension-heading'
 import { ArrowDownUp } from "lucide-react"
 
 import BlogCreateToolbar from '../create/blog-create-toolbar'
-import BlogCategoriesList from './blog-categories-list'
 import { FormState, Category } from '@/app/lib/definitions'
-import BlogCreateCategorySelect from './blog-create-category-select'
 import { useState } from 'react'
 
 import { Upload } from "lucide-react"
@@ -28,7 +26,7 @@ import { Upload } from "lucide-react"
 import { useFormState } from "react-dom";
 
 import { Toaster, toast } from 'sonner'
-import CreateButton from './create-button'
+import EditButton from './edit-button'
 
 const initialState: FormState = {
   message: "",
@@ -173,7 +171,7 @@ export default function EditForm({ categories, createPost }: { categories: Categ
           <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
         </div>
 
-        <CreateButton state={state} />
+        <EditButton state={state} />
       </form>
       
     </div>
