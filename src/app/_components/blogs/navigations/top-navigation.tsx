@@ -6,10 +6,13 @@ import Link from "next/link"
 import TopNavigationUser from "./top-navigation-user"
 import Image from "next/image"
 import { User } from "@/app/lib/definitions"
+import { headers } from "next/headers";
 
 
 
-export default async function TopNavigation() {
+export default async function TopNavigation({ params }: { params: { form: string } }) {
+
+  console.log(params)
 
   const session = await auth()
   const user = session?.user
@@ -21,10 +24,7 @@ export default async function TopNavigation() {
         <Link href="/feed" className="font-bold py-1 ">
           Home
         </Link>
-        <div className="flex sm:pr-10 md:pr-0">
-          <Link href="/create" className="text-sm font-medium mr-4 px-4 p-1 border border-gray-300 rounded-2xl hover:bg-black hover:text-white">Create</Link>
-          <TopNavigationUser user={user as User} />
-        </div>
+        <TopNavigationUser user={user as User} />
       </div>
  
     </div>
