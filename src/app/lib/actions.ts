@@ -6,7 +6,7 @@ import { auth } from "../../../auth"
 
 import { ValidationFields, FormState, ImageType } from "@/app/lib/definitions"
 
-import { createPostSchema } from "./validator"
+import { createPostSchema, editPostSchema } from "./validator"
 import { uploadImage } from "../utils/upload-image"
 
 import { slugify } from "../utils/slugify"
@@ -17,8 +17,34 @@ const isAuth = async () => {
   return session.user
 }
 
+const validateEditFields = ({ title, content, category, image }: ValidationFields): FormState => {
 
-const validateFields = ({ title, content, category, image }: ValidationFields): FormState => {
+  const validatedFields = editPostSchema.safeParse({
+    title,
+    content,
+    category,
+    image,
+  })
+
+  const isValidationFailed = !validatedFields.success
+
+  if (isValidationFailed) return {
+    message: "validation-error",
+    errors: {
+      title: validatedFields.error.flatten().fieldErrors.title?.[0] as string,
+      content: validatedFields.error.flatten().fieldErrors.content?.[0] as string,
+      category: validatedFields.error.flatten().fieldErrors.category as string[],
+      image: validatedFields.error.flatten().fieldErrors.image?.[0] as string,
+    },
+  }
+
+  return {
+    message: "success",
+    errors: undefined
+  }
+}
+
+const validateCreateFields = ({ title, content, category, image }: ValidationFields): FormState => {
 
   const validatedFields = createPostSchema.safeParse({
     title,
@@ -57,7 +83,7 @@ export async function createPost(currentState: FormState, formData: FormData): P
 
     const body = { title, content, category, image } as ValidationFields
 
-    const currentState = validateFields(body)
+    const currentState = validateCreateFields(body)
 
     if (currentState?.message === "validation-error") return currentState
 
@@ -92,6 +118,93 @@ export async function createPost(currentState: FormState, formData: FormData): P
       slug = updatedPost.slug
     })
 
+    
+    
+    
+  } catch (e: any) {
+    console.log(e)
+    return {
+      message: "Server Error",
+      errors: e.message
+    }
+  }
+
+  // revalidateTag('blogs')
+  // revalidatePath('/feed')
+  redirect(`/${slug}`)
+  
+}
+
+export async function editPost(currentState: FormState, formData: FormData): Promise<FormState> {
+  'use server'
+
+  let slug = null
+  try {
+
+    const user = await isAuth()
+
+    const postId = Object.fromEntries(formData).id as string
+    const currentImage = Object.fromEntries(formData).currentImage as string
+
+    const { title, content, category, image } = Object.fromEntries(formData)
+
+    const body = { title, content, category, image } as ValidationFields
+
+    const currentState = validateEditFields(body)
+
+    console.log("------> currentState")
+    console.log(currentState)
+
+    if (currentState?.message === "validation-error") return currentState
+
+    let data = {}
+    const imageData = await body.image.arrayBuffer()
+
+    if (body.image.size > 0) { // if user uploads new image
+     
+      const imageUrl = await uploadImage(body.image, imageData, user?.id as string)
+
+      data = {
+        title: body.title,
+        content: body.content,
+        categoryId: parseInt(body.category),// change to category id
+        imageUrl: imageUrl,
+      }
+    } else {
+      data = {
+        title: body.title,
+        content: body.content,
+        categoryId: parseInt(body.category),// change to category id
+        imageUrl: currentImage,
+      }
+    }
+
+    console.log("------> data")
+    console.log(data)
+
+    const post = await prisma.post.update({
+      where: {
+        id: parseInt(postId)
+      },
+      data,
+    }).then(async post => {
+      
+      if (body.image.size > 0) { // if user uploads new image
+        const imageUrl = await uploadImage(body.image, imageData, user?.id as string)
+        const updatedPost = await prisma.post.update({
+          where: {
+            id: post.id
+          },
+          data: {
+            imageUrl: imageUrl as string,
+            slug: slugify(`${body.title} ${user?.id} ${post.id}`)
+          }
+        })
+      }   
+      slug = post.slug   
+    })
+
+    console.log(post)
     
     
     
