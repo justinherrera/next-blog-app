@@ -31,3 +31,21 @@ export const createPostSchema = object({
   .refine(file => file.size < 1024 * 1024 * 10, { message: "File size must be less than 10MB" })
   .refine(file => acceptedFileTypes.includes(file.type), { message: "Please upload a valid image" })
 })
+
+export const editPostSchema = object({
+  title: string()
+  .refine(val => val !== "", { message: "A title is required" })
+  .refine(val => val.length > 10, { message: "Your title must be more than 10 characters" }),
+  content: string()
+  .refine(val => val !== "", { message: "A content is required" })
+  .refine(val => val.length > 200, { message: "Your content must be more than 200 characters" }),
+  category: string()
+  .refine(val => val !== "", { message: "Please select a category" }),
+  image: object({
+    size: number(),
+    type: string(),
+    lastModified: number(),
+  })
+  .refine(file => file.size < 1024 * 1024 * 10, { message: "File size must be less than 10MB" })
+  .refine(file => acceptedFileTypes.includes(file.type), { message: "Please upload a valid image" })
+})
