@@ -16,10 +16,17 @@ import ListItem from '@tiptap/extension-list-item'
 import CodeBlock from '@tiptap/extension-code-block'
 import Heading from '@tiptap/extension-heading'
 import { ArrowDownUp } from "lucide-react"
+import Image from "next/image"
 
 import BlogCreateToolbar from '../create/blog-create-toolbar'
-import { FormState, Category } from '@/app/lib/definitions'
+import { FormState, Category, Post } from '@/app/lib/definitions'
 import { useState } from 'react'
+import { usePathname } from "next/navigation"
+
+import {
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query'
 
 import { Upload } from "lucide-react"
 
@@ -35,7 +42,8 @@ const initialState: FormState = {
 
 type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
 
-export default function EditForm({ categories, createPost }: { categories: Category[], createPost: CreatePost })  {
+export default function EditForm({ categories, createPost, post }: { categories: Category[], createPost: CreatePost, post: Post })  {
+
   const [image, setImage] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<{
@@ -45,6 +53,7 @@ export default function EditForm({ categories, createPost }: { categories: Categ
   const [editorContent, setEditorContent] = useState("");
 
   const [state, formAction] = useFormState(createPost, initialState);
+
   
   const editor = useEditor({
     extensions: [
@@ -73,7 +82,7 @@ export default function EditForm({ categories, createPost }: { categories: Categ
     onUpdate({ editor }) {
       setEditorContent(editor.getHTML());
     },
-    content: '',
+    content: post.content
   })
 
   if (!editor) {
@@ -83,6 +92,8 @@ export default function EditForm({ categories, createPost }: { categories: Categ
   if (state?.message === "Server Error") {
     toast.error("Failed to create post")
   }
+
+  
 
   return (
     <div className="flex flex-col items-center">
@@ -96,6 +107,7 @@ export default function EditForm({ categories, createPost }: { categories: Categ
             id="title"
             className="block w-full py-1.5 text-gray-900 shadow-sm ring-gray-300 placeholder:text-gray-400 px-2 font-bold text-4xl focus:outline-none"
             placeholder="Your title goes here..."
+            defaultValue={post.title}
             autoFocus
           />
           <span className="text-sm text-red-500">{state?.errors?.title}</span>
@@ -113,7 +125,7 @@ export default function EditForm({ categories, createPost }: { categories: Categ
         </div>
 
         <div>
-          <select name="category" className="hidden">
+          <select name="category" className="hidden" defaultValue={post.category.name}>
             <option value={selectedCategory?.id || ""}>{selectedCategory?.name}</option>
           </select>
 
@@ -122,7 +134,7 @@ export default function EditForm({ categories, createPost }: { categories: Categ
               className="border p-2 px-4 rounded-lg border-gray-300 my-2 w-full sm:w-[50%] flex justify-between cursor-pointer shadow-lg"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <p>{(!selectedCategory?.name) ? "-- Please choose a category --" : selectedCategory?.name}</p>
+              <p>{(!selectedCategory?.name) ? post.category.name : selectedCategory?.name}</p>
               <ArrowDownUp className="h-5 w-5 pt-1 text-gray-300" />
             </div>
             <span className="text-sm text-red-500">{state?.errors?.category}</span>
@@ -151,25 +163,29 @@ export default function EditForm({ categories, createPost }: { categories: Categ
             }
           </div>
 
-        <div className="flex flex-col w-full mt-4 bg-grey-lighter">
-          <label className="sm:w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400 w-full">
-              <Upload />
-              <span className="mt-2 text-base leading-normal">{(!image) ? "Add cover image" : image}</span>
-              <input 
-                type='file' 
-                className="hidden" 
-                accept="image/*"         
-                name="image"
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setImage(e.target.files[0].name)
-                  }
-                  
-                }} />
-              
-          </label>
-          <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
+        <div className="flex w-full space-x-8">
+          <div className="flex flex-col mt-4 bg-grey-lighter">
+            <label className="sm:w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400 w-full">
+                <Upload />
+                <span className="mt-2 text-base leading-normal">{(!image) ? "Add cover image" : image}</span>
+                <input 
+                  type='file' 
+                  className="hidden" 
+                  accept="image/*"         
+                  name="image"
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      setImage(e.target.files[0].name)
+                    }
+                    
+                  }} />
+                
+            </label>
+            <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
+          </div>
+          <Image src={post.imageUrl} alt="" height={500} width={500} className="w-56 h-[7rem] mt-4" />
         </div>
+
 
         <EditButton state={state} />
       </form>

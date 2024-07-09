@@ -104,7 +104,8 @@ export async function GET(request: Request) {
       },
       include: {
         user: true,
-        likes: true
+        likes: true,
+        category: true
       }
     })
   
