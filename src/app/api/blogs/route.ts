@@ -15,9 +15,6 @@ export async function GET(request: Request) {
   const offset = searchParams.get('offset') as string
   const limit = searchParams.get('limit') as string
 
-  console.log("---->")
-  console.log(searchParams)
-
   if (!slug && !userId && !category && !offset && !limit) {
     const posts = await prisma.post.findMany({
       orderBy: [
@@ -53,7 +50,6 @@ export async function GET(request: Request) {
   }
 
   if (userId && offset && limit) {
-    console.log("userId???")
     const posts = await prisma.post.findMany({
       skip: parseInt(offset),
       take: parseInt(limit),
@@ -111,8 +107,6 @@ export async function GET(request: Request) {
         likes: true
       }
     })
-
-    console.log(post)
   
     await prisma.$disconnect()
     return Response.json({ post: { ...post, loggedUser: loggedUser } })
@@ -123,21 +117,46 @@ export async function DELETE(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
     const id = searchParams.get('postId') as string
+    const session = await auth()
+    const loggedUserId = session?.user?.id
     
     if (!id) return Response.json({ message: "No post id provided" })
-  
-    const post = await prisma.post.delete({
-      where: { 
+
+    const post = await prisma.post.findUnique({
+      where: {
         id: parseInt(id)
+       },
+      include: {
+        user: true,
+        likes: true
+      }
+    })
+
+    console.log(post?.user.id !== loggedUserId)
+    if (post?.user.id !== loggedUserId) return Response.json({ 
+      status: "error",
+      message: "You are not authorized to delete this post" })
+  
+    if (!post) return Response.json({ status: "error", message: "Post not found" })
+
+    const deletePost = await prisma.post.delete({
+      where: { 
+        id: parseInt(id),
+        user: {
+          id: loggedUserId
+        }
        },
     })
 
-    if (!post) return Response.json({ message: "Post not found" })
+    if (!deletePost) return Response.json({ status: "error", message: "Failed to delete post" })
+
+    
 
   
     await prisma.$disconnect()
-    return Response.json({ post })
+    return Response.json({ status: "success", post })
   } catch (e) {
+    console.log(e)
     await prisma.$disconnect()
     return Response.json({ 
       message: "Failed to delete post"

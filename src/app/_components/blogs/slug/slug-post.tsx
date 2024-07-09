@@ -35,8 +35,6 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
     //   setIsLiked(!isLiked)
     // }
   }
-
-  console.log(post)
   
 
   return (

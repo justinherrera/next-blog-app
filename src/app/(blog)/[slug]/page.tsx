@@ -10,6 +10,7 @@ import { Post, User } from "@/app/lib/definitions"
 import { auth } from "../../../../auth"
 import { useSession } from "next-auth/react"
 import { BaseNextResponse } from "next/dist/server/base-http"
+import { Toaster } from "sonner"
 
 export default function Page(
   {
@@ -34,7 +35,7 @@ export default function Page(
       const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?slug=${params.slug}`, { next: { revalidate: 3600 } })
       const { post } = await response.json()
 
-      console.log(BaseNextResponse)
+      console.log(response)
       
 
       if (post) {
@@ -45,18 +46,14 @@ export default function Page(
     }
     fetchPost()
   }, [params.slug])
-  
-  // const response = await fetch(`${process.env.BASE_URL}/api/blogs?slug=${params.slug}`, { next: { revalidate: 3600 } })
-  // const { post } = await response.json()
 
   if (isLoading) return <LoadingSlug />
   
   if (!post) return <NotFound />
 
-  console.log(post)
-
   return (
     <div className="">
+      <Toaster position="top-right" richColors  />
       <div className={`${isDeleting ? "brightness-50" : ""}`}>
         <Suspense fallback={<LoadingSlug />}>
           <SlugPost post={post} setIsDeleting={setIsDeleting} isDeleting={isDeleting} />
