@@ -34,6 +34,7 @@ import { useFormState } from "react-dom";
 
 import { Toaster, toast } from 'sonner'
 import EditButton from './edit-button'
+import NotFound from '@/app/not-found'
 
 const initialState: FormState = {
   message: "",

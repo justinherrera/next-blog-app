@@ -167,6 +167,7 @@ export async function editPost(currentState: FormState, formData: FormData): Pro
       data = {
         title: body.title,
         content: body.content,
+        slug: slugify(`${body.title} ${user?.id} ${postId}`),
         categoryId: parseInt(body.category),// change to category id
         imageUrl: imageUrl,
       }
@@ -174,6 +175,7 @@ export async function editPost(currentState: FormState, formData: FormData): Pro
       data = {
         title: body.title,
         content: body.content,
+        slug: slugify(`${body.title} ${user?.id} ${postId}`),
         categoryId: parseInt(body.category),// change to category id
         imageUrl: currentImage,
       }
@@ -188,6 +190,9 @@ export async function editPost(currentState: FormState, formData: FormData): Pro
       },
       data,
     }).then(async post => {
+
+      console.log("------> then")
+      console.log(post)
       
       if (body.image.size > 0) { // if user uploads new image
         const imageUrl = await uploadImage(body.image, imageData, user?.id as string)
@@ -197,14 +202,11 @@ export async function editPost(currentState: FormState, formData: FormData): Pro
           },
           data: {
             imageUrl: imageUrl as string,
-            slug: slugify(`${body.title} ${user?.id} ${post.id}`)
           }
         })
       }   
       slug = post.slug   
     })
-
-    console.log(post)
     
     
     

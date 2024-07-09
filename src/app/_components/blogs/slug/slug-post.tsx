@@ -50,7 +50,7 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
           }
           {/* <EllipsisVertical className="w-5 h=5 text-black cursor-pointer" onClick={() => setIsEditing(!isEditing)} /> */}
             {
-              isEditing && !isDeleting ? <EditModal postId={post.id} setIsDeleting={setIsDeleting}  /> : ""
+              isEditing && !isDeleting ? <EditModal postId={post.id} setIsDeleting={setIsDeleting} slug={post.slug}  /> : ""
             }
           
         </div>
