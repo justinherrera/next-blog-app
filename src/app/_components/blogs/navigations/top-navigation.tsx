@@ -10,9 +10,8 @@ import { headers } from "next/headers";
 
 
 
-export default async function TopNavigation({ params }: { params: { form: string } }) {
+export default async function TopNavigation() {
 
-  console.log(params)
 
   const session = await auth()
   const user = session?.user
