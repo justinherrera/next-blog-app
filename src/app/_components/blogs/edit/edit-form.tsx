@@ -40,19 +40,21 @@ const initialState: FormState = {
   errors: undefined,
 }
 
-type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
+type EditPost = (state: FormState, formData: FormData) => Promise<FormState>
 
-export default function EditForm({ categories, createPost, post }: { categories: Category[], createPost: CreatePost, post: Post })  {
+export default function EditForm({ categories, editPost, post }: { categories: Category[], editPost: EditPost, post: Post })  {
+
+  console.log(post)
 
   const [image, setImage] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<{
     id: number;
     name: string;
-  } | null>(null)
-  const [editorContent, setEditorContent] = useState("");
+  }>(post.category)
+  const [editorContent, setEditorContent] = useState(post.content);
 
-  const [state, formAction] = useFormState(createPost, initialState);
+  const [state, formAction] = useFormState(editPost, initialState);
 
   
   const editor = useEditor({
@@ -99,6 +101,7 @@ export default function EditForm({ categories, createPost, post }: { categories:
     <div className="flex flex-col items-center">
       <Toaster position="top-right" richColors  />
       <form action={formAction} className="w-[25rem] sm:w-[51rem] md:w-[44rem] lg:w-[52rem]">
+        <input type="text" name="id" defaultValue={post.id} hidden />
         <div className="mt-2">
 
           <input
@@ -183,6 +186,7 @@ export default function EditForm({ categories, createPost, post }: { categories:
             </label>
             <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
           </div>
+          <input type="hidden" name="currentImage" defaultValue={post.imageUrl} />
           <Image src={post.imageUrl} alt="" height={500} width={500} className="w-56 h-[7rem] mt-4" />
         </div>
 

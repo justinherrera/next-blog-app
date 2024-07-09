@@ -1,10 +1,7 @@
 import { Suspense } from "react"
-import { createPost } from "@/app/lib/actions"
+import { editPost } from "@/app/lib/actions"
 import EditForm from '@/app/_components/blogs/edit/edit-form'
 import { Category, FormState } from '@/app/lib/definitions'
-
-
-type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
 
 export default async function Page({ params }: { params: { slug: string } }) {
 
@@ -19,14 +16,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <div>
       test
       <Suspense fallback={<p className="font-bold text-2xl">Loading...</p>}>
-        <EditForm categories={categories} createPost={createPost} post={data.post} />
+        <EditForm categories={categories} editPost={editPost} post={data.post} />
       </Suspense>
     </div>
-
-
-
-    
-
 
   </div>)
 }
