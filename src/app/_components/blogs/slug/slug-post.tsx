@@ -3,14 +3,14 @@
 import Image from "next/image"
 import { format } from "date-fns"
 import Heart from "@/app/_components/blogs/icons/Heart"
-import { Post } from "@/app/lib/definitions"
+import { Post, User } from "@/app/lib/definitions"
 import { useState } from "react"
 import parse from 'html-react-parser';
 import { EllipsisVertical, FilePenLine, Trash } from "lucide-react"
 import EditModal from "./edit-modal"
 import DeleteDialog from "./delete-dialog"
 
-export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Post, isDeleting: boolean, setIsDeleting: React.Dispatch<React.SetStateAction<boolean>> }) {
+export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { post: Post, isDeleting: boolean, setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>, user: User }) {
   
   const [isLiked, setIsLiked] = useState<boolean>(post.likes?.find(like => like.userId === post.loggedUser?.id) ? true : false)
   const [isEditing, setIsEditing] = useState(false)
@@ -31,10 +31,9 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
       setIsLiked(!isLiked)
       setTotalLikes((prevTotalLikes) => prevTotalLikes - 1)
     }
-    // if (response.ok) {
-    //   setIsLiked(!isLiked)
-    // }
   }
+
+  console.log(user)
   
 
   return (
@@ -46,7 +45,10 @@ export default function BlogPost({ post, isDeleting, setIsDeleting }: { post: Po
           } */}
           
           <p className="text-base font-semibold leading-7 text-indigo-600">Introducing ✨</p>
-          <EllipsisVertical className="w-5 h=5 text-black cursor-pointer" onClick={() => setIsEditing(!isEditing)} />
+          {
+            user?.id === post.userId ? <EllipsisVertical className="w-5 h=5 text-black cursor-pointer" onClick={() => setIsEditing(!isEditing)} /> : ""
+          }
+          {/* <EllipsisVertical className="w-5 h=5 text-black cursor-pointer" onClick={() => setIsEditing(!isEditing)} /> */}
             {
               isEditing && !isDeleting ? <EditModal postId={post.id} setIsDeleting={setIsDeleting}  /> : ""
             }

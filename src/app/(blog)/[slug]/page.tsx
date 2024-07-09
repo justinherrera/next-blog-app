@@ -1,4 +1,4 @@
-"use client"
+
 
 import prisma from "@/app/utils/prisma-connect"
 import SlugPost from "@/app/_components/blogs/slug/slug-post"
@@ -11,8 +11,9 @@ import { auth } from "../../../../auth"
 import { useSession } from "next-auth/react"
 import { BaseNextResponse } from "next/dist/server/base-http"
 import { Toaster } from "sonner"
+import SlugPage from "@/app/_components/blogs/slug/slug-page"
 
-export default function Page(
+export default async function Page(
   {
     params
   }:
@@ -23,48 +24,25 @@ export default function Page(
   }
 ) {
 
-  const [isDeleting, setIsDeleting] = useState(false)
-  const [post, setPost] = useState<Post>()
-  const [isLoading, setIsLoading] = useState(true)
+  const session = await auth()
+  const user = session?.user
 
-  
-
-  useEffect(() => {
-    const fetchPost = async () => {
-
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?slug=${params.slug}`, { next: { revalidate: 3600 } })
-      const { post } = await response.json()
-
-      console.log(response)
-      
-
-      if (post) {
-        setIsLoading(false)
-      }
-
-      setPost(post)
-    }
-    fetchPost()
-  }, [params.slug])
-
-  if (isLoading) return <LoadingSlug />
-  
-  if (!post) return <NotFound />
 
   return (
-    <div className="">
-      <Toaster position="top-right" richColors  />
-      <div className={`${isDeleting ? "brightness-50" : ""}`}>
-        <Suspense fallback={<LoadingSlug />}>
-          <SlugPost post={post} setIsDeleting={setIsDeleting} isDeleting={isDeleting} />
-        </Suspense>
-      </div>
+    // <div className="">
+    //   <Toaster position="top-right" richColors  />
+    //   <div className={`${isDeleting ? "brightness-50" : ""}`}>
+    //     <Suspense fallback={<LoadingSlug />}>
+    //       <SlugPost post={post} setIsDeleting={setIsDeleting} isDeleting={isDeleting} />
+    //     </Suspense>
+    //   </div>
 
 
-      {
-        isDeleting ? <DeleteDialog postId={post.id} setIsDeleting={setIsDeleting} /> : ""
-      }
-    </div>
+    //   {
+    //     isDeleting ? <DeleteDialog postId={post.id} setIsDeleting={setIsDeleting} /> : ""
+    //   }
+    // </div>
+    <SlugPage slug={params.slug} user={user as User} />
 
     
   )
