@@ -20,7 +20,7 @@ export default function DeleteDialog({ postId, setIsDeleting }: { postId: number
     }
 
     if (response.ok) {
-      toast.error("You have successfully deleted this post")
+      toast.success("You have successfully deleted this post")
       setTimeout(() => {
         router.push('/feed')
         router.refresh()
