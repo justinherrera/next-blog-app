@@ -12,6 +12,14 @@ export const signInSchema = object({
     .max(32, "Password must be less than 32 characters"),
 })
 
+const checkEditImage = (file: { size: number, type: string, lastModified: number }) => {
+  if (file.size > 0) {
+    return acceptedFileTypes.includes(file.type) ? true : false
+  } else if (file.size === 0) {
+    return true
+  }
+}
+
 
 export const createPostSchema = object({
   title: string()
@@ -46,6 +54,6 @@ export const editPostSchema = object({
     type: string(),
     lastModified: number(),
   })
-  .refine(file => file.size < 1024 * 1024 * 10, { message: "File size must be less than 10MB" })
-  .refine(file => acceptedFileTypes.includes(file.type), { message: "Please upload a valid image" })
+  .refine(file => file && file.size < 1024 * 1024 * 10, { message: "File size must be less than 10MB" })
+  .refine(file => checkEditImage(file), { message: "Please upload a valid image" })
 })
