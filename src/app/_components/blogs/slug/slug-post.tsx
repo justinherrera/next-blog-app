@@ -93,12 +93,12 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
         
         <div className="mt-8">
           <button 
-            className={`flex space-x-1 border-2 ${isLiked ? "bg-[#FBD1DA] border-[#F8C8CF]" : "border-black"}  shadow-lg  p-1 px-4  rounded-lg items-center justify-center w-24`}
+            className={`flex space-x-1 border-2 ${isLiked ? "bg-[#FBD1DA] border-[#F8C8CF]" : "border-black"}  shadow-lg  p-1 px-4  rounded-lg items-center justify-center w-auto`}
             onClick={handleLike}
             >
             <Heart color="#E42D54" isLiked={isLiked} />
             {/* <Heart className="h-4 w-4" color={`${isLiked ? "#E42D54" : "#000000"}`} /> */}
-            <span className="font-bold text-black text-sm">{isLiked ? "Liked" : "Like"}</span>
+            <span className="font-bold text-black text-sm">{isLiked ? `${totalLikes <= 0 ? "Liked" : `Liked (${totalLikes})`}` : `${totalLikes <= 0 ? "Like" : `Like (${totalLikes})`}`}</span>
           </button>
         </div>
 
