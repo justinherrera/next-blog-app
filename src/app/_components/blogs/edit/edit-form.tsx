@@ -48,6 +48,7 @@ export default function EditForm({ categories, editPost, post }: { categories: C
   console.log(post)
 
   const [image, setImage] = useState<string | null>(null)
+  const [previewImage, setPreviewImage] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<{
     id: number;
@@ -180,6 +181,7 @@ export default function EditForm({ categories, editPost, post }: { categories: C
                   onChange={(e) => {
                     if (e.target.files) {
                       setImage(e.target.files[0].name)
+                      setPreviewImage(URL.createObjectURL(e?.target?.files?.[0]))
                     }
                     
                   }} />
@@ -189,7 +191,7 @@ export default function EditForm({ categories, editPost, post }: { categories: C
           </div>
           <input type="hidden" name="currentImage" defaultValue={post.imageUrl} />
           <div>
-            <Image src={post.imageUrl} alt="" height={0} width={150} className="w-auto h-[7rem] mt-4 object-cover" />
+            <Image src={!previewImage ? post.imageUrl : previewImage} alt="" height={0} width={150} className="w-auto h-[7rem] mt-4 object-cover" />
           </div>
 
         </div>
