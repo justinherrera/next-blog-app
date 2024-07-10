@@ -45,7 +45,7 @@ type EditPost = (state: FormState, formData: FormData) => Promise<FormState>
 
 export default function EditForm({ categories, editPost, post }: { categories: Category[], editPost: EditPost, post: Post })  {
 
-  console.log(post)
+
 
   const [image, setImage] = useState<string | null>(null)
   const [previewImage, setPreviewImage] = useState<string | null>(null)
@@ -58,6 +58,7 @@ export default function EditForm({ categories, editPost, post }: { categories: C
 
   const [state, formAction] = useFormState(editPost, initialState);
 
+  console.log(state)
   
   const editor = useEditor({
     extensions: [
@@ -95,6 +96,10 @@ export default function EditForm({ categories, editPost, post }: { categories: C
 
   if (state?.message === "Server Error") {
     toast.error("Failed to create post")
+  }
+
+  if (state.message === 'validation-error') {
+    toast.error("Oops... something went wrong")
   }
 
   
