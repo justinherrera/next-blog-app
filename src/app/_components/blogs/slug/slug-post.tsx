@@ -80,7 +80,8 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
             alt=""
           />
           <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-            {totalLikes <= 0 ? "This blog has not been liked yet" : `This blog has ${totalLikes} likes 🩷` } 
+            {/* {totalLikes <= 0 ? "This blog has not been liked yet" : `This blog has ${totalLikes} likes 🩷` }  */}
+            {post.category.name}
             
           </figcaption>
         </figure>
