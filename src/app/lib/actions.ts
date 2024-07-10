@@ -181,18 +181,12 @@ export async function editPost(currentState: FormState, formData: FormData): Pro
       }
     }
 
-    console.log("------> data")
-    console.log(data)
-
     const post = await prisma.post.update({
       where: {
         id: parseInt(postId)
       },
       data,
     }).then(async post => {
-
-      console.log("------> then")
-      console.log(post)
       
       if (body.image.size > 0) { // if user uploads new image
         const imageUrl = await uploadImage(body.image, imageData, user?.id as string)

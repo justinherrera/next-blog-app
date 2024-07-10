@@ -3,8 +3,12 @@ import { editPost } from "@/app/lib/actions"
 import EditForm from '@/app/_components/blogs/edit/edit-form'
 import { Category, FormState } from '@/app/lib/definitions'
 import NotFound from "@/app/not-found"
+import { auth } from "../../../../../../auth"
 
 export default async function Page({ params }: { params: { slug: string } }) {
+
+  const session = await auth()
+  const user = session?.user
 
   const categoriesData = await fetch(`${process.env.BASE_URL}/api/categories`)
   const { categories } = await categoriesData.json()
@@ -12,7 +16,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const slugData = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?slug=${params.slug}`)
   const data = await slugData.json()
 
-  if (Object.keys(data.post).length === 0) {
+  console.log(data.post.user.id === user?.id)
+
+  if (Object.keys(data.post).length === 0 || !(data.post.user.id === user?.id)) { // test this
     return <NotFound />
   }
 
