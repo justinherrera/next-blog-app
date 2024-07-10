@@ -173,7 +173,7 @@ export default function EditForm({ categories, editPost, post }: { categories: C
             }
           </div>
 
-        <div className="flex w-full space-x-8 justify-center xl:justify-normal">
+        <div className="flex w-full space-x-8 justify-center lg:justify-normal">
           <div className="flex flex-col mt-4 bg-grey-lighter">
             <label className="sm:w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400 w-full">
                 <Upload />
