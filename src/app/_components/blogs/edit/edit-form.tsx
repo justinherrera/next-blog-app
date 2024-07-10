@@ -188,7 +188,10 @@ export default function EditForm({ categories, editPost, post }: { categories: C
             <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
           </div>
           <input type="hidden" name="currentImage" defaultValue={post.imageUrl} />
-          <Image src={post.imageUrl} alt="" height={500} width={500} className="w-56 h-[7rem] mt-4" />
+          <div>
+            <Image src={post.imageUrl} alt="" height={0} width={150} className="w-auto h-[7rem] mt-4 object-cover" />
+          </div>
+
         </div>
 
 
