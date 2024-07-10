@@ -25,7 +25,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
   return (
   <div className="mt-24 w-full  flex items-center justify-center">
     <div>
-      test
       <Suspense fallback={<p className="font-bold text-2xl">Loading...</p>}>
         <EditForm categories={categories} editPost={editPost} post={data.post} />
       </Suspense>
