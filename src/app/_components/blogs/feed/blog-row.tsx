@@ -45,13 +45,13 @@ export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset:
   }, [inView])
 
   return (
-    <div className="flex-col space-y-12 sm:space-y-18 lg:space-y-16">
+    <div className="flex-col space-y-12 sm:space-y-18 lg:space-y-16 lg:w-full">
       {posts.map((post: Post) => (
-        <article key={post.id} className="relative isolate flex flex-col gap-8 lg:flex-row">
+        <article key={post.id} className="relative isolate flex flex-col gap-8 lg:flex-row lg:w-full">
 
           <BlogRowImage src={post.imageUrl} />
 
-          <div className="sm:h-[16rem] flex-col">
+          <div className="sm:h-[16rem] flex-col lg:w-full lg:pr-4">
             <BlogRowDetails name={post.category.name} date={post.createdAt} />
 
             <BlogRowContent title={post.title} content={post.content} slug={post.slug} />
