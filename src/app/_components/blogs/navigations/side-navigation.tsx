@@ -45,7 +45,7 @@ export default async function SideNavigation({ post }: { post: Post }) {
     <div className={`${!post ? "h-screen" : ""} sticky flex flex-col top-0 pt-12`}>
           {/* <p>Authors</p> */}
       <div className="w-full pl-4 mb-4">
-        <p className="font-bold">Explore popular authors</p>
+        <p className="font-bold">Check out some random authors</p>
         <ul role="list" className="divide-y divide-gray-100 flex flex-col items-center pl-4">
           {people.map((person) => (
             <li key={person.email} className="flex gap-x-6 py-5 w-full">
