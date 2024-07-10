@@ -21,7 +21,7 @@ export default function Feed() {
 
   return (
     <div className=" py-4 sm:py-12 flex items-center justify-center">
-      <div className="w-full pl-4 pr-6 sm:w-[70%] md:w-[90%] lg:px-8">
+      <div className="w-full pl-4 pr-6 sm:w-full md:w-[90%] lg:px-8">
         <div className=" flex flex-col">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
           <SearchInput />

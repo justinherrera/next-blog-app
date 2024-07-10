@@ -20,7 +20,7 @@ export default async function FeedLayout({
     <div className="w-screen">
 
       <div className="w-full flex justify-between xl:justify-center">
-        <div className="flex flex-col w-full sm:w-[75%] md:w-full xl:w-[65%] 2xl:w-[50%]">
+        <div className="flex flex-col w-full sm:w-full md:w-full xl:w-[65%] 2xl:w-[50%]">
           {children}
         </div>
         
