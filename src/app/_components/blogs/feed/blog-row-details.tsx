@@ -1,4 +1,5 @@
 import { format } from "date-fns"
+import Link from "next/link"
 
 export default function BlogRowDetails({ name, date }: { name: string, date: Date }) {
   const now = format(new Date(), "MM/dd/yyyy") === format(new Date(date), "MM/dd/yyyy") ? "Just now" : format(new Date(date), "MM/dd/yyyy")
@@ -7,12 +8,12 @@ export default function BlogRowDetails({ name, date }: { name: string, date: Dat
       <time dateTime={format(new Date(date), "MM/dd/yyyy")} className="text-gray-500">
         {now}
       </time>
-      <a
-        href="#"
+      <Link
+        href={`/category/${name}`}
         className="relative z-10 rounded-full bg-gray-50 px-3 py-1.5 font-medium text-gray-600 hover:bg-gray-100"
       >
         {name}
-      </a>
+      </Link>
     </div>
   )
 }
