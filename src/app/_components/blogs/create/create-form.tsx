@@ -21,6 +21,7 @@ import BlogCreateToolbar from '../create/blog-create-toolbar'
 import BlogCategoriesList from './blog-categories-list'
 import { FormState, Category } from '@/app/lib/definitions'
 import BlogCreateCategorySelect from './blog-create-category-select'
+import Image from "next/image"
 import { useState } from 'react'
 
 import { Upload } from "lucide-react"
@@ -39,6 +40,7 @@ type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
 
 export default function CreateForm({ categories, createPost }: { categories: Category[], createPost: CreatePost })  {
   const [image, setImage] = useState<string | null>(null)
+  const [previewImage, setPreviewImage] = useState<string | null>(null)
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<{
     id: number;
@@ -153,24 +155,32 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
             }
           </div>
 
-        <div className="flex flex-col w-full mt-4 bg-grey-lighter">
-          <label className="sm:w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400 w-full">
-              <Upload />
-              <span className="mt-2 text-base leading-normal">{(!image) ? "Add cover image" : image}</span>
-              <input 
-                type='file' 
-                className="hidden" 
-                accept="image/*"         
-                name="image"
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setImage(e.target.files[0].name)
-                  }
-                  
-                }} />
-              
-          </label>
-          <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
+        <div className="flex w-full space-x-8">
+          <div className="flex flex-col mt-4 bg-grey-lighter">
+            <label className="sm:w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400 w-full">
+                <Upload />
+                <span className="mt-2 text-base leading-normal">{(!image) ? "Add cover image" : image}</span>
+                <input 
+                  type='file' 
+                  className="hidden" 
+                  accept="image/*"         
+                  name="image"
+                  onChange={(e) => {
+                    if (e.target.files) {
+                      setImage(e.target.files[0].name)
+                      setPreviewImage(URL.createObjectURL(e?.target?.files?.[0]))
+                    }
+                    
+                  }} />
+                
+            </label>
+            <span className="text-sm text-red-500 mt-2">{state?.errors?.image}</span>
+          </div>
+          <div>
+            {
+              previewImage ? <Image src={previewImage} alt="" height={0} width={150} className="w-auto h-[7rem] mt-4 object-cover" /> : ""
+            }
+          </div>
         </div>
 
         <CreateButton state={state} />
