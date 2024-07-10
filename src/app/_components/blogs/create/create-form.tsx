@@ -89,9 +89,9 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   }
 
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center w-full">
       <Toaster position="top-right" richColors  />
-      <form action={formAction} className="w-[25rem] sm:w-[51rem] md:w-[44rem] lg:w-[52rem]">
+      <form action={formAction} className="w-[25rem] sm:w-full md:w-[44rem] lg:w-[52rem]">
         <div className="mt-2">
 
           <input
@@ -155,7 +155,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
             }
           </div>
 
-        <div className="flex w-full space-x-8 justify-center xl:justify-normal">
+        <div className="flex w-full space-x-8 justify-center md:justify-normal">
           <div className="flex flex-col mt-4 bg-grey-lighter">
             <label className="sm:w-64 flex flex-col items-center px-4 py-6 bg-white text-blue rounded-lg shadow-lg tracking-wide border border-blue cursor-pointer hover:bg-blue hover:text-gray-400 w-full">
                 <Upload />
