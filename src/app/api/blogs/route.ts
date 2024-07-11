@@ -13,9 +13,13 @@ export async function GET(request: Request) {
   const category = searchParams.get('category') as string
 
   const offset = searchParams.get('offset') as string
-  const limit = searchParams.get('limit') as string
+  
+  
+  const likes = searchParams.get('likes') as string
 
-  if (!slug && !userId && !category && !offset && !limit) {
+  console.log(searchParams)
+
+  if (!slug && !userId && !category && !offset && !likes) {
     const posts = await prisma.post.findMany({
       orderBy: [
         {
@@ -31,10 +35,9 @@ export async function GET(request: Request) {
     return Response.json({ posts })
   }
 
-  if (!slug && !userId && !category && offset && limit) {
+  if (!slug && !userId && !category && offset) {
     const posts = await prisma.post.findMany({
       skip: parseInt(offset),
-      take: parseInt(limit),
       orderBy: [
         {
           createdAt: 'desc',
@@ -49,10 +52,9 @@ export async function GET(request: Request) {
     return Response.json({ posts })
   }
 
-  if (userId && offset && limit) {
+  if (userId && offset) {
     const posts = await prisma.post.findMany({
       skip: parseInt(offset),
-      take: parseInt(limit),
       orderBy: [
         {
           createdAt: 'desc',
@@ -73,10 +75,9 @@ export async function GET(request: Request) {
     return Response.json({ posts })
   }
 
-  if (category && offset && limit) {
+  if (category && offset) {
     const posts = await prisma.post.findMany({
       skip: parseInt(offset),
-      take: parseInt(limit),
       orderBy: [
         {
           createdAt: 'desc',
@@ -112,7 +113,33 @@ export async function GET(request: Request) {
     await prisma.$disconnect()
     return Response.json({ post: { ...post, loggedUser: loggedUser } })
   }
+
+  if (likes) {
+    const posts = await prisma.post.findMany({
+      take: 5,
+      include: {
+        category: true,
+        user: true,
+        likes: true,
+        _count: {
+          select: {
+            likes: true
+          }
+        }
+      },
+      orderBy: {
+        likes: {
+          _count: "desc"
+        }
+      },
+
+    })
+    await prisma.$disconnect()
+    return Response.json({ posts })
+  }
 }
+
+
 
 export async function DELETE(request: Request) {
   try {
