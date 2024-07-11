@@ -32,8 +32,6 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
       setTotalLikes((prevTotalLikes) => prevTotalLikes - 1)
     }
   }
-
-  console.log(user)
   
 
   return (
