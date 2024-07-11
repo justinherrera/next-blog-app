@@ -1,77 +1,42 @@
 import Image from "next/image"
 import FeaturedPost from "../featured-post"
 import { Post } from "@/app/lib/definitions"
+import { Bookmark } from "lucide-react"
+import Link from "next/link"
 
-const people = [
-  {
-    name: 'Leslie Alexander',
-    email: 'Software Developer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Michael Foster',
-    email: 'Data Analyst',
-    imageUrl:
-      'https://images.unsplash.com/photo-1519244703995-f4e0f30006d5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Dries Vincent',
-    email: 'Project Manager',
-    imageUrl:
-      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Lindsay Walton',
-    email: 'UX/UI Designer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-  {
-    name: 'Courtney Henry',
-    email: 'DevOps Engineer',
-    imageUrl:
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-  },
-]
-
-export default async function SideNavigation({ post }: { post: Post }) {
-
-
-
-  
+export default async function SideNavigation({ trendingPosts, latestPosts }: { trendingPosts: Post[], latestPosts: Post[] }) {
 
   return (
-    <div className={`${!post ? "h-screen" : ""} sticky flex flex-col top-0 pt-12`}>
+    <div className={`${!trendingPosts ? "h-screen" : ""} sticky flex flex-col top-0 pt-12`}>
           {/* <p>Authors</p> */}
-      <div className="w-full pl-4 mb-4">
-        <p className="font-bold">Check out some random authors</p>
-        <ul role="list" className="divide-y divide-gray-100 flex flex-col items-center pl-4">
-          {people.map((person) => (
-            <li key={person.email} className="flex gap-x-6 py-5 w-full">
-              <div className="flex min-w-0 gap-x-4">
-                <Image 
-                  className="h-12 w-12 flex-none rounded-full bg-gray-50" 
-                  height={100}
-                  width={100}
-                  src={person.imageUrl} alt="" />
-                <div className="flex-col">
-                  <div className="flex space-x-4">
-                    <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
-                    {/* <p className="text-sm leading-6 text-gray-500">{person.email}</p> */}
-                  </div>
-                  <small className="text-gray-500 text-xs">{person.email}</small>
+      <div className="w-full mb-4">
+        <div className="flex space-x-2">
+          <p className="font-bold py-2 px-4">Trending Posts 🔥</p>
+        </div>
+        {
+          trendingPosts.map((post) => (
+            <div key={post.id} className="flex flex-col p-4 border-b border-gray-200">
+              <Link href={`/${post.slug}`}>{post.title}</Link>
+            </div>
+          ))
+        }
 
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+      </div>
+
+      <div className="w-full my-4">
+        <div className="flex space-x-2">
+          <p className="font-bold py-2 px-4">Latest Posts ✨</p>
+        </div>
+        {
+          latestPosts.map((post) => (
+            <div key={post.id} className="flex flex-col p-4 border-b border-gray-200">
+              <Link href={`/${post.slug}`}>{post.title}</Link>
+            </div>
+          ))
+        }
+
       </div>
       
-      {
-        post ? <FeaturedPost post={post} /> : ""
-      }
       {/* <FeaturedPost post={post} /> */}
   </div>
   )
