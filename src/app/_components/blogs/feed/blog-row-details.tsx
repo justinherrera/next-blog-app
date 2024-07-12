@@ -1,11 +1,13 @@
-import { format } from "date-fns"
+import { format, isEqual } from "date-fns"
 import Link from "next/link"
 
 export default function BlogRowDetails({ name, date }: { name: string, date: Date }) {
-  const now = format(new Date(), "MM/dd/yyyy") === format(new Date(date), "MM/dd/yyyy") ? "Just now" : format(new Date(date), "MM/dd/yyyy")
+  const postedData = date.toString().split('T')[0]
+  const currentDate = new Date().toISOString().split('T')[0]
+  const now = isEqual(new Date(postedData), new Date(currentDate)) ? "Just now" : format(new Date(date), "MMMM dd, yyyy")
   return (
     <div className="flex items-center gap-x-4 text-xs h-[10%]">
-      <time dateTime={format(new Date(date), "MM/dd/yyyy")} className="text-gray-500">
+      <time dateTime={format(new Date(date), "MMMM dd, yyyy")} className="text-gray-500">
         {now}
       </time>
       <Link
