@@ -21,7 +21,7 @@ export async function GET(request: Request) {
   console.log(searchParams)
 
   if (!slug && !userId && !category && !offset && !likes) {
-   
+    console.log("?????????")
 
     const posts = await prisma.post.findMany({
       take: limit ? parseInt(limit) : 5,
@@ -42,6 +42,7 @@ export async function GET(request: Request) {
   if (!slug && !userId && !category && offset) {
     const posts = await prisma.post.findMany({
       skip: parseInt(offset),
+      take: 2,
       orderBy: [
         {
           createdAt: 'desc',
@@ -59,6 +60,7 @@ export async function GET(request: Request) {
   if (userId && offset) { // for profile page
     const posts = await prisma.post.findMany({
       skip: parseInt(offset),
+      take: 2,
       orderBy: [
         {
           createdAt: 'desc',
@@ -82,6 +84,7 @@ export async function GET(request: Request) {
   if (category && offset) { // for category page
     const posts = await prisma.post.findMany({
       skip: parseInt(offset),
+      take: 2,
       orderBy: [
         {
           createdAt: 'desc',
