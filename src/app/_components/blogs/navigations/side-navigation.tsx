@@ -11,7 +11,7 @@ export default async function SideNavigation({ trendingPosts, latestPosts }: { t
           {/* <p>Authors</p> */}
       <div className="w-full mb-4">
         <div className="flex space-x-2">
-          <p className="font-bold py-2 px-4">Trending Posts 🔥</p>
+          <p className="font-bold text-2xl py-2 px-4">Trending Posts 🔥</p>
         </div>
         {
           trendingPosts.map((post) => (
@@ -25,7 +25,7 @@ export default async function SideNavigation({ trendingPosts, latestPosts }: { t
 
       <div className="w-full my-4">
         <div className="flex space-x-2">
-          <p className="font-bold py-2 px-4">Latest Posts ✨</p>
+          <p className="font-bold text-2xl py-2 px-4">Latest Posts ✨</p>
         </div>
         {
           latestPosts.map((post) => (
