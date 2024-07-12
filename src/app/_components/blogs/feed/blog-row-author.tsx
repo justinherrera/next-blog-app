@@ -10,7 +10,7 @@ export default function BlogRowAuthor({ user }: { user: User }) {
           alt="" 
           width={300}
           height={300}
-          className="h-10 w-10 rounded-full bg-gray-50" />
+          className="h-8 w-8 rounded-full bg-gray-50" />
         <div className="text-sm leading-6">
           <p className="font-semibold text-gray-900">
             <a href="#">
@@ -18,7 +18,6 @@ export default function BlogRowAuthor({ user }: { user: User }) {
               {user.name}
             </a>
           </p>
-          <p className="text-gray-600">Software Engineer</p>
         </div>
       </div>
     </div>
