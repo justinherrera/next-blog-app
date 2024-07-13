@@ -1,3 +1,23 @@
+"use client"
+
+import React from 'react';
+import { InstantSearch, SearchBox, InfiniteHits } from 'react-instantsearch';
+import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
+import Image from 'next/image';
+
+const { searchClient } = instantMeiliSearch(
+  process.env.NEXT_PUBLIC_MEILISEARCH_URL as string,
+  process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY
+);
+
+const Hit = ({ hit }) => (
+  <article key={hit.id}>
+    <Image src={hit.image} alt={hit.name} />
+    <h1>{hit.name}</h1>
+    <p>${hit.description}</p>
+  </article>
+);
+
 export default function SearchInput() {
   return (  
     <div>
@@ -5,6 +25,13 @@ export default function SearchInput() {
         Quick search
       </label>
       <div className="relative mt-2 flex items-center">
+      <InstantSearch
+        indexName="steam-video-games"
+        searchClient={searchClient}
+      >
+      <SearchBox />
+      <InfiniteHits hitComponent={Hit} />
+      </InstantSearch>
         <input
           type="text"
           name="search"
