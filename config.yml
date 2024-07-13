@@ -1,0 +1,5 @@
+meilisearch:
+  api_url: https://ms-411c470e0eac-11435.lon.meilisearch.io
+  api_key: 'e3fc9d322b9c9551500a4523120cab7bfdb22f94e18880498f2acfbb03d8b81c'
+  insert_size: 1000
+  insert_interval: 10
