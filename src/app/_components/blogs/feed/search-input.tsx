@@ -1,7 +1,7 @@
 "use client"
 
-import React from 'react';
-import { InstantSearch, SearchBox, InfiniteHits } from 'react-instantsearch';
+import React, { useState } from 'react';
+import { InstantSearch, SearchBox, InfiniteHits, useInstantSearch } from 'react-instantsearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -11,24 +11,51 @@ const { searchClient } = instantMeiliSearch(
   process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY
 );
 
-console.log("------> searchClient")
-console.log(process.env.NEXT_PUBLIC_MEILISEARCH_URL)
-console.log(process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY)
-
 const Hit = ({ hit }: { hit: any }) => {
-  console.log("------> hit")
-  console.log(hit)
   return (
-    <div key={hit.id} className="bg-white p-4">
-      <article >
-        <Link href={`/${hit.slug}`} className="font-bold">{hit.title}</Link>
+    <div key={hit.id} className="bg-white p-4 hover:bg-gray-200">
+      <article className="">
+        <Link href={`/${hit.slug}`} className="font-bold ">{hit.title}</Link>
       </article>
     </div>
 
   );
 }
 
+// const CustomSearchBox = ({ currentRefinement, isSearchStalled, refine }) => {
+//   return (
+//     <div className="relative mt-2 flex items-center w-full">
+//       <input
+//         type="text"
+//         value={currentRefinement}
+//         onChange={event => refine(event.currentTarget.value)}
+//         className="w-full rounded-md py-1.5 pr-14 border border-gray-300 px-4"
+//       />
+//     {/* Optionally add a clear button or other UI elements here */}
+//     </div>
+//   );
+// };
+
+function EmptyQueryBoundary({ children, fallback }) {
+  const { indexUiState } = useInstantSearch();
+
+  if (!indexUiState.query) {
+    return (
+      <>
+        {fallback}
+        <div hidden>{children}</div>
+      </>
+    );
+  }
+
+  return children;
+}
+
+// const ConnectedSearchBox = connectSearchBox(CustomSearchBox);
+
 export default function SearchInput() {
+  const [query, setQuery] = useState('');
+  
   return (  
     <div>
       <label htmlFor="search" className="block text-sm font-medium leading-6 text-gray-900">
@@ -38,9 +65,22 @@ export default function SearchInput() {
       <InstantSearch
         indexName="blog-posts"
         searchClient={searchClient}
+        future={{
+          preserveSharedStateOnUnmount: true,
+        }}
+        // onStateChange={(searchState: any) => {
+        //   console.log(searchState.uiState["blog-posts"].query)
+        //   setQuery(searchState.uiState["blog-posts"].query);
+        // }}
       >
         <SearchBox className="w-full rounded-md py-1.5 pr-14 border border-gray-300 px-4 relative" />
-        <InfiniteHits hitComponent={Hit} className="absolute top-10 w-full border border-gray-200 shadow-lg " />
+        <EmptyQueryBoundary fallback={null}>
+          {/* <Hits /> */}
+          <InfiniteHits hitComponent={Hit} className="absolute top-10 w-full border border-gray-200 shadow-lg " />
+        </EmptyQueryBoundary>
+        {/* <ConnectedSearchBox /> */}
+
+        {/* <InfiniteHits hitComponent={Hit} className="absolute top-10 w-full border border-gray-200 shadow-lg " /> */}
       </InstantSearch>
         {/* <input
           type="text"
