@@ -4,19 +4,29 @@ import React from 'react';
 import { InstantSearch, SearchBox, InfiniteHits } from 'react-instantsearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const { searchClient } = instantMeiliSearch(
   process.env.NEXT_PUBLIC_MEILISEARCH_URL as string,
   process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY
 );
 
-const Hit = ({ hit }) => (
-  <article key={hit.id}>
-    <Image src={hit.image} alt={hit.name} />
-    <h1>{hit.name}</h1>
-    <p>${hit.description}</p>
-  </article>
-);
+console.log("------> searchClient")
+console.log(process.env.NEXT_PUBLIC_MEILISEARCH_URL)
+console.log(process.env.NEXT_PUBLIC_MEILISEARCH_API_KEY)
+
+const Hit = ({ hit }: { hit: any }) => {
+  console.log("------> hit")
+  console.log(hit)
+  return (
+    <div key={hit.id} className="bg-white p-4">
+      <article >
+        <Link href={`/${hit.slug}`} className="font-bold">{hit.title}</Link>
+      </article>
+    </div>
+
+  );
+}
 
 export default function SearchInput() {
   return (  
@@ -26,13 +36,13 @@ export default function SearchInput() {
       </label>
       <div className="relative mt-2 flex items-center">
       <InstantSearch
-        indexName="steam-video-games"
+        indexName="blog-posts"
         searchClient={searchClient}
       >
-      <SearchBox />
-      <InfiniteHits hitComponent={Hit} />
+        <SearchBox className="w-full rounded-md py-1.5 pr-14 border border-gray-300 px-4 relative" />
+        <InfiniteHits hitComponent={Hit} className="absolute top-10 w-full border border-gray-200 shadow-lg " />
       </InstantSearch>
-        <input
+        {/* <input
           type="text"
           name="search"
           id="search"
@@ -43,7 +53,7 @@ export default function SearchInput() {
           <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
             ⌘K
           </kbd>
-        </div>
+        </div> */}
       </div>
     </div>
   )
