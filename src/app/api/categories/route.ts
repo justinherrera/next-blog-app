@@ -2,8 +2,7 @@ import prisma from "@/app/utils/prisma-connect"
 
 export async function GET(request: Request) {
   const categories = await prisma.category.findMany({})
-    .catch(async (e) => {
-      console.error(e)
+    .catch(async () => {
       await prisma.$disconnect()
       process.exit(1)
     })

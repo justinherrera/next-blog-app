@@ -4,7 +4,7 @@ import { revalidatePath, revalidateTag } from "next/cache"
 import { redirect } from "next/navigation"
 import { auth } from "../../../auth"
 
-import { ValidationFields, FormState, ImageType } from "@/app/lib/definitions"
+import { ValidationFields, FormState, ImageType, Post } from "@/app/lib/definitions"
 
 import { createPostSchema, editPostSchema } from "./validator"
 import { uploadImage } from "../utils/upload-image"
@@ -103,7 +103,7 @@ export async function createPost(currentState: FormState, formData: FormData): P
         published: true,
         userId: user?.id as string
       },
-    }).then(async post => {
+    }).then(async (post: any) => {
       
       const imageUrl = await uploadImage(body.image, data, user?.id as string)
       const updatedPost = await prisma.post.update({
@@ -186,7 +186,7 @@ export async function editPost(currentState: FormState, formData: FormData): Pro
         id: parseInt(postId)
       },
       data,
-    }).then(async post => {
+    }).then(async (post: any) => {
       
       if (body.image.size > 0) { // if user uploads new image
         const imageUrl = await uploadImage(body.image, imageData, user?.id as string)
