@@ -4,145 +4,80 @@ import router from "next/router"
 import { auth } from "../../../../auth"
 
 export async function GET(request: Request) {
-  const session = await auth()
-  const loggedUser = session?.user
+  try {
+    const session = await auth()
+    const loggedUser = session?.user
 
-  const { searchParams } = new URL(request.url)
-  const slug = searchParams.get('slug') as string
-  const userId = searchParams.get('userId') as string
-  const category = searchParams.get('category') as string
+    const url = new URL(request.url)
+    const searchParams = url.searchParams
 
-  const offset = searchParams.get('offset') as string
-  const limit = searchParams.get('limit') as string
-  
-  
-  const likes = searchParams.get('likes') as string
+    const slug = searchParams.get('slug')
+    const userId = searchParams.get('userId')
+    const category = searchParams.get('category')
+    const offset = parseInt(searchParams.get('offset') || '0')
+    const limit = parseInt(searchParams.get('limit') || '5')
+    const likes = searchParams.get('likes')
 
-  console.log(searchParams)
+    console.log(searchParams.toString())
 
-  if (!slug && !userId && !category && !offset && !likes) {
-    console.log("?????????")
-
-    const posts = await prisma.post.findMany({
-      take: limit ? parseInt(limit) : 5,
-      orderBy: [
-        {
-          createdAt: 'desc',
-        },
-      ],
+    const queryOptions: any = {
+      take: limit,
+      orderBy: { createdAt: 'desc' },
       include: {
         category: true,
         user: true
       }
-    })
-    await prisma.$disconnect()
-    return Response.json({ posts })
-  }
+    }
 
-  if (!slug && !userId && !category && offset) {
-    const posts = await prisma.post.findMany({
-      skip: parseInt(offset),
-      take: 2,
-      orderBy: [
-        {
-          createdAt: 'desc',
+    let posts
+
+    if (!slug && !userId && !category && !offset && !likes) {
+      // Fetch latest posts
+      queryOptions.take = limit
+    } else if (!slug && !userId && !category && offset) {
+      // Fetch initial posts with offset
+      queryOptions.skip = offset
+      queryOptions.take = 2
+    } else if (userId && offset) {
+      // Fetch posts for profile page
+      queryOptions.skip = offset
+      queryOptions.take = 2
+      queryOptions.where = { user: { id: userId } }
+    } else if (category && offset) {
+      // Fetch posts for category page
+      queryOptions.skip = offset
+      queryOptions.take = 2
+      queryOptions.where = { category: { name: category } }
+    } else if (slug) {
+      // Fetch a single post by slug
+      const post = await prisma.post.findUnique({
+        where: { slug },
+        include: { user: true, likes: true, category: true }
+      })
+      await prisma.$disconnect()
+      return Response.json({ post: { ...post, loggedUser } })
+    } else if (likes) {
+      // Fetch most liked posts
+      posts = await prisma.post.findMany({
+        take: 5,
+        include: {
+          category: true,
+          user: true,
+          likes: true,
+          _count: { select: { likes: true } }
         },
-      ],
-      include: {
-        category: true,
-        user: true
-      }
-    })
+        orderBy: { likes: { _count: 'desc' } }
+      })
+      await prisma.$disconnect()
+      return Response.json({ posts })
+    }
+
+    posts = await prisma.post.findMany(queryOptions)
     await prisma.$disconnect()
     return Response.json({ posts })
-  }
-
-  if (userId && offset) { // for profile page
-    const posts = await prisma.post.findMany({
-      skip: parseInt(offset),
-      take: 2,
-      orderBy: [
-        {
-          createdAt: 'desc',
-        },
-      ],
-      where: {
-        user: {
-          id: userId
-        }
-      },
-      include: {
-        user: true,
-        category: true
-      }
-    })
-
-    await prisma.$disconnect()
-    return Response.json({ posts })
-  }
-
-  if (category && offset) { // for category page
-    const posts = await prisma.post.findMany({
-      skip: parseInt(offset),
-      take: 2,
-      orderBy: [
-        {
-          createdAt: 'desc',
-        },
-      ],
-      where: {
-        category: {
-          name: category
-        }
-      },
-      include: {
-        user: true,
-        category: true
-      }
-    })
-
-    await prisma.$disconnect()
-    return Response.json({ posts })
-  }
-  
-  if (slug) {
-    const post = await prisma.post.findUnique({
-      where: {
-        slug,
-      },
-      include: {
-        user: true,
-        likes: true,
-        category: true
-      }
-    })
-  
-    await prisma.$disconnect()
-    return Response.json({ post: { ...post, loggedUser: loggedUser } })
-  }
-
-  if (likes) {
-    const posts = await prisma.post.findMany({
-      take: 5,
-      include: {
-        category: true,
-        user: true,
-        likes: true,
-        _count: {
-          select: {
-            likes: true
-          }
-        }
-      },
-      orderBy: {
-        likes: {
-          _count: "desc"
-        }
-      },
-
-    })
-    await prisma.$disconnect()
-    return Response.json({ posts })
+  } catch (error) {
+    console.error(error)
+    return Response.json({ error: 'An error occurred while fetching posts' }, { status: 500 })
   }
 }
 
