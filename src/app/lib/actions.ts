@@ -18,31 +18,24 @@ const isAuth = async () => {
 }
 
 const validateEditFields = ({ title, content, category, image }: ValidationFields): FormState => {
+  const validatedFields = editPostSchema.safeParse({ title, content, category, image });
+  const isValidationFailed = !validatedFields.success;
 
-  const validatedFields = editPostSchema.safeParse({
-    title,
-    content,
-    category,
-    image,
-  })
-
-  const isValidationFailed = !validatedFields.success
-
-  if (isValidationFailed) return {
-    message: "validation-error",
-    errors: {
-      title: validatedFields.error.flatten().fieldErrors.title?.[0] as string,
-      content: validatedFields.error.flatten().fieldErrors.content?.[0] as string,
-      category: validatedFields.error.flatten().fieldErrors.category as string[],
-      image: validatedFields.error.flatten().fieldErrors.image?.[0] as string,
-    },
+  if (isValidationFailed) {
+    const { fieldErrors } = validatedFields.error.flatten();
+    return {
+      message: "validation-error",
+      errors: {
+        title: fieldErrors.title?.[0] as string,
+        content: fieldErrors.content?.[0] as string,
+        category: fieldErrors.category as string[],
+        image: fieldErrors.image?.[0] as string,
+      },
+    };
   }
 
-  return {
-    message: "success",
-    errors: undefined
-  }
-}
+  return { message: "success", errors: undefined };
+};
 
 const validateCreateFields = ({ title, content, category, image }: ValidationFields): FormState => {
 
@@ -55,14 +48,18 @@ const validateCreateFields = ({ title, content, category, image }: ValidationFie
 
   const isValidationFailed = !validatedFields.success
 
-  if (isValidationFailed) return {
-    message: "validation-error",
-    errors: {
-      title: validatedFields.error.flatten().fieldErrors.title?.[0] as string,
-      content: validatedFields.error.flatten().fieldErrors.content?.[0] as string,
-      category: validatedFields.error.flatten().fieldErrors.category as string[],
-      image: validatedFields.error.flatten().fieldErrors.image?.[0] as string,
-    },
+  if (isValidationFailed) {
+    const { fieldErrors } = validatedFields.error.flatten();
+
+    return {
+      message: "validation-error",
+      errors: {
+        title: fieldErrors.title?.[0] as string,
+        content: fieldErrors.content?.[0] as string,
+        category: fieldErrors.category as string[],
+        image: fieldErrors.image?.[0] as string,
+      },
+    };
   }
 
   return {
@@ -72,150 +69,97 @@ const validateCreateFields = ({ title, content, category, image }: ValidationFie
 }
 
 export async function createPost(currentState: FormState, formData: FormData): Promise<FormState> {
-  'use server'
+  'use server';
 
-  let slug = null
+  let slug = null;
   try {
+    const user = await isAuth();
+    if (!user) throw new Error('User not authenticated');
 
-    const user = await isAuth()
+    const { title, content, category, image } = Object.fromEntries(formData) as ValidationFields;
 
-    const { title, content, category, image } = Object.fromEntries(formData)
+    const validationState = validateCreateFields({ title, content, category, image });
+    if (validationState.message === "validation-error") return validationState;
 
-    const body = { title, content, category, image } as ValidationFields
-
-    const currentState = validateCreateFields(body)
-
-    if (currentState?.message === "validation-error") return currentState
-
-    const data = await body.image.arrayBuffer()
-
-    
-
-    
+    const imageData = await image.arrayBuffer();
 
     const post = await prisma.post.create({
       data: {
-        title: body.title,
-        content: body.content,
-        categoryId: parseInt(body.category),
+        title,
+        content,
+        categoryId: parseInt(category),
         imageUrl: '',
-        slug: `${body.title} ${user?.id} ${new Date().getTime()}`,
+        slug: slugify(`${title} ${user.id} ${new Date().getTime()}`),
         published: true,
-        userId: user?.id as string
+        userId: user.id as string,
       },
-    }).then(async (post: any) => {
-      
-      const imageUrl = await uploadImage(body.image, data, user?.id as string)
-      const updatedPost = await prisma.post.update({
-        where: {
-          id: post.id
-        },
-        data: {
-          imageUrl: imageUrl as string,
-          slug: slugify(`${body.title} ${user?.id} ${post.id}`)
-        }
-      })
-      slug = updatedPost.slug
-    })
+    });
 
-    
-    
-    
+    const imageUrl = await uploadImage(image, imageData, user.id as string);
+    const updatedPost = await prisma.post.update({
+      where: { id: post.id },
+      data: {
+        imageUrl,
+        slug: slugify(`${title} ${user.id} ${post.id}`),
+      },
+    });
+
+    slug = updatedPost.slug;
   } catch (e: any) {
-    console.log(e)
+    console.error(e);
     return {
       message: "Server Error",
-      errors: e.message
-    }
+      errors: e.message,
+    };
   }
 
-  // revalidateTag('blogs')
-  // revalidatePath('/feed')
-  redirect(`/${slug}`)
-  
+  return redirect(`/${slug}`);
 }
 
 export async function editPost(currentState: FormState, formData: FormData): Promise<FormState> {
-  'use server'
+  'use server';
 
-  let slug = null
+  let slug = null;
   try {
+    const user = await isAuth();
+    if (!user) throw new Error('User not authenticated');
 
-    const user = await isAuth()
+    const formEntries = Object.fromEntries(formData);
+    const postId = formEntries.id as string;
+    const currentImage = formEntries.currentImage as string;
 
-    const postId = Object.fromEntries(formData).id as string
-    const currentImage = Object.fromEntries(formData).currentImage as string
+    const { title, content, category, image } = formEntries;
+    const body = { title, content, category, image } as ValidationFields;
 
-    const { title, content, category, image } = Object.fromEntries(formData)
+    const validationState = validateEditFields(body);
+    if (validationState.message === "validation-error") return validationState;
 
-    const body = { title, content, category, image } as ValidationFields
+    const imageData = await body.image.arrayBuffer();
+    const isImageUpdated = body.image.size > 0;
 
-    const currentState = validateEditFields(body)
-
-    console.log("------> currentState")
-    console.log(currentState)
-
-    if (currentState?.message === "validation-error") return currentState
-
-    let data = {}
-    const imageData = await body.image.arrayBuffer()
-
-    if (body.image.size > 0) { // if user uploads new image
-     
-      const imageUrl = await uploadImage(body.image, imageData, user?.id as string)
-
-      data = {
-        title: body.title,
-        content: body.content,
-        slug: slugify(`${body.title} ${user?.id} ${postId}`),
-        categoryId: parseInt(body.category),// change to category id
-        imageUrl: imageUrl,
-      }
-    } else {
-      data = {
-        title: body.title,
-        content: body.content,
-        slug: slugify(`${body.title} ${user?.id} ${postId}`),
-        categoryId: parseInt(body.category),// change to category id
-        imageUrl: currentImage,
-      }
-    }
+    const updatedData = {
+      title: body.title,
+      content: body.content,
+      slug: slugify(`${body.title} ${user.id} ${postId}`),
+      categoryId: parseInt(body.category),
+      imageUrl: isImageUpdated ? await uploadImage(body.image, imageData, user.id as string) : currentImage,
+    };
 
     const post = await prisma.post.update({
-      where: {
-        id: parseInt(postId)
-      },
-      data,
-    }).then(async (post: any) => {
-      
-      if (body.image.size > 0) { // if user uploads new image
-        const imageUrl = await uploadImage(body.image, imageData, user?.id as string)
-        const updatedPost = await prisma.post.update({
-          where: {
-            id: post.id
-          },
-          data: {
-            imageUrl: imageUrl as string,
-          }
-        })
-      }   
-      slug = post.slug   
-    })
-    
-    
-    
-  } catch (e: any) {
-    console.log(e)
+      where: { id: parseInt(postId) },
+      data: updatedData,
+    });
+
+    slug = post.slug;
+  } catch (error: any) {
+    console.error(error);
     return {
       message: "Server Error",
-      errors: e.message
-    }
+      errors: error.message,
+    };
   }
 
-  // revalidateTag('blogs')
-  // revalidatePath('/feed')
-  redirect(`/${slug}`)
-  
+  return redirect(`/${slug}`);
 }
 
 export async function getPosts(offset: number, limit: number) {
