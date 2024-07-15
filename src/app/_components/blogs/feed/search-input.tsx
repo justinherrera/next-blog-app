@@ -36,7 +36,7 @@ const Hit = ({ hit }: { hit: any }) => {
 //   );
 // };
 
-function EmptyQueryBoundary({ children, fallback }) {
+function EmptyQueryBoundary({ children, fallback }: { children: React.ReactNode, fallback: React.ReactNode }) {
   const { indexUiState } = useInstantSearch();
 
   if (!indexUiState.query) {
