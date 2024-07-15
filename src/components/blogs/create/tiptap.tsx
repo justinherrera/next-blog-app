@@ -18,7 +18,7 @@ import Heading from '@tiptap/extension-heading'
 import { cn } from "@/utils/cn"
 import '../../../styles.module.css'
 
-import BlogCreateToolbar from '../create/blog-create-toolbar'
+import BlogCreateToolbar from '@/components/blogs/create/blog-create-toolbar'
 
 export default function Tiptap () {
   const editorClassName = "w-full px-4 border border-gray-300 py-2 rounded border-t-0 rounded-t-none focus:outline-none h-56 shadow-lg bg-white"

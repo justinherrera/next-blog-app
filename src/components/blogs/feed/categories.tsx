@@ -1,4 +1,4 @@
-import CategoriesNavigation from "./categories-navigation"
+import CategoriesNavigation from "@/components/blogs/feed/categories-navigation"
 
 export default async function Categories() {
   const response = await fetch(`${process.env.BASE_URL}/api/categories`)

@@ -1,6 +1,5 @@
-import NoPostsFound from "../no-posts-found"
-import BlogRow from "./blog-row"
-import CategoriesNavigation from "./categories-navigation"
+import NoPostsFound from "@/components/blogs/no-posts-found"
+import BlogRow from "@/components/blogs/feed/blog-row"
 import { getPosts } from "@/lib/actions"
 
 export default async function Blogs() {

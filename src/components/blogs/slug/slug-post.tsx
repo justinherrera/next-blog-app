@@ -7,8 +7,7 @@ import { Post, User } from "@/lib/definitions"
 import { useState } from "react"
 import parse from 'html-react-parser';
 import { EllipsisVertical, FilePenLine, Trash } from "lucide-react"
-import EditModal from "./edit-modal"
-import DeleteDialog from "./delete-dialog"
+import EditModal from "@/components/blogs/slug/edit-modal"
 
 export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { post: Post, isDeleting: boolean, setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>, user: User }) {
   

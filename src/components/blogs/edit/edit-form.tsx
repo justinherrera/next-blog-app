@@ -18,7 +18,7 @@ import Heading from '@tiptap/extension-heading'
 import { ArrowDownUp } from "lucide-react"
 import Image from "next/image"
 
-import BlogCreateToolbar from '../create/blog-create-toolbar'
+import BlogCreateToolbar from '@/components/blogs/create/blog-create-toolbar'
 import { FormState, Category, Post } from '@/lib/definitions'
 import { useState } from 'react'
 import { usePathname } from "next/navigation"
@@ -33,7 +33,7 @@ import { Upload } from "lucide-react"
 import { useFormState } from "react-dom";
 
 import { Toaster, toast } from 'sonner'
-import EditButton from './edit-button'
+import EditButton from '@/components/blogs/edit/edit-button'
 import NotFound from '@/app/not-found'
 
 const initialState: FormState = {

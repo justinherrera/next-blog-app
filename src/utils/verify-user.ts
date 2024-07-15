@@ -1,6 +1,6 @@
 
 import prisma from "@/utils/prisma-connect"
-import comparePassword from "./compare-password";
+import comparePassword from "@/utils/compare-password";
 
 export default async function verifyUser(email: string, password: string) {
 

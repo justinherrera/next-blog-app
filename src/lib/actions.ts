@@ -4,7 +4,7 @@ import { auth } from "../../auth"
 
 import { ValidationFields, FormState } from "@/lib/definitions"
 
-import { createPostSchema, editPostSchema } from "./validator"
+import { createPostSchema, editPostSchema } from "@/lib/validator"
 import { uploadImage } from "@/utils/upload-image"
 
 import { slugify } from "@/utils/slugify"

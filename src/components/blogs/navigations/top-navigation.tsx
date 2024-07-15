@@ -1,12 +1,8 @@
 
-
-import { redirect } from "next/navigation"
-import { auth, signOut } from "../../../../../auth"
+import { auth } from "../../../../../auth"
 import Link from "next/link"
-import TopNavigationUser from "./top-navigation-user"
-import Image from "next/image"
+import TopNavigationUser from "@/components/blogs/navigations/top-navigation-user"
 import { User } from "@/lib/definitions"
-import { headers } from "next/headers";
 
 
 

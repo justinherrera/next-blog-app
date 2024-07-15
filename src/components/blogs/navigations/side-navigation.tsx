@@ -1,7 +1,4 @@
-import Image from "next/image"
-import FeaturedPost from "../featured-post"
 import { Post } from "@/lib/definitions"
-import { Bookmark } from "lucide-react"
 import Link from "next/link"
 
 export default async function SideNavigation({ trendingPosts, latestPosts }: { trendingPosts: Post[], latestPosts: Post[] }) {

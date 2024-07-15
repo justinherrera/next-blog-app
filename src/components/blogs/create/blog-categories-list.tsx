@@ -1,4 +1,4 @@
-import BlogCreateCategorySelect from "./blog-create-category-select"
+import BlogCreateCategorySelect from "@/components/blogs/create/blog-create-category-select"
 
 export default async function Categories() {
   const response = await fetch(`${process.env.BASE_URL}/api/categories`)

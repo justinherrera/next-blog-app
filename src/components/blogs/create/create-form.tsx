@@ -17,10 +17,8 @@ import CodeBlock from '@tiptap/extension-code-block'
 import Heading from '@tiptap/extension-heading'
 import { ArrowDownUp } from "lucide-react"
 
-import BlogCreateToolbar from '../create/blog-create-toolbar'
-import BlogCategoriesList from './blog-categories-list'
+import BlogCreateToolbar from '@/components/blogs/create/blog-create-toolbar'
 import { FormState, Category } from '@/lib/definitions'
-import BlogCreateCategorySelect from './blog-create-category-select'
 import Image from "next/image"
 import { useState } from 'react'
 
@@ -29,7 +27,7 @@ import { Upload } from "lucide-react"
 import { useFormState } from "react-dom";
 
 import { Toaster, toast } from 'sonner'
-import CreateButton from './create-button'
+import CreateButton from '@/components/blogs/create/create-button'
 
 const initialState: FormState = {
   message: "",

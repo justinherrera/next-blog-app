@@ -1,13 +1,10 @@
 "use client"
 
 import Image from "next/image"
-import { signOut } from "../../../../../auth"
 import { useState } from "react"
-import SignOutButton from "../../auth/sign-out-button"
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import SignOutButton from "@/components/auth/sign-out-button"
 import Link from "next/link"
 import { User as UserType } from "@/lib/definitions"
-import NotAuthorized from "../../auth/not-authorized"
 import { User } from "lucide-react"
 import { usePathname } from "next/navigation"
 
