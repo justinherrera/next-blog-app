@@ -1,7 +1,7 @@
 
-import { User } from "@/app/lib/definitions"
+import { User } from "@/lib/definitions"
 import { auth } from "../../../../auth"
-import SlugPage from "@/app/_components/blogs/slug/slug-page"
+import SlugPage from "@/components/blogs/slug/slug-page"
 
 export default async function Page(
   {

@@ -1,10 +1,10 @@
-import Blogs from "@/app/_components/blogs/category/blogs"
-import NoPostsFound from "@/app/_components/blogs/no-posts-found"
+import Blogs from "@/components/blogs/category/blogs"
+import NoPostsFound from "@/components/blogs/no-posts-found"
 import { Suspense } from "react"
-import LoadingCategoryBlogs from "@/app/_components/blogs/skeletons/loading-category-blogs"
-import NotAuthorized from "@/app/_components/auth/not-authorized"
+import LoadingCategoryBlogs from "@/components/blogs/skeletons/loading-category-blogs"
+import NotAuthorized from "@/components/auth/not-authorized"
 import { auth } from "../../../../auth"
-import { getCategoryPosts } from "@/app/lib/actions"
+import { getCategoryPosts } from "@/lib/actions"
 
 
 export default async function Category({ params }: { params: { category: string } }) {

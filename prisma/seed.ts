@@ -79,6 +79,7 @@ async function main() {
   await prisma.account.deleteMany({})
   await prisma.session.deleteMany({})
   await prisma.authenticator.deleteMany({})
+  await prisma.like.deleteMany({})
 
   const createCategories = await prisma.category.createMany({
     data: categories,

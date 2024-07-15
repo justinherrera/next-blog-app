@@ -4,10 +4,10 @@ import { PrismaAdapter } from "@auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
 import GitHubProvider from "next-auth/providers/github";
 import Credentials from "next-auth/providers/credentials"
-import encryptPassword from "./src/app/utils/encrypt-password"
-import verifyUser from "./src/app/utils/verify-user"
-import { signInSchema } from "./src/app/lib/validator"
-import prisma from "@/app/utils/prisma-connect"
+import encryptPassword from "./src/utils/encrypt-password"
+import verifyUser from "./src/utils/verify-user"
+import { signInSchema } from "./src/lib/validator"
+import prisma from "@/utils/prisma-connect"
 
 type Credentials = {
   email: string

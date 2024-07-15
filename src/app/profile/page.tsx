@@ -1,10 +1,10 @@
 
 import { auth } from "../../../auth"
-import NotAuthorized from "../_components/auth/not-authorized"
-import NoPostsFound from "../_components/blogs/no-posts-found"
-import Profile from "@/app/_components/blogs/profile/profile"
+import NotAuthorized from "@/components/auth/not-authorized"
+import NoPostsFound from "@/components/blogs/no-posts-found"
+import Profile from "@/components/blogs/profile/profile"
 
-import { getProfilePosts } from "@/app/lib/actions"
+import { getProfilePosts } from "@/lib/actions"
 
 
 export default async function Page() {

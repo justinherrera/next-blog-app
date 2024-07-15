@@ -1,7 +1,7 @@
 
 import { auth } from '../../../auth'
-import NotAuthorized from '../_components/auth/not-authorized'
-import TopNavigation from '../_components/blogs/navigations/top-navigation'
+import NotAuthorized from '@/components/auth/not-authorized'
+import TopNavigation from '@/components/blogs/navigations/top-navigation'
 
 export default async function FeedLayout({
   children

@@ -1,8 +1,4 @@
-import BlogNavigation from '../../_components/blogs/navigations/top-navigation'
-import { auth } from "../../../../auth"
-import NotAuthorized from '@/app/_components/auth/not-authorized'
-import SideNavigation from '../../_components/blogs/navigations/side-navigation'
-import NoPostsFound from '@/app/_components/blogs/no-posts-found'
+import SideNavigation from '@/components/blogs/navigations/side-navigation'
 
 export default async function FeedLayout({
   children

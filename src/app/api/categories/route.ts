@@ -1,4 +1,4 @@
-import prisma from "@/app/utils/prisma-connect"
+import prisma from "@/utils/prisma-connect"
 
 export async function GET(request: Request) {
   const categories = await prisma.category.findMany({})

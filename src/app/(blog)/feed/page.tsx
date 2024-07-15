@@ -1,18 +1,11 @@
 
 
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
-import SearchInput from '../../_components/blogs/feed/search-input'
-import BlogRow from "@/app/_components/blogs/feed/blog-row"
-import Categories from "@/app/_components/blogs/feed/categories"
+import SearchInput from '@/components/blogs/feed/search-input'
+import Categories from "@/components/blogs/feed/categories"
 import { Suspense } from 'react'
-import LoadingCategories from '@/app/_components/blogs/skeletons/loading-categories'
-import LoadingFeed from '@/app/_components/blogs/skeletons/loading-feed'
-import Blogs from '@/app/_components/blogs/feed/blogs'
+import LoadingCategories from '@/components/blogs/skeletons/loading-categories'
+import LoadingFeed from '@/components/blogs/skeletons/loading-feed'
+import Blogs from '@/components/blogs/feed/blogs'
 
 
 

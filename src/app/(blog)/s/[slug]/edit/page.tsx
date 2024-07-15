@@ -1,7 +1,6 @@
 import { Suspense } from "react"
-import { editPost } from "@/app/lib/actions"
-import EditForm from '@/app/_components/blogs/edit/edit-form'
-import { Category, FormState } from '@/app/lib/definitions'
+import { editPost } from "@/lib/actions"
+import EditForm from '@/components/blogs/edit/edit-form'
 import NotFound from "@/app/not-found"
 import { auth } from "../../../../../../auth"
 

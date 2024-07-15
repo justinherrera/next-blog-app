@@ -1,4 +1,4 @@
-import prisma from "@/app/utils/prisma-connect"
+import prisma from "@/utils/prisma-connect"
 import { auth } from "../../../../auth"
 
 
