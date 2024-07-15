@@ -1,5 +1,5 @@
 
-import { auth } from "../../../../../auth"
+import { auth } from "../../../../auth"
 import Link from "next/link"
 import TopNavigationUser from "@/components/blogs/navigations/top-navigation-user"
 import { User } from "@/lib/definitions"
