@@ -1,8 +1,5 @@
 
-import { useEffect, useState } from "react";
-import { signOut } from "../../../../auth";
-
-import { redirect } from 'next/navigation'
+import { useState } from "react";
 import { useRouter } from 'next/navigation'
 import { LogOut } from "lucide-react";
 
