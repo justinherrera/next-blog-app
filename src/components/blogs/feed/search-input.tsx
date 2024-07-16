@@ -63,7 +63,7 @@ export default function SearchInput() {
       </label>
       <div className="relative mt-2 flex items-center">
       <InstantSearch
-        indexName="blog-posts"
+        indexName="posts"
         searchClient={searchClient}
         future={{
           preserveSharedStateOnUnmount: true,
