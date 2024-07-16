@@ -22,20 +22,6 @@ const Hit = ({ hit }: { hit: any }) => {
   );
 }
 
-// const CustomSearchBox = ({ currentRefinement, isSearchStalled, refine }) => {
-//   return (
-//     <div className="relative mt-2 flex items-center w-full">
-//       <input
-//         type="text"
-//         value={currentRefinement}
-//         onChange={event => refine(event.currentTarget.value)}
-//         className="w-full rounded-md py-1.5 pr-14 border border-gray-300 px-4"
-//       />
-//     {/* Optionally add a clear button or other UI elements here */}
-//     </div>
-//   );
-// };
-
 function EmptyQueryBoundary({ children, fallback }: { children: React.ReactNode, fallback: React.ReactNode }) {
   const { indexUiState } = useInstantSearch();
 
