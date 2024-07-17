@@ -73,13 +73,13 @@ const posts = [
 
 async function main() {
 
-  await prisma.post.deleteMany({})
-  await prisma.category.deleteMany({})
-  await prisma.user.deleteMany({})
-  await prisma.account.deleteMany({})
-  await prisma.session.deleteMany({})
-  await prisma.authenticator.deleteMany({})
-  await prisma.like.deleteMany({})
+  // await prisma.post.deleteMany({})
+  // await prisma.category.deleteMany({})
+  // await prisma.user.deleteMany({})
+  // await prisma.account.deleteMany({})
+  // await prisma.session.deleteMany({})
+  // await prisma.authenticator.deleteMany({})
+  // await prisma.like.deleteMany({})
 
   const createCategories = await prisma.category.createMany({
     data: categories,
