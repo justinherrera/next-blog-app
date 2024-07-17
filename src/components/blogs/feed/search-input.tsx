@@ -37,10 +37,7 @@ function EmptyQueryBoundary({ children, fallback }: { children: React.ReactNode,
   return children;
 }
 
-// const ConnectedSearchBox = connectSearchBox(CustomSearchBox);
-
 export default function SearchInput() {
-  const [query, setQuery] = useState('');
   
   return (  
     <div>
