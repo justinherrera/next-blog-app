@@ -19,7 +19,7 @@ export default function Feed() {
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">From the blog</h2>
           <SearchInput />
           <p className="mt-2 text-lg leading-8 text-gray-600">
-            Explore and discover popular blogs from around the world. 🌎
+            Discover and explore popular blogs across various topics. 🌎
           </p>
           <Suspense fallback={<LoadingCategories />}>
             <Categories />
