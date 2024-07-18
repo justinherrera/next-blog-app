@@ -2,7 +2,7 @@
 
 import { Category } from "@/lib/definitions"
 import { useRef, useState } from 'react';
-import { StepForward, StepBack } from 'lucide-react';
+import { StepForward, StepBack, CircleArrowRight, CircleArrowLeft } from 'lucide-react';
 import Link from "next/link";
 
 
@@ -24,9 +24,9 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
       <ul className="flex space-x-2 sm:space-x-4 p-4 pl-0 scroll-smooth overflow-x-hidden " ref={scrollRef}>
         {
           (isStartReached === false) ?
-            <StepBack 
+            <CircleArrowLeft 
               size={40} 
-              className="absolute -left-4 top-46 rounded-full px-2 cursor-pointer text-gray-600"
+              className="absolute -left-4 top-46 px-2 cursor-pointer text-black"
               onClick={() => {
                 setIsScrolling(true)
                 
@@ -55,9 +55,9 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
 
         {
           (isEndReached === false) ?
-            <StepForward 
+            <CircleArrowRight 
               size={40} 
-              className="absolute -right-4 top-46  rounded-full p-2 cursor-pointer text-gray-600"
+              className="absolute -right-4 top-46 p-2 cursor-pointer text-black"
               onClick={() => {
                 setIsScrolling(!isScrolling)
                 scroll(300)
