@@ -11,8 +11,8 @@ export default async function FeedLayout({
   const trendingPostsResponse = await fetch(`${process.env.BASE_URL}/api/blogs?likes=desc`, { cache: 'no-store' })
   const { posts: trendingPosts } = await trendingPostsResponse.json()
 
-  const latestPostsResponse = await fetch(`${process.env.BASE_URL}/api/blogs?limit=5`, { cache: 'no-store' })
-  const { posts: latestPosts } = await latestPostsResponse.json()
+  // const latestPostsResponse = await fetch(`${process.env.BASE_URL}/api/blogs?limit=5`, { cache: 'no-store' })
+  // const { posts: latestPosts } = await latestPostsResponse.json()
 
   return (
     <div className="w-screen">
@@ -22,8 +22,8 @@ export default async function FeedLayout({
           {children}
         </div>
         
-        <div className="pb-12 border-l border-r border-gray-200 hidden xl:block w-[20%] lg:w-[25%] 2xl:w-[20%]">
-          <SideNavigation trendingPosts={trendingPosts} latestPosts={latestPosts} />
+        <div className="pb-12 hidden xl:block w-[20%] lg:w-[25%] 2xl:w-[20%]">
+          <SideNavigation trendingPosts={trendingPosts} />
         </div>
         
       </div>
