@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     const limit = parseInt(searchParams.get('limit') || '5')
     const likes = searchParams.get('likes')
 
-    console.log(searchParams.toString())
+    console.log(searchParams)
 
     const queryOptions: any = {
       take: limit,
@@ -38,17 +38,17 @@ export async function GET(request: Request) {
       // Fetch initial posts with offset
       queryOptions.skip = offset
       queryOptions.take = 2
-    } else if (userId && offset) {
+    } else if (userId && offset >= 0 && limit) {
       // Fetch posts for profile page
       queryOptions.skip = offset
       queryOptions.take = 2
       queryOptions.where = { user: { id: userId } }
-    } else if (category && offset) {
+    } else if (category && offset >= 0) {
       // Fetch posts for category page
       queryOptions.skip = offset
       queryOptions.take = 2
       queryOptions.where = { category: { name: category } }
-    } else if (slug) {
+    } else if (slug && !userId) {
       // Fetch a single post by slug
       const post = await prisma.post.findUnique({
         where: { slug },
@@ -71,7 +71,6 @@ export async function GET(request: Request) {
       await prisma.$disconnect()
       return Response.json({ posts })
     }
-
     posts = await prisma.post.findMany(queryOptions)
     await prisma.$disconnect()
     return Response.json({ posts })
@@ -102,7 +101,6 @@ export async function DELETE(request: Request) {
       }
     })
 
-    console.log(post?.user.id !== loggedUserId)
     if (post?.user.id !== loggedUserId) return Response.json({ 
       status: "error",
       message: "You are not authorized to delete this post" })
