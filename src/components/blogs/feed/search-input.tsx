@@ -14,9 +14,7 @@ const { searchClient } = instantMeiliSearch(
 const Hit = ({ hit }: { hit: any }) => {
   return (
     <div key={hit.id} className="bg-white p-4 hover:bg-gray-200">
-      <article className="">
-        <Link href={`/${hit.slug}`} className="font-bold ">{hit.title}</Link>
-      </article>
+      <Link href={`/${hit.slug}`} className="font-semibold ">{hit.title}</Link>
     </div>
 
   );
