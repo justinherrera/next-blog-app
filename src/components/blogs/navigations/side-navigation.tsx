@@ -12,8 +12,8 @@ export default async function SideNavigation({ trendingPosts, latestPosts }: { t
         </div>
         {
           trendingPosts.map((post) => (
-            <div key={post.id} className="flex flex-col p-4 border-b border-gray-200">
-              <Link href={`/${post.slug}`}>{post.title.substring(0, 30)}...</Link>
+            <div key={post.id} className="flex flex-col p-4 border-b border-gray-200 hover:bg-gray-100">
+              <Link href={`/${post.slug}`}>{post.title}</Link>
             </div>
           ))
         }
@@ -26,8 +26,8 @@ export default async function SideNavigation({ trendingPosts, latestPosts }: { t
         </div>
         {
           latestPosts.map((post) => (
-            <div key={post.id} className="flex flex-col p-4 border-b border-gray-200">
-              <Link href={`/${post.slug}`}>{post.title.substring(0, 30)}...</Link>
+            <div key={post.id} className="flex flex-col p-4 border-b border-gray-200 hover:bg-gray-100">
+              <Link href={`/${post.slug}`}>{post.title}</Link>
             </div>
           ))
         }
