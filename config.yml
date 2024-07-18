@@ -1,20 +1,23 @@
 meilisearch:
-  api_url: https://ms-411c470e0eac-11435.lon.meilisearch.io
-  api_key: 'e3fc9d322b9c9551500a4523120cab7bfdb22f94e18880498f2acfbb03d8b81c'
+  api_url: 'https://ms-411c470e0eac-11435.lon.meilisearch.io'
+  api_key: 'c9622a7df0512f6f4cc3d34b9e7957277037171f'
   insert_size: 1000
   insert_interval: 10
+
 source:
   type: postgres
-  host: ep-late-bread-a1tbclxf.ap-southeast-1.aws.neon.tech
+  host: '34.132.68.121'
   port: 5432
-  database: blog-app
-  user: blog-app_owner
-  password: yHl9O5zSdnqM
+  database: postgres
+  user: postgres
+  password: '_s]mk^]lvKz)XY^U'
+
+progress:
+  type: file  
+  path: 'C:\\Python312\\Lib\\site-packages\\meilisync\\progress.json'
+
 sync:
-  - table: POSTGRES_TABLE_NAME_1
-    index: blog-posts
-    pk: id # Read the "Primary key inference" section below
-    full: true
   - table: Post
-    index: blog-posts
+    index: posts
+    pk: id
     full: true
