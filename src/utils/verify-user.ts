@@ -14,7 +14,6 @@ export default async function verifyUser(email: string, password: string) {
     return false
   }
 
-  // || '' to handle the case where the user has not set a password
   const isMatch = await comparePassword(password, user.password || '')
 
   if (!isMatch) {

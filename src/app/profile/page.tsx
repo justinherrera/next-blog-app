@@ -13,10 +13,6 @@ export default async function Page() {
 
   if (!session) return <NotAuthorized />
   const { user } = session
-  
-
-  // const response = await fetch(`${process.env.BASE_URL}/api/blogs?userId=${user?.id}`, { cache: 'no-store' })
-  // const { posts } = await response.json()
 
   const { posts } = await getProfilePosts(user?.id, 0, 6)
 

@@ -10,22 +10,6 @@ export default function BlogCreateCategorySelect({ categories }: { categories: C
   const [isOpen, setIsOpen] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  // const { isPending, isError, data, error } = useQuery({
-  //   queryKey: ['categories'],
-  //   queryFn: async () => {
-  //     const response = await fetch(`http://localhost:3000/api/categories`)
-  //       .then((res) => res.json())
-  //       .then(data => data.categories)
-
-  //     return response
-  //   },
-  // })
-  
-
-  // if (isPending) return <p>Loading...</p>
-
-  // if(!data) return <p>No list of categories</p>
-
   return (
     <>
       <p className="font-bold mt-4">Choose a category:</p>

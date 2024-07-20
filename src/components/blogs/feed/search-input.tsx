@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from 'react';
+import React from 'react';
 import { InstantSearch, SearchBox, InfiniteHits, useInstantSearch } from 'react-instantsearch';
 import { instantMeiliSearch } from '@meilisearch/instant-meilisearch';
 import Image from 'next/image';
@@ -49,32 +49,13 @@ export default function SearchInput() {
         future={{
           preserveSharedStateOnUnmount: true,
         }}
-        // onStateChange={(searchState: any) => {
-        //   console.log(searchState.uiState["blog-posts"].query)
-        //   setQuery(searchState.uiState["blog-posts"].query);
-        // }}
       >
         <SearchBox className="w-full rounded-md py-1.5 pr-14 border border-gray-300 px-4 relative" />
         <EmptyQueryBoundary fallback={null}>
           {/* <Hits /> */}
           <InfiniteHits hitComponent={Hit} className="absolute top-10 w-full border border-gray-200 shadow-lg " />
         </EmptyQueryBoundary>
-        {/* <ConnectedSearchBox /> */}
-
-        {/* <InfiniteHits hitComponent={Hit} className="absolute top-10 w-full border border-gray-200 shadow-lg " /> */}
       </InstantSearch>
-        {/* <input
-          type="text"
-          name="search"
-          id="search"
-          className="w-full rounded-md py-1.5 pr-14 border border-gray-300 px-4"
-          placeholder="Search..."
-        />
-        <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
-          <kbd className="inline-flex items-center rounded border border-gray-200 px-1 font-sans text-xs text-gray-400">
-            ⌘K
-          </kbd>
-        </div> */}
       </div>
     </div>
   )
