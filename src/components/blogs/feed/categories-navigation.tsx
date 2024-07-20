@@ -26,7 +26,7 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
           (isStartReached === false) ?
             <CircleArrowLeft 
               size={40} 
-              className="absolute -left-4 top-46 px-2 cursor-pointer text-black"
+              className="absolute -left-4 top-46 px-2 cursor-pointer text-black bg-white"
               onClick={() => {
                 setIsScrolling(true)
                 
@@ -57,7 +57,7 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
           (isEndReached === false) ?
             <CircleArrowRight 
               size={40} 
-              className="absolute -right-4 top-46 p-2 cursor-pointer text-black"
+              className="absolute -right-4 top-46 p-2 cursor-pointer text-black bg-white"
               onClick={() => {
                 setIsScrolling(!isScrolling)
                 scroll(300)
