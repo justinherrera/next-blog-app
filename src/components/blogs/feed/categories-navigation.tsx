@@ -13,7 +13,6 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
   const [isEndReached, setIsEndReached] = useState(false)
 
   const scroll = (scrollOffset: number) => {
-    // console.log(scrollRef.current.scrollLeft)
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += scrollOffset;
     }
