@@ -77,13 +77,11 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
             alt=""
           />
           <figcaption className="mt-4 flex gap-x-2 text-sm leading-6 text-gray-500">
-            {/* {totalLikes <= 0 ? "This blog has not been liked yet" : `This blog has ${totalLikes} likes 🩷` }  */}
             {post.category.name}
             
           </figcaption>
         </figure>
         <div className="mt-8 sm:mt-16 max-w-2xl">
-          {/* <p>{post.content}</p> */}
           {parse(post.content)}
 
         </div>
