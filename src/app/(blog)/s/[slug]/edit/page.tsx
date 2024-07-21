@@ -12,7 +12,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const categoriesData = await fetch(`${process.env.BASE_URL}/api/categories`)
   const { categories } = await categoriesData.json()
 
-  const slugData = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?slug=${params.slug}`)
+  const slugData = await fetch(`${process.env.BASE_URL}/api/blogs?slug=${params.slug}`)
   const data = await slugData.json()
 
   console.log(data.post.user.id === user?.id)
