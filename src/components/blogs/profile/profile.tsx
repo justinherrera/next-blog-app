@@ -62,7 +62,7 @@ export default function Profile({ userId, getProfilePosts, initialPosts }: { use
       </div>
     <div className="w-full flex items-center justify-center mt-12" ref={ref}>
       {
-        hasMorePosts ? <p className="font-bold">Loading more posts...</p> : ""
+        hasMorePosts ? <p className="">Loading more posts...</p> : ""
       }
     </div>
   </div>
