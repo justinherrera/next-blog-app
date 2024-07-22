@@ -3,7 +3,7 @@ import CreateForm from "@/components/blogs/create/create-form"
 import { createPost } from "@/lib/actions"
 
 export default async function Create() {
-  const response = await fetch(`${process.env.BASE_URL}/api/categories`)
+  const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`)
   const { categories } = await response.json()
 
   return (

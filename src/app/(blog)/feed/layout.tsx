@@ -6,7 +6,7 @@ export default async function FeedLayout({
   children: React.ReactNode
 }) {
 
-  const trendingPostsResponse = await fetch(`${process.env.BASE_URL}/api/blogs?likes=desc`, { cache: 'no-store' })
+  const trendingPostsResponse = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs?likes=desc`, { cache: 'no-store' })
   const { posts: trendingPosts } = await trendingPostsResponse.json()
 
   return (
