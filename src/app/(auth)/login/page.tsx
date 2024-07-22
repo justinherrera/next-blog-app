@@ -21,9 +21,9 @@ export default function Login() {
         </h2>
       </div>
 
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
+      <div className="sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-          <LoginForm />
+          {/* <LoginForm /> */}
 
           <AlternativeLogins />
 
