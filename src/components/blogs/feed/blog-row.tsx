@@ -58,7 +58,7 @@ export default function BlogRow({ getPosts, initialPosts }: { getPosts: (offset:
       ))}
       <div className="" ref={ref}>
         {
-          hasMorePosts ? <p className="">Loading more posts...</p> : ""
+          hasMorePosts ? <p className="">Loading more posts...</p> : "There are no more posts to show right now."
         }
       </div>
     </div>
