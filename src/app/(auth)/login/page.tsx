@@ -3,6 +3,7 @@ import Image from "next/image";
 import AlternativeLogins from "@/components/auth/alternative-logins";
 import LoginForm from "@/components/auth/login-form";
 import GithubButton from "@/components/auth/github-button";
+import GuestButton from "@/components/auth/guest-button";
 
 
 export default function Login() {
@@ -27,8 +28,10 @@ export default function Login() {
 
           <AlternativeLogins />
 
+          <GuestButton />
           <GithubButton />
           <GoogleButton />
+          
         </div>
       </div>
     </div>
