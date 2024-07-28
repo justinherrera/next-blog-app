@@ -43,9 +43,9 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
                   
                   scrollLeft(300)
                   if (scrollRef.current) {
-                    if (scrollRef?.current?.scrollLeft <= 800) {
+                    if (scrollRef?.current?.scrollLeft <= 300) {
                       setIsStartReached(true)
-                    } else if (scrollRef?.current?.scrollLeft > 800) {
+                    } else if (scrollRef?.current?.scrollLeft > 300) {
                       setIsEndReached(false)
                     }
                   }

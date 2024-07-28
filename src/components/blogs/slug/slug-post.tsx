@@ -4,10 +4,48 @@ import Image from "next/image"
 import { format } from "date-fns"
 import Heart from "@/components/blogs/icons/Heart"
 import { Post, User } from "@/lib/definitions"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import parse from 'html-react-parser';
 import { EllipsisVertical, FilePenLine, Trash } from "lucide-react"
 import EditModal from "@/components/blogs/slug/edit-modal"
+import { generateJSON } from '@tiptap/core'
+import Document from '@tiptap/extension-document'
+import Paragraph from '@tiptap/extension-paragraph'
+import Text from '@tiptap/extension-text'
+import { Italic as TiptapItalic } from '@tiptap/extension-italic'
+import Strike from '@tiptap/extension-strike'
+import Highlight from '@tiptap/extension-highlight'
+import { Code as TiptapCode } from '@tiptap/extension-code'
+import Blockquote from '@tiptap/extension-blockquote'
+import { Underline as TiptapUnderline } from '@tiptap/extension-underline'
+import BulletList from '@tiptap/extension-bullet-list'
+import ListItem from '@tiptap/extension-list-item'
+import CodeBlock from '@tiptap/extension-code-block'
+import Heading from '@tiptap/extension-heading'
+import { generateHTML } from '@tiptap/core'
+import { useEditor, EditorContent } from "@tiptap/react"
+import StarterKit from "@tiptap/starter-kit"
+
+const generate = (content: string) => {
+  return generateJSON(content, [
+      Document,
+      Paragraph,
+      Text,
+      TiptapCode,
+      Highlight.configure({ multicolor: true }),
+      TiptapItalic,
+      Strike,
+      TiptapUnderline,
+      Blockquote,
+      BulletList, 
+      ListItem,
+      CodeBlock,
+      Heading.configure({
+        levels: [1, 2, 3],
+      }),
+      // other extensions …
+    ])
+}
 
 export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { post: Post, isDeleting: boolean, setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>, user: User }) {
   
@@ -31,6 +69,69 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
       setTotalLikes((prevTotalLikes) => prevTotalLikes - 1)
     }
   }
+
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+      Document,
+      Paragraph,
+      Text,
+      TiptapCode,
+      Highlight.configure({ multicolor: true }),
+      TiptapItalic,
+      Strike,
+      TiptapUnderline,
+      Blockquote,
+      BulletList, 
+      ListItem,
+      CodeBlock,
+      Heading.configure({
+        levels: [1, 2, 3],
+      }),
+    ],
+    editorProps: {
+      attributes: {
+        class: " px-4 py-2  focus:outline-none text-pretty h-auto mb-2 prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc "
+      }
+    },
+   
+    // onUpdate({ editor }) {
+    //   setEditorContent(editor.getHTML());
+    // },
+    content: post.content,
+  })
+
+  editor?.setEditable(false)
+  if (!editor) {
+    return null
+  }
+
+  const output = generate(post.content)
+
+  console.log(output)
+  
+
+  // generateHTML(output,
+  //   [
+  //     Document,
+  //     Paragraph,
+  //     Text,
+  //     TiptapCode,
+  //     Highlight.configure({ multicolor: true }),
+  //     TiptapItalic,
+  //     Strike,
+  //     TiptapUnderline,
+  //     Blockquote,
+  //     BulletList, 
+  //     ListItem,
+  //     CodeBlock,
+  //     Heading.configure({
+  //       levels: [1, 2, 3],
+  //     }),
+  //     // other extensions …
+  //   ],
+  // )
+  
   
 
   return (
@@ -82,7 +183,33 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
           </figcaption>
         </figure>
         <div className="mt-8 sm:mt-16 max-w-2xl">
-          {parse(post.content)}
+          {/* {parse(post.content)} */}
+          {/* {JSON.stringify(output, null, 2)} */}
+          {/* {
+            generateHTML(output,
+              [
+                Document,
+                Paragraph,
+                Text,
+                TiptapCode,
+                Highlight.configure({ multicolor: true }),
+                TiptapItalic,
+                Strike,
+                TiptapUnderline,
+                Blockquote,
+                BulletList, 
+                ListItem,
+                CodeBlock,
+                Heading.configure({
+                  levels: [1, 2, 3],
+                }),
+                // other extensions …
+              ],
+            )
+          } */}
+          {
+            <EditorContent editor={editor} name="content" />
+          }
 
         </div>
         
