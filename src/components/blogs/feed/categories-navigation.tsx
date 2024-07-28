@@ -12,41 +12,56 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
   const [isStartReached, setIsStartReached] = useState(true)
   const [isEndReached, setIsEndReached] = useState(false)
 
-  const scroll = (scrollOffset: number) => {
+  const scrollRight = (scrollOffset: number) => {
     if (scrollRef.current) {
+      console.log(scrollRef.current.scrollLeft)
+      const scrollWidth = scrollRef.current.scrollWidth
+      // scrollRef.current.scrollLeft += scrollWidth / 2;
       scrollRef.current.scrollLeft += scrollOffset;
     }
   };
 
+  const scrollLeft = (scrollOffset: number) => {
+    if (scrollRef.current) {
+      console.log(scrollRef.current.scrollWidth)
+      const scrollWidth = scrollRef.current.scrollWidth
+      scrollRef.current.scrollLeft -= scrollOffset;
+    }
+  };
+
   return(
-    <div className="container py-2 sm:p-6 relative">
+    <div className="container py-2 sm:p-6 lg:px-0 relative">
       <ul className="flex space-x-2 sm:space-x-4 p-4 pl-0 scroll-smooth overflow-x-hidden " ref={scrollRef}>
         {
           (isStartReached === false) ?
-            <CircleArrowLeft 
-              size={40} 
-              className="absolute -left-4 top-46 px-2 cursor-pointer text-black bg-gradient-to-r from-indigo-500"
-              onClick={() => {
-                setIsScrolling(true)
-                
-                scroll(-300)
-                if (scrollRef.current) {
-                  if (scrollRef?.current?.scrollLeft <= 300) {
-                    setIsStartReached(true)
-                  } else if (scrollRef?.current?.scrollLeft > 300) {
-                    setIsEndReached(false)
+            <div className="absolute -left-4 top-46 w-20 bg-gradient-to-r from-transparent via-white to-transparent">
+              <CircleArrowLeft 
+                size={40} 
+                className=" px-2 cursor-pointer text-black bg-white"
+                onClick={() => {
+                  setIsScrolling(true)
+                  
+                  scrollLeft(300)
+                  if (scrollRef.current) {
+                    if (scrollRef?.current?.scrollLeft <= 800) {
+                      setIsStartReached(true)
+                    } else if (scrollRef?.current?.scrollLeft > 800) {
+                      setIsEndReached(false)
+                    }
                   }
-                }
 
-              }}
-            /> : <></>
+                }}
+              /> 
+             {/* <div className="absolute -left-2 top-58 px-4 py-2 bg-gradient-to-r from-transparent via-white to-transparent pointer-events-none"></div> */}
+            </div>
+            : <></>
         }
 
         {categories.map((category: Category) => (
           <Link
             key={category.id}
             href={`/category/${category.name}`}
-            className={`px-4 py-2 first:pl-0 cursor-pointer hover:underline`}
+            className={`first:pl-0 px-4 py-2 cursor-pointer hover:underline`}
           >
             {category.name}
           </Link>
@@ -54,23 +69,26 @@ export default function CategoriesNavigation({ categories }: { categories: Categ
 
         {
           (isEndReached === false) ?
-            <CircleArrowRight 
-              size={40} 
-              className="absolute -right-4 top-46 p-2 cursor-pointer text-black bg-white"
-              onClick={() => {
-                setIsScrolling(!isScrolling)
-                scroll(300)
-                console.log(scrollRef.current?.scrollLeft)
-                if (scrollRef.current) {
-                  if (scrollRef?.current?.scrollLeft >= 0 && scrollRef?.current?.scrollLeft <= 300) {
-                    setIsStartReached(false)
-                  } else if (scrollRef?.current?.scrollLeft >= 900) {
-                    setIsEndReached(true)
+            <div className="absolute -right-4 pl-8 top-46 w-20 bg-gradient-to-r from-transparent via-white to-transparent">
+              <CircleArrowRight 
+                size={40} 
+                className="px-2 cursor-pointer text-black bg-white"
+                onClick={() => {
+                  setIsScrolling(!isScrolling)
+                  scrollRight(300)
+                  console.log(scrollRef.current?.scrollLeft)
+                  if (scrollRef.current) {
+                    if (scrollRef?.current?.scrollLeft >= 0 && scrollRef?.current?.scrollLeft <= 800) {
+                      setIsStartReached(false)
+                    } else if (scrollRef?.current?.scrollLeft >= 900) {
+                      setIsEndReached(true)
+                    }
                   }
-                }
 
-              }}
-            /> : <></>
+                }}
+              /> 
+            </div>
+            : <></>
         }
       </ul>
     </div>
