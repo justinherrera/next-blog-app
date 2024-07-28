@@ -22,30 +22,9 @@ import BulletList from '@tiptap/extension-bullet-list'
 import ListItem from '@tiptap/extension-list-item'
 import CodeBlock from '@tiptap/extension-code-block'
 import Heading from '@tiptap/extension-heading'
-import { generateHTML } from '@tiptap/core'
 import { useEditor, EditorContent } from "@tiptap/react"
 import StarterKit from "@tiptap/starter-kit"
 
-const generate = (content: string) => {
-  return generateJSON(content, [
-      Document,
-      Paragraph,
-      Text,
-      TiptapCode,
-      Highlight.configure({ multicolor: true }),
-      TiptapItalic,
-      Strike,
-      TiptapUnderline,
-      Blockquote,
-      BulletList, 
-      ListItem,
-      CodeBlock,
-      Heading.configure({
-        levels: [1, 2, 3],
-      }),
-      // other extensions …
-    ])
-}
 
 export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { post: Post, isDeleting: boolean, setIsDeleting: React.Dispatch<React.SetStateAction<boolean>>, user: User }) {
   
@@ -94,10 +73,6 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
         class: " px-4 py-2  focus:outline-none text-pretty h-auto mb-2 prose max-w-none [&_ol]:list-decimal [&_ul]:list-disc "
       }
     },
-   
-    // onUpdate({ editor }) {
-    //   setEditorContent(editor.getHTML());
-    // },
     content: post.content,
   })
 
@@ -105,34 +80,6 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
   if (!editor) {
     return null
   }
-
-  const output = generate(post.content)
-
-  console.log(output)
-  
-
-  // generateHTML(output,
-  //   [
-  //     Document,
-  //     Paragraph,
-  //     Text,
-  //     TiptapCode,
-  //     Highlight.configure({ multicolor: true }),
-  //     TiptapItalic,
-  //     Strike,
-  //     TiptapUnderline,
-  //     Blockquote,
-  //     BulletList, 
-  //     ListItem,
-  //     CodeBlock,
-  //     Heading.configure({
-  //       levels: [1, 2, 3],
-  //     }),
-  //     // other extensions …
-  //   ],
-  // )
-  
-  
 
   return (
     <div className="bg-white px-6 py-16 lg:py-32 lg:px-8">
@@ -183,30 +130,6 @@ export default function BlogPost({ post, isDeleting, setIsDeleting, user }: { po
           </figcaption>
         </figure>
         <div className="mt-8 sm:mt-16 max-w-2xl">
-          {/* {parse(post.content)} */}
-          {/* {JSON.stringify(output, null, 2)} */}
-          {/* {
-            generateHTML(output,
-              [
-                Document,
-                Paragraph,
-                Text,
-                TiptapCode,
-                Highlight.configure({ multicolor: true }),
-                TiptapItalic,
-                Strike,
-                TiptapUnderline,
-                Blockquote,
-                BulletList, 
-                ListItem,
-                CodeBlock,
-                Heading.configure({
-                  levels: [1, 2, 3],
-                }),
-                // other extensions …
-              ],
-            )
-          } */}
           {
             <EditorContent editor={editor} name="content" />
           }
