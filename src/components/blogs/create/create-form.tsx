@@ -29,6 +29,7 @@ import { useFormState } from "react-dom";
 import { Toaster, toast } from 'sonner'
 import CreateButton from '@/components/blogs/create/create-button'
 import { usePathname, useSearchParams } from 'next/navigation'
+import DraftButton from '@/components/blogs/create/draft-button'
 
 const initialState: FormState = {
   message: "",
@@ -239,6 +240,11 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
         </div>
 
         <CreateButton state={state} />
+        {/* <DraftButton /> */}
+        <button 
+          type="submit" 
+          className={`mt-4 py-1 px-4 rounded-2xl`}
+        >Save Draft</button>
       </form>
       
     </div>
