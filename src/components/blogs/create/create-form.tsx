@@ -37,7 +37,13 @@ const initialState: FormState = {
 
 type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
 
-let pending = false;
+type DraftType = {
+  title: FormDataEntryValue;
+  content?: FormDataEntryValue;
+  category?: FormDataEntryValue;
+  image?: FormDataEntryValue;
+};
+
 
 export default function CreateForm({ categories, createPost }: { categories: Category[], createPost: CreatePost })  {
   const [image, setImage] = useState<string | null>(null)
@@ -51,20 +57,36 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
   const [state, formAction] = useFormState(createPost, initialState);
   const [hasChanges, setHasChanges] = useState(false);
+  const [draft, setDraft] = useState<DraftType[]>([]);
 
   useEffect(() => {
-    if (!hasChanges) return;
-    function beforeUnload(e: BeforeUnloadEvent) {
-      e.preventDefault();
-      return ''
+    const items = JSON.parse(localStorage.getItem('editor') as string);
+    console.log(items)
+    if (items.length > 0) {
+      setDraft(items);
     }
-    // alert('You have unsaved changes. Are you sure you want to leave?');
-    window.addEventListener('beforeunload', beforeUnload, { capture: true });
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('editor', JSON.stringify(draft));
+    console.log(draft)
+  }, [draft]);
+
+
+
+  // useEffect(() => {
+  //   if (!hasChanges) return;
+  //   function beforeUnload(e: BeforeUnloadEvent) {
+  //     e.preventDefault();
+  //     return ''
+  //   }
+  //   // alert('You have unsaved changes. Are you sure you want to leave?');
+  //   window.addEventListener('beforeunload', beforeUnload, { capture: true });
   
-    return () => {
-      window.addEventListener('beforeunload', beforeUnload, { capture: true });
-    };
-  }, [hasChanges]);
+  //   return () => {
+  //     window.addEventListener('beforeunload', beforeUnload, { capture: true });
+  //   };
+  // }, [hasChanges]);
 
   
   const editor = useEditor({
@@ -92,7 +114,9 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
       }
     },
     onUpdate({ editor }) {
+      console.log(editor.getHTML())
       setEditorContent(editor.getHTML());
+      setDraft([ { ...draft[0], content: editor.getHTML() } ])
     },
     content: '',
   })
@@ -111,17 +135,26 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
       <form action={formAction} className="w-[25rem] sm:w-full md:w-[44rem] lg:w-[52rem]" onChange={ (e) =>{
         const data = new FormData(e.currentTarget as HTMLFormElement)
         const values = Array.from(data.values())
+        console.log(values[3])
+        setDraft([
+          {
+            title: values[0],
+            content: values[1],
+            category: values[2],
+            image: values[3]
+          }
+        ])
         const changedFields = values.filter(value => (value as string).length || (value as File).size)
         setHasChanges(Boolean(changedFields.length))
       } }>
         <div className="mt-2">
-
           <input
             type="text"
             name="title"
             id="title"
             className="block w-full py-1.5 text-gray-900 shadow-sm ring-gray-300 placeholder:text-gray-400 px-2 font-bold text-4xl focus:outline-none"
             placeholder="Your title goes here..."
+            value={draft.length && (draft[0]?.title as string).length > 0 ? draft[0]?.title : ""}
             autoFocus
           />
           <span className="text-sm text-red-500">{state?.errors?.title}</span>
