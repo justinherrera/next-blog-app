@@ -20,7 +20,7 @@ import { ArrowDownUp } from "lucide-react"
 import BlogCreateToolbar from '@/components/blogs/create/blog-create-toolbar'
 import { FormState, Category } from '@/lib/definitions'
 import Image from "next/image"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 import { Upload } from "lucide-react"
 
@@ -28,6 +28,7 @@ import { useFormState } from "react-dom";
 
 import { Toaster, toast } from 'sonner'
 import CreateButton from '@/components/blogs/create/create-button'
+import { usePathname, useSearchParams } from 'next/navigation'
 
 const initialState: FormState = {
   message: "",
@@ -35,6 +36,8 @@ const initialState: FormState = {
 }
 
 type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
+
+let pending = false;
 
 export default function CreateForm({ categories, createPost }: { categories: Category[], createPost: CreatePost })  {
   const [image, setImage] = useState<string | null>(null)
@@ -47,6 +50,22 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   const [editorContent, setEditorContent] = useState("");
 
   const [state, formAction] = useFormState(createPost, initialState);
+  const [hasChanges, setHasChanges] = useState(false);
+
+  useEffect(() => {
+    if (!hasChanges) return;
+    function beforeUnload(e: BeforeUnloadEvent) {
+      e.preventDefault();
+      return ''
+    }
+    // alert('You have unsaved changes. Are you sure you want to leave?');
+    window.addEventListener('beforeunload', beforeUnload, { capture: true });
+  
+    return () => {
+      window.addEventListener('beforeunload', beforeUnload, { capture: true });
+    };
+  }, [hasChanges]);
+
   
   const editor = useEditor({
     extensions: [
@@ -89,7 +108,12 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   return (
     <div className="flex flex-col items-center w-full">
       <Toaster position="top-right" richColors  />
-      <form action={formAction} className="w-[25rem] sm:w-full md:w-[44rem] lg:w-[52rem]">
+      <form action={formAction} className="w-[25rem] sm:w-full md:w-[44rem] lg:w-[52rem]" onChange={ (e) =>{
+        const data = new FormData(e.currentTarget as HTMLFormElement)
+        const values = Array.from(data.values())
+        const changedFields = values.filter(value => (value as string).length || (value as File).size)
+        setHasChanges(Boolean(changedFields.length))
+      } }>
         <div className="mt-2">
 
           <input
