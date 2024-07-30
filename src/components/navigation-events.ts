@@ -10,9 +10,9 @@ export function NavigationEvents() {
   useEffect(() => {
     const url = `${pathname}?${searchParams}`
     console.log(url)
-    if (url === '/feed?') {
-      alert('You have unsaved changes. Are you sure you want to leave?')
-    }
+    // if (url === '/feed?') {
+    //   alert('You have unsaved changes. Are you sure you want to leave?')
+    // }
     // You can now use the current URL
     // ...
   }, [pathname, searchParams])
