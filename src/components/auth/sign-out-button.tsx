@@ -12,6 +12,7 @@ export default function SignOutButton() {
       method: "POST",
     }).then(res => {
       if (res.ok) {
+        localStorage.removeItem("editor");
         setIsSigningOut(true)
       }
     })
