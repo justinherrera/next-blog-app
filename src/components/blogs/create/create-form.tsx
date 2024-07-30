@@ -88,8 +88,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   //   };
   // }, [hasChanges]);
 
-  console.log(draft[0]?.content)
-  console.log(editorContent)
+  console.log(selectedCategory)
   
   const editor = useEditor({
     extensions: [
@@ -147,11 +146,12 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
         const data = new FormData(e.currentTarget as HTMLFormElement)
         const values = Array.from(data.values())
         console.log(values[2])
+        console.log(selectedCategory)
         setDraft([
           {
             title: values[0],
             content: values[1],
-            category: values[2],
+            category: selectedCategory,
             image: values[3]
           }
         ])
@@ -184,7 +184,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
         <div>
           <select name="category" className="hidden">
-            <option value={selectedCategory || ""}>{selectedCategory?.name}</option>
+            <option value={(selectedCategory || draft[0]?.category) || ""}>{draft[0].category ? draft[0].category?.name : selectedCategory?.name}</option>
           </select>
 
           <p className="font-bold mt-4">Choose a category:</p>
@@ -192,7 +192,15 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
               className="border p-2 px-4 rounded-lg border-gray-300 my-2 w-full sm:w-[50%] flex justify-between cursor-pointer shadow-lg"
               onClick={() => setIsOpen(!isOpen)}
             >
-              <p>{(!selectedCategory?.name) ? "-- Please choose a category --" : selectedCategory?.name}</p>
+              <p>
+                {
+                  /* select the draft category if it exists, otherwise use the selected category */ 
+                  draft[0]?.category ? draft[0].category?.name :
+                  (!selectedCategory?.name) 
+                    ? "-- Please choose a category --" 
+                    : selectedCategory?.name
+                }
+              </p>
               <ArrowDownUp className="h-5 w-5 pt-1 text-gray-300" />
             </div>
             <span className="text-sm text-red-500">{state?.errors?.category}</span>
