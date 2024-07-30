@@ -28,8 +28,6 @@ import { useFormState } from "react-dom";
 
 import { Toaster, toast } from 'sonner'
 import CreateButton from '@/components/blogs/create/create-button'
-import { usePathname, useSearchParams } from 'next/navigation'
-import DraftButton from '@/components/blogs/create/draft-button'
 
 const initialState: FormState = {
   message: "",
@@ -65,6 +63,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
     console.log(items)
     if (items.length > 0) {
       setDraft(items);
+      setEditorContent(items[0].content as string || '')
     }
   }, []);
 
@@ -89,6 +88,8 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   //   };
   // }, [hasChanges]);
 
+  console.log(draft[0]?.content)
+  console.log(editorContent)
   
   const editor = useEditor({
     extensions: [
@@ -117,14 +118,22 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
     onUpdate({ editor }) {
       console.log(editor.getHTML())
       setEditorContent(editor.getHTML());
-      setDraft([ { ...draft[0], content: editor.getHTML() } ])
+      setDraft(draft => [ { ...draft[0], content: editor.getHTML() } ])
     },
-    content: '',
+    content: `${editorContent}`,
   })
+
+  useEffect(() => {
+    if (editor && editorContent) {
+      editor.commands.setContent(editorContent)
+    }
+  }, [editor, editorContent])
 
   if (!editor) {
     return null
   }
+
+
 
   if (state?.message === "Server Error") {
     toast.error("Failed to create post")
@@ -133,10 +142,11 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   return (
     <div className="flex flex-col items-center w-full">
       <Toaster position="top-right" richColors  />
+      <p>{draft[0]?.content as string}</p>
       <form action={formAction} className="w-[25rem] sm:w-full md:w-[44rem] lg:w-[52rem]" onChange={ (e) =>{
         const data = new FormData(e.currentTarget as HTMLFormElement)
         const values = Array.from(data.values())
-        console.log(values[3])
+        console.log(values[2])
         setDraft([
           {
             title: values[0],
@@ -155,7 +165,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
             id="title"
             className="block w-full py-1.5 text-gray-900 shadow-sm ring-gray-300 placeholder:text-gray-400 px-2 font-bold text-4xl focus:outline-none"
             placeholder="Your title goes here..."
-            value={draft.length && (draft[0]?.title as string).length > 0 ? draft[0]?.title : ""}
+            defaultValue={draft[0]?.title as string || ''}
             autoFocus
           />
           <span className="text-sm text-red-500">{state?.errors?.title}</span>
@@ -167,14 +177,14 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
               <BlogCreateToolbar editor={editor}/>
             </div>
           </div>
-          <input type="hidden" name="content" value={editorContent} />
+          <input type="hidden" name="content" value={editorContent} defaultValue={draft[0]?.content as string || ''} />
           <EditorContent editor={editor} name="content" />
           <span className="text-sm text-red-500">{state?.errors?.content}</span>
         </div>
 
         <div>
           <select name="category" className="hidden">
-            <option value={selectedCategory?.id || ""}>{selectedCategory?.name}</option>
+            <option value={selectedCategory || ""}>{selectedCategory?.name}</option>
           </select>
 
           <p className="font-bold mt-4">Choose a category:</p>
