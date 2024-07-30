@@ -59,9 +59,9 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem('editor') as string);
     console.log(items)
-    if (items.length > 0) {
+    if (items) {
       setDraft(items);
-      setEditorContent(items[0].content as string || '')
+      setEditorContent(items[0]?.content as string || '')
     }
   }, []);
 
