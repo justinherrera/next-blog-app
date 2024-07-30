@@ -85,8 +85,6 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   //     window.addEventListener('beforeunload', beforeUnload, { capture: true });
   //   };
   // }, [hasChanges]);
-
-  console.log(selectedCategory)
   
   const editor = useEditor({
     extensions: [
@@ -254,11 +252,6 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
         </div>
 
         <CreateButton state={state} />
-        {/* <DraftButton /> */}
-        <button 
-          type="submit" 
-          className={`mt-4 py-1 px-4 rounded-2xl`}
-        >Save Draft</button>
       </form>
       
     </div>
