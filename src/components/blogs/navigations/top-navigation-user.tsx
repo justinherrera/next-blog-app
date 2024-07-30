@@ -19,17 +19,22 @@ export default function TopNavigationUser({ user }: { user: UserType }) {
   return (
     <div className="flex sm:pr-10 md:pr-0">
       {
-        pathname !== "/create" ? <Link href="/create" className="text-sm font-medium mr-4 px-4 p-1 border border-gray-300 rounded-2xl hover:bg-black hover:text-white">Create</Link> : ""
+        pathname !== "/create" && user ? <Link href="/create" className="text-sm font-medium mr-4 px-4 p-1 border border-gray-300 rounded-2xl hover:bg-black hover:text-white">Create</Link> : <Link href="/login" className="text-sm font-medium mr-4 px-4 p-1 border border-gray-300 rounded-2xl hover:bg-black hover:text-white">Login</Link> 
       }
       <div className="relative">
-        <Image
-          className="inline-block h-8 w-8 rounded-full cursor-pointer hover:opacity-75"
-          height={100}
-          width={100}
-          src={user.image}
-          alt=""
-          onClick={() => setIsOpen(!isOpen)}
-        />
+        {
+          user ? (
+            <Image
+              className="inline-block h-8 w-8 rounded-full cursor-pointer hover:opacity-75"
+              height={100}
+              width={100}
+              src={user.image}
+              alt=""
+              onClick={() => setIsOpen(!isOpen)}
+            />
+          ) : ""
+        }
+
         {
           isOpen ? (
             <div className="border border-gray-300 absolute top-10 right-4 w-44 rounded bg-white ">
