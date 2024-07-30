@@ -39,8 +39,6 @@ type CreatePost = (state: FormState, formData: FormData) => Promise<FormState>
 type DraftType = {
   title: FormDataEntryValue;
   content?: FormDataEntryValue;
-  category?: FormDataEntryValue;
-  image?: FormDataEntryValue;
 };
 
 
@@ -151,8 +149,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
           {
             title: values[0],
             content: values[1],
-            category: selectedCategory,
-            image: values[3]
+            // category: selectedCategory,
           }
         ])
         const changedFields = values.filter(value => (value as string).length || (value as File).size)
@@ -184,7 +181,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
 
         <div>
           <select name="category" className="hidden">
-            <option value={(selectedCategory || draft[0]?.category) || ""}>{draft[0].category ? draft[0].category?.name : selectedCategory?.name}</option>
+            <option value={selectedCategory?.id || ""}>{selectedCategory?.name}</option>
           </select>
 
           <p className="font-bold mt-4">Choose a category:</p>
@@ -195,7 +192,7 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
               <p>
                 {
                   /* select the draft category if it exists, otherwise use the selected category */ 
-                  draft[0]?.category ? draft[0].category?.name :
+                  // draft[0]?.category ? draft[0].category?.name :
                   (!selectedCategory?.name) 
                     ? "-- Please choose a category --" 
                     : selectedCategory?.name
