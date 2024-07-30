@@ -139,7 +139,6 @@ export default function CreateForm({ categories, createPost }: { categories: Cat
   return (
     <div className="flex flex-col items-center w-full">
       <Toaster position="top-right" richColors  />
-      <p>{draft[0]?.content as string}</p>
       <form action={formAction} className="w-[25rem] sm:w-full md:w-[44rem] lg:w-[52rem]" onChange={ (e) =>{
         const data = new FormData(e.currentTarget as HTMLFormElement)
         const values = Array.from(data.values())
