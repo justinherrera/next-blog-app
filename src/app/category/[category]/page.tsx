@@ -10,9 +10,6 @@ import { getCategoryPosts } from "@/lib/actions"
 export default async function Category({ params }: { params: { category: string } }) {
 
   const category = params.category
-  const session = await auth()
-
-  if (!session) return <NotAuthorized />
   
 
   const { posts } = await getCategoryPosts(category, 0, 6)
