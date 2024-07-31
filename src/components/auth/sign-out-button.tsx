@@ -19,6 +19,7 @@ export default function SignOutButton() {
 
     setTimeout(() => {
       router.push('/login')
+      router.refresh()
     }, 1500)
   }
 
