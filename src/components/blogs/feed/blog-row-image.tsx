@@ -1,10 +1,16 @@
+import { Post } from "@/lib/definitions"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 
-export default function BlogRowImage({ src }: { src: string }) {
+export default function BlogRowImage({ post }: { post: Post }) {
+  const router = useRouter()
   return (
-    <div className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0">
+    <div 
+    className="relative aspect-[16/9] sm:aspect-[2/1] lg:aspect-square lg:w-64 lg:shrink-0"
+    onClick={() => router.push(`/${post.slug}`)}
+    >
       <Image
-        src={src}
+        src={post.imageUrl}
         alt=""
         width={500}
         height={500}
