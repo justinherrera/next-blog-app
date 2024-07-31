@@ -5,7 +5,7 @@ import TrendingPostsList from "@/components/blogs/navigations/trending-posts-lis
 export default async function SideNavigation({ trendingPosts }: { trendingPosts: Post[] }) {
 
   return (
-    <div className={`${!trendingPosts ? "h-screen" : ""} sticky flex flex-col top-0 pt-12`}>
+    <div className={`${!trendingPosts ? "h-screen" : ""} sticky flex flex-col top-0 pt-12 -z-50`}>
       <TrendingPostsList trendingPosts={trendingPosts} />
 
       {/* <div className="w-full my-4">
