@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Dev link: https://next-blog-app-seven-pi.vercel.app/login
 
 ![image](https://github.com/user-attachments/assets/f4418d37-2d95-4fa8-935c-8d2a1e16e60e)
 
